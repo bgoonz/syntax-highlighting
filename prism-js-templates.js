@@ -1,4 +1,4 @@
-(Prism => {
+((Prism) => {
   const templateString = Prism.languages.javascript["template-string"];
 
   // see the pattern in prism-javascript.js
@@ -129,7 +129,13 @@
        */
 
       const args = [1, 1];
-      args.push(...tokenizeWithHooks(tokens[1], Prism.languages.javascript, "javascript"));
+      args.push(
+        ...tokenizeWithHooks(
+          tokens[1],
+          Prism.languages.javascript,
+          "javascript"
+        )
+      );
 
       tokens.splice(...args);
     }
@@ -176,7 +182,7 @@
     /** @type {Object<string, string>} */
     const placeholderMap = {};
     const embeddedCode = _tokens
-      .map(token => {
+      .map((token) => {
         if (typeof token === "string") {
           return token;
         } else {
@@ -184,9 +190,9 @@
 
           let placeholder;
           while (
-            code.indexOf(
+            code.includes(
               (placeholder = getPlaceholder(placeholderCounter++, language))
-            ) !== -1
+            )
           ) {
             /* noop */
           }
@@ -286,7 +292,7 @@
     jsx: true,
     tsx: true,
   };
-  Prism.hooks.add("after-tokenize", ({language, tokens}) => {
+  Prism.hooks.add("after-tokenize", ({ language, tokens }) => {
     if (!(language in supportedLanguages)) {
       return;
     }

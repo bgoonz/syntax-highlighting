@@ -1,5 +1,5 @@
 // http://avisynth.nl/index.php/The_full_AviSynth_grammar
-(({languages}) => {
+(({ languages }) => {
   function replace(pattern, replacements) {
     return pattern.replace(/<<(\d+)>>/g, (m, index) => {
       return replacements[+index];

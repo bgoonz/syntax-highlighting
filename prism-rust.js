@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   let multilineComment = /\/\*(?:[^*/]|\*(?!\/)|\/(?!\*)|<self>)*\*\//.source;
   for (let i = 0; i < 2; i++) {
     // support 4 levels of nested comments
@@ -129,6 +129,5 @@
   };
 
   languages.rust["closure-params"].inside.rest = languages.rust;
-  languages.rust["attribute"].inside["string"] =
-    languages.rust["string"];
+  languages.rust["attribute"].inside["string"] = languages.rust["string"];
 })(Prism);

@@ -45,7 +45,7 @@ Prism.languages.insertBefore("groovy", "function", {
 });
 
 // Handle string interpolation
-Prism.hooks.add("wrap", env => {
+Prism.hooks.add("wrap", (env) => {
   if (env.language === "groovy" && env.type === "string") {
     const delimiter = env.content[0];
 

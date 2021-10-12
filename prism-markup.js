@@ -81,7 +81,7 @@ Prism.languages.markup["doctype"].inside["internal-subset"].inside =
   Prism.languages.markup;
 
 // Plugin to make entity title show the real entity, idea by Roman Komarov
-Prism.hooks.add("wrap", ({type, attributes, content}) => {
+Prism.hooks.add("wrap", ({ type, attributes, content }) => {
   if (type === "entity") {
     attributes["title"] = content.replace(/&amp;/, "&");
   }
@@ -153,7 +153,9 @@ Object.defineProperty(Prism.languages.markup.tag, "addAttribute", {
   value(attrName, lang) {
     Prism.languages.markup.tag.inside["special-attr"].push({
       pattern: RegExp(
-        `${/(^|["'\s])/.source}(?:${attrName})${/\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source}`,
+        `${/(^|["'\s])/.source}(?:${attrName})${
+          /\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source
+        }`,
         "i"
       ),
       lookbehind: true,

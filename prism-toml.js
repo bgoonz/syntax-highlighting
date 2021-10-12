@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const key = /(?:[\w-]+|'[^'\n\r]*'|"(?:\\.|[^\\"\r\n])*")/.source;
 
   /**

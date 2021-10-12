@@ -1,7 +1,7 @@
 // https://unicode-org.github.io/icu/userguide/format_parse/messages/
 // https://unicode-org.github.io/icu-docs/apidoc/released/icu4j/com/ibm/icu/text/MessageFormat.html
 
-(({languages}) => {
+(({ languages }) => {
   /**
    * @param {string} source
    * @param {number} level
@@ -133,8 +133,10 @@
             },
             "arg-style-text": {
               pattern: RegExp(
-                `${/(^\s*,\s*(?=\S))/.source +
-  nested(/(?:[^{}']|'[^']*'|\{(?:<SELF>)?\})+/.source, 8)}$`
+                `${
+                  /(^\s*,\s*(?=\S))/.source +
+                  nested(/(?:[^{}']|'[^']*'|\{(?:<SELF>)?\})+/.source, 8)
+                }$`
               ),
               lookbehind: true,
               alias: "string",

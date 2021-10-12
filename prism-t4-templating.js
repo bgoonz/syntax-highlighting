@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   function createBlock(prefix, inside, contentAlias) {
     return {
       pattern: RegExp(`<#${prefix}[\\s\\S]*?#>`),

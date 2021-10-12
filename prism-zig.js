@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   function literal(str) {
     return () => {
       return str;
@@ -20,8 +20,7 @@
       /<ID>/g,
       literal(IDENTIFIER)
     );
-  const TYPE =
-    `(?!\\s)(?:!?\\s*(?:${PREFIX_TYPE_OP}\\s*)*${SUFFIX_EXPR})+`;
+  const TYPE = `(?!\\s)(?:!?\\s*(?:${PREFIX_TYPE_OP}\\s*)*${SUFFIX_EXPR})+`;
 
   /*
    * A simplified grammar for Zig compile time type literals:
@@ -116,7 +115,7 @@
     punctuation: /[.:,;(){}[\]]/,
   };
 
-  languages.zig["class-name"].forEach(obj => {
+  languages.zig["class-name"].forEach((obj) => {
     if (obj.inside === null) {
       obj.inside = languages.zig;
     }

@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   const attributes = {
     pattern:
       /(^[ \t]*)\[(?!\[)(?:(["'$`])(?:(?!\2)[^\\]|\\.)*\2|\[(?:[^\[\]\\]|\\.)*\]|[^\[\]\\"'$`]|\\.)*\]/m,
@@ -236,7 +236,7 @@
   );
 
   // Plugin to make entity title show the real entity, idea by Roman Komarov
-  hooks.add("wrap", env => {
+  hooks.add("wrap", (env) => {
     if (env.type === "entity") {
       env.attributes["title"] = env.content.replace(/&amp;/, "&");
     }

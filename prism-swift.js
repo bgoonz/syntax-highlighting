@@ -12,10 +12,14 @@ Prism.languages.swift = {
       pattern: RegExp(
         // single-line string
         // multi-line string
-        `${/(^|[^"#])/.source}(?:${// single-line string
-/"(?:\\(?:\((?:[^()]|\([^()]*\))*\)|\r\n|[^(])|[^\\\r\n"])*"/.source}|${// multi-line string
-/"""(?:\\(?:\((?:[^()]|\([^()]*\))*\)|[^(])|[^\\"]|"(?!""))*"""/
-  .source})${/(?!["#])/.source}`
+        `${/(^|[^"#])/.source}(?:${
+          // single-line string
+          /"(?:\\(?:\((?:[^()]|\([^()]*\))*\)|\r\n|[^(])|[^\\\r\n"])*"/.source
+        }|${
+          // multi-line string
+          /"""(?:\\(?:\((?:[^()]|\([^()]*\))*\)|[^(])|[^\\"]|"(?!""))*"""/
+            .source
+        })${/(?!["#])/.source}`
       ),
       lookbehind: true,
       greedy: true,
@@ -37,10 +41,13 @@ Prism.languages.swift = {
       pattern: RegExp(
         // single-line string
         // multi-line string
-        `${/(^|[^"#])(#+)/.source}(?:${// single-line string
-/"(?:\\(?:#+\((?:[^()]|\([^()]*\))*\)|\r\n|[^#])|[^\\\r\n])*?"/
-  .source}|${// multi-line string
-/"""(?:\\(?:#+\((?:[^()]|\([^()]*\))*\)|[^#])|[^\\])*?"""/.source})\\2`
+        `${/(^|[^"#])(#+)/.source}(?:${
+          // single-line string
+          /"(?:\\(?:#+\((?:[^()]|\([^()]*\))*\)|\r\n|[^#])|[^\\\r\n])*?"/.source
+        }|${
+          // multi-line string
+          /"""(?:\\(?:#+\((?:[^()]|\([^()]*\))*\)|[^#])|[^\\])*?"""/.source
+        })\\2`
       ),
       lookbehind: true,
       greedy: true,
@@ -65,11 +72,13 @@ Prism.languages.swift = {
       // This regex is a little complex. It's equivalent to this:
       //   (?:![ \t]*)?(?:\b\w+\b(?:[ \t]*<round>)?|<round>)(?:[ \t]*(?:&&|\|\|))?
       // where <round> is a general parentheses expression.
-      `${/#/.source}(?:${/(?:elseif|if)\b/.source}(?:[ \t]*${// This regex is a little complex. It's equivalent to this:
-//   (?:![ \t]*)?(?:\b\w+\b(?:[ \t]*<round>)?|<round>)(?:[ \t]*(?:&&|\|\|))?
-// where <round> is a general parentheses expression.
-/(?:![ \t]*)?(?:\b\w+\b(?:[ \t]*\((?:[^()]|\([^()]*\))*\))?|\((?:[^()]|\([^()]*\))*\))(?:[ \t]*(?:&&|\|\|))?/
-  .source})+|${/(?:else|endif)\b/.source})`
+      `${/#/.source}(?:${/(?:elseif|if)\b/.source}(?:[ \t]*${
+        // This regex is a little complex. It's equivalent to this:
+        //   (?:![ \t]*)?(?:\b\w+\b(?:[ \t]*<round>)?|<round>)(?:[ \t]*(?:&&|\|\|))?
+        // where <round> is a general parentheses expression.
+        /(?:![ \t]*)?(?:\b\w+\b(?:[ \t]*\((?:[^()]|\([^()]*\))*\))?|\((?:[^()]|\([^()]*\))*\))(?:[ \t]*(?:&&|\|\|))?/
+          .source
+      })+|${/(?:else|endif)\b/.source})`
     ),
     alias: "property",
     inside: {
@@ -136,6 +145,6 @@ Prism.languages.swift = {
   punctuation: /[{}[\]();,.:\\]/,
 };
 
-Prism.languages.swift["string-literal"].forEach(({inside}) => {
+Prism.languages.swift["string-literal"].forEach(({ inside }) => {
   inside["interpolation"].inside = Prism.languages.swift;
 });

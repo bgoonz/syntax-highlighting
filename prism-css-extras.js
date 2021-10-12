@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const string = /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;
   let selectorInside;
 

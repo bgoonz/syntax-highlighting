@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.dataweave = {
     url: /\b[A-Za-z]+:\/\/[\w/:.?=&-]+|\burn:[\w:.?=&-]+/,
     property: {

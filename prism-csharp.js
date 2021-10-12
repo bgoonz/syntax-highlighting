@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   /**
    * Replaces all placeholders "<<n>>" of given pattern with the n-th replacement (zero based).
    *
@@ -59,7 +59,9 @@
   function keywordsToPattern(words) {
     return `\\b(?:${words.trim().replace(/ /g, "|")})\\b`;
   }
-  const typeDeclarationKeywords = keywordsToPattern(keywordKinds.typeDeclaration);
+  const typeDeclarationKeywords = keywordsToPattern(
+    keywordKinds.typeDeclaration
+  );
   const keywords = RegExp(
     keywordsToPattern(
       `${keywordKinds.type} ${keywordKinds.typeDeclaration} ${keywordKinds.contextual} ${keywordKinds.other}`

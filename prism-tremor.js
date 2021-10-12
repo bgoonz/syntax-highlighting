@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.tremor = {
     comment: {
       pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,
@@ -41,7 +41,11 @@
 
   languages.tremor["interpolated-string"] = {
     pattern: RegExp(
-      `${/(^|[^\\])/.source}(?:"""(?:${/[^"\\#]|\\[\s\S]|"(?!"")|#(?!\{)/.source}|${interpolationPattern})*"""|"(?:${/[^"\\\r\n#]|\\(?:\r\n|[\s\S])|#(?!\{)/.source}|${interpolationPattern})*")`
+      `${/(^|[^\\])/.source}(?:"""(?:${
+        /[^"\\#]|\\[\s\S]|"(?!"")|#(?!\{)/.source
+      }|${interpolationPattern})*"""|"(?:${
+        /[^"\\\r\n#]|\\(?:\r\n|[\s\S])|#(?!\{)/.source
+      }|${interpolationPattern})*")`
     ),
     lookbehind: true,
     greedy: true,

@@ -1,7 +1,7 @@
 // Thanks to: https://github.com/prometheus-community/monaco-promql/blob/master/src/promql/promql.ts
 // As well as: https://kausal.co/blog/slate-prism-add-new-syntax-promql/
 
-(({languages}) => {
+(({ languages }) => {
   // PromQL Aggregation Operators
   // (https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators)
   const aggregations = [
@@ -43,9 +43,7 @@
     },
     "vector-match": {
       // Match the comma-separated label lists inside vector matching:
-      pattern: new RegExp(
-        `((?:${vectorMatching.join("|")})\\s*)\\([^)]*\\)`
-      ),
+      pattern: new RegExp(`((?:${vectorMatching.join("|")})\\s*)\\([^)]*\\)`),
       lookbehind: true,
       inside: {
         "label-key": {

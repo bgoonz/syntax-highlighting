@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   const stringPattern = /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;
   const numberPattern = /\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b|\b0x[\dA-F]+\b/;
 
@@ -67,7 +67,7 @@
   };
 
   // Tokenize all inline Soy expressions
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     const soyPattern = /\{\{.+?\}\}|\{.+?\}|\s\/\/.*|\/\*[\s\S]*?\*\//g;
     const soyLitteralStart = "{literal}";
     const soyLitteralEnd = "{/literal}";
@@ -77,7 +77,7 @@
       env,
       "soy",
       soyPattern,
-      match => {
+      (match) => {
         // Soy tags inside {literal} block are ignored
         if (match === soyLitteralEnd) {
           soyLitteralMode = false;
@@ -96,7 +96,7 @@
   });
 
   // Re-insert the tokens after tokenizing
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "soy");
   });
 })(Prism);

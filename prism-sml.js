@@ -1,6 +1,6 @@
 // https://smlfamily.github.io/sml97-defn.pdf
 // https://people.mpi-sws.org/~rossberg/sml.html
-(({languages}) => {
+(({ languages }) => {
   const keywords =
     /\b(?:abstype|and|andalso|as|case|datatype|do|else|end|eqtype|exception|fn|fun|functor|handle|if|in|include|infix|infixr|let|local|nonfix|of|op|open|orelse|raise|rec|sharing|sig|signature|struct|structure|then|type|val|where|while|with|withtype)\b/i;
 

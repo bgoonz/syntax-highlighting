@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const variable = /%%?[~:\w]+%?|!\S+!/;
   const parameter = {
     pattern: /\/[a-z?]+(?=[ :]|$):?|-[a-z]\b|--[a-z-]+\b/im,

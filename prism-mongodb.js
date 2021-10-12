@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   let operators = [
     // query and projection
     "$eq",
@@ -252,7 +252,7 @@
     "UUID",
   ];
 
-  operators = operators.map(operator => {
+  operators = operators.map((operator) => {
     return operator.replace("$", "\\$");
   });
 

@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const funcPattern = /\\(?:[^a-z()[\]]|[a-z*]+)/i;
   const insideEqu = {
     "equation-command": {

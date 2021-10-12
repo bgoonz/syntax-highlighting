@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // TODO:
   // - Add CSS highlighting inside <style> tags
   // - Add support for multi-line code blocks

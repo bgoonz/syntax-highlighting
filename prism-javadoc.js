@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const codeLinePattern = /(^(?:[\t ]*(?:\*\s*)*))[^*\s].*$/m;
 
   const memberReference = /#\s*\w+(?:\s*\([^()]*\))?/.source;
@@ -14,7 +14,9 @@
   languages.insertBefore("javadoc", "keyword", {
     reference: {
       pattern: RegExp(
-        `${/(@(?:exception|link|linkplain|see|throws|value)\s+(?:\*\s*)?)/.source}(?:${reference})`
+        `${
+          /(@(?:exception|link|linkplain|see|throws|value)\s+(?:\*\s*)?)/.source
+        }(?:${reference})`
       ),
       lookbehind: true,
       inside: {

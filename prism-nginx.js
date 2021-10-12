@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const variable =
     /\$(?:\w[a-z\d]*(?:_[^\x00-\x1F\s"'\\()$]*)?|\{[^}\s"'\\]+\})/i;
 

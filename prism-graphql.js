@@ -73,7 +73,7 @@ Prism.hooks.add("after-tokenize", function afterTokenizeGraphql(env) {
    * @typedef {InstanceType<import("./prism-core")["Token"]>} Token
    * @type {Token[]}
    */
-  const validTokens = env.tokens.filter(token => {
+  const validTokens = env.tokens.filter((token) => {
     return (
       typeof token !== "string" &&
       token.type !== "comment" &&
@@ -213,7 +213,7 @@ Prism.hooks.add("after-tokenize", function afterTokenizeGraphql(env) {
             const varToken = validTokens[i];
             if (
               varToken.type === "variable" &&
-              inputVariables.indexOf(varToken.content) >= 0
+              inputVariables.includes(varToken.content)
             ) {
               addAlias(varToken, "variable-input");
             }

@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   languages.handlebars = {
     comment: /\{\{![\s\S]*?\}\}/,
     delimiter: {
@@ -24,7 +24,7 @@
     variable: /[^!"#%&'()*+,\/;<=>@\[\\\]^`{|}~\s]+/,
   };
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     const handlebarsPattern = /\{\{\{[\s\S]+?\}\}\}|\{\{[\s\S]+?\}\}/g;
     languages["markup-templating"].buildPlaceholders(
       env,
@@ -33,11 +33,8 @@
     );
   });
 
-  hooks.add("after-tokenize", env => {
-    languages["markup-templating"].tokenizePlaceholders(
-      env,
-      "handlebars"
-    );
+  hooks.add("after-tokenize", (env) => {
+    languages["markup-templating"].tokenizePlaceholders(env, "handlebars");
   });
 
   languages.hbs = languages.handlebars;

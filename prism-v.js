@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const interpolationExpr = {
     pattern: /[\s\S]+/,
     inside: null,

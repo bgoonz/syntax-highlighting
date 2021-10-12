@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const comment = {
     pattern: /(^[ \t]*| {2}|\t)#.*/m,
     lookbehind: true,

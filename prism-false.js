@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   /**
    * Based on the manual by Wouter van Oortmerssen.
    *

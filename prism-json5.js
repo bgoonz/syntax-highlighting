@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const string = /("|')(?:\\(?:\r\n?|\n|.)|(?!\1)[^\\\r\n])*\1/;
 
   languages.json5 = languages.extend("json", {

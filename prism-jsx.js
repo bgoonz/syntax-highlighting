@@ -1,4 +1,4 @@
-(({util, languages, Token, hooks}) => {
+(({ util, languages, Token, hooks }) => {
   const javascript = util.clone(languages.javascript);
 
   const space = /(?:\s|\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))\*\/)/.source;
@@ -71,7 +71,7 @@
   );
 
   // The following will handle plain text inside tags
-  const stringifyToken = token => {
+  const stringifyToken = (token) => {
     if (!token) {
       return "";
     }
@@ -84,7 +84,7 @@
     return token.content.map(stringifyToken).join("");
   };
 
-  const walkTokens = tokens => {
+  const walkTokens = (tokens) => {
     const openedTags = [];
 
     tokens.forEach((token, i) => {
@@ -176,7 +176,7 @@
     });
   };
 
-  hooks.add("after-tokenize", ({language, tokens}) => {
+  hooks.add("after-tokenize", ({ language, tokens }) => {
     if (language !== "jsx" && language !== "tsx") {
       return;
     }

@@ -2,11 +2,12 @@
 // https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-5.0&tabs=visual-studio
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0
 
-(({languages}) => {
+(({ languages }) => {
   const commentLike = /\/(?![/*])|\/\/.*[\r\n]|\/\*[^*]*(?:\*(?!\/)[^*]*)*\*\//
     .source;
-  const stringLike =
-    `${/@(?!")|"(?:[^\r\n\\"]|\\.)*"|@"(?:[^\\"]|""|\\[\s\S])*"(?!")/.source}|${/'(?:(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'|(?=[^\\](?!')))/.source}`;
+  const stringLike = `${
+    /@(?!")|"(?:[^\r\n\\"]|\\.)*"|@"(?:[^\\"]|""|\\[\s\S])*"(?!")/.source
+  }|${/'(?:(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'|(?=[^\\](?!')))/.source}`;
 
   /**
    * Creates a nested pattern where all occurrences of the string `<<self>>` are replaced with the pattern itself.
@@ -28,7 +29,10 @@
   }
 
   const round = nested(/\((?:[^()'"@/]|<str>|<comment>|<self>)*\)/.source, 2);
-  const square = nested(/\[(?:[^\[\]'"@/]|<str>|<comment>|<self>)*\]/.source, 2);
+  const square = nested(
+    /\[(?:[^\[\]'"@/]|<str>|<comment>|<self>)*\]/.source,
+    2
+  );
   const curly = nested(/\{(?:[^{}'"@/]|<str>|<comment>|<self>)*\}/.source, 2);
   const angle = nested(/<(?:[^<>'"@/]|<str>|<comment>|<self>)*>/.source, 2);
 
@@ -53,23 +57,33 @@
     // eslint-disable-next-line regexp/strict
     // nested start tag
     // eslint-disable-next-line regexp/strict
-    `${/\B@?/.source}(?:${/<([a-zA-Z][\w:]*)/.source}${tagAttrs}${/\s*>/.source}(?:${/[^<]/.source}|${// all tags that are not the start tag
-// eslint-disable-next-line regexp/strict
-/<\/?(?!\1\b)/.source}${tagContent}|${// nested start tag
-nested(
-  // eslint-disable-next-line regexp/strict
-  // all tags that are not the start tag
-  // eslint-disable-next-line regexp/strict
-  // eslint-disable-next-line regexp/strict
-  `${/<\1/.source +
-  tagAttrs +
-  /\s*>/.source}(?:${/[^<]/.source}|${// all tags that are not the start tag
-// eslint-disable-next-line regexp/strict
-/<\/?(?!\1\b)/.source}${tagContent}|<self>)*${// eslint-disable-next-line regexp/strict
-/<\/\1\s*>/.source}`,
-  2
-)})*${// eslint-disable-next-line regexp/strict
-/<\/\1\s*>/.source}|${/</.source}${tagContent})`;
+    `${/\B@?/.source}(?:${/<([a-zA-Z][\w:]*)/.source}${tagAttrs}${
+      /\s*>/.source
+    }(?:${/[^<]/.source}|${
+      // all tags that are not the start tag
+      // eslint-disable-next-line regexp/strict
+      /<\/?(?!\1\b)/.source
+    }${tagContent}|${
+      // nested start tag
+      nested(
+        // eslint-disable-next-line regexp/strict
+        // all tags that are not the start tag
+        // eslint-disable-next-line regexp/strict
+        // eslint-disable-next-line regexp/strict
+        `${/<\1/.source + tagAttrs + /\s*>/.source}(?:${/[^<]/.source}|${
+          // all tags that are not the start tag
+          // eslint-disable-next-line regexp/strict
+          /<\/?(?!\1\b)/.source
+        }${tagContent}|<self>)*${
+          // eslint-disable-next-line regexp/strict
+          /<\/\1\s*>/.source
+        }`,
+        2
+      )
+    })*${
+      // eslint-disable-next-line regexp/strict
+      /<\/\1\s*>/.source
+    }|${/</.source}${tagContent})`;
 
   // Now for the actual language definition(s):
   //
@@ -111,36 +125,35 @@ nested(
     block: {
       pattern: RegExp(
         `${/(^|[^@])@/.source}(?:${[
-  // @{ ... }
-  curly,
-  // @code{ ... }
-  /(?:code|functions)\s*/.source + curly,
-  // @for (...) { ... }
-  /(?:for|foreach|lock|switch|using|while)\s*/.source +
-    round +
-    /\s*/.source +
-    curly,
-  // @do { ... } while (...);
-  /do\s*/.source +
-    curly +
-    /\s*while\s*/.source +
-    round +
-    /(?:\s*;)?/.source,
-  // @try { ... } catch (...) { ... } finally { ... }
-  /try\s*/.source +
-    curly +
-    /\s*catch\s*/.source +
-    round +
-    /\s*/.source +
-    curly +
-    /\s*finally\s*/.source +
-    curly,
-  // @if (...) {...} else if (...) {...} else {...}
-  `${/if\s*/.source +
-  round +
-  /\s*/.source +
-  curly}(?:${/\s*else/.source}(?:${/\s+if\s*/.source}${round})?${/\s*/.source}${curly})*`,
-].join("|")})`
+          // @{ ... }
+          curly,
+          // @code{ ... }
+          /(?:code|functions)\s*/.source + curly,
+          // @for (...) { ... }
+          /(?:for|foreach|lock|switch|using|while)\s*/.source +
+            round +
+            /\s*/.source +
+            curly,
+          // @do { ... } while (...);
+          /do\s*/.source +
+            curly +
+            /\s*while\s*/.source +
+            round +
+            /(?:\s*;)?/.source,
+          // @try { ... } catch (...) { ... } finally { ... }
+          /try\s*/.source +
+            curly +
+            /\s*catch\s*/.source +
+            round +
+            /\s*/.source +
+            curly +
+            /\s*finally\s*/.source +
+            curly,
+          // @if (...) {...} else if (...) {...} else {...}
+          `${/if\s*/.source + round + /\s*/.source + curly}(?:${
+            /\s*else/.source
+          }(?:${/\s+if\s*/.source}${round})?${/\s*/.source}${curly})*`,
+        ].join("|")})`
       ),
       lookbehind: true,
       greedy: true,
@@ -163,8 +176,11 @@ nested(
 
     value: {
       pattern: RegExp(
-        `${/(^|[^@])@/.source +
-  /(?:await\b\s*)?/.source}(?:${/\w+\b/.source}|${round})(?:${/[?!]?\.\w+\b/.source}|${round}|${square}|${angle}${round})*`
+        `${/(^|[^@])@/.source + /(?:await\b\s*)?/.source}(?:${
+          /\w+\b/.source
+        }|${round})(?:${
+          /[?!]?\.\w+\b/.source
+        }|${round}|${square}|${angle}${round})*`
       ),
       lookbehind: true,
       greedy: true,

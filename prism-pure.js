@@ -1,4 +1,4 @@
-(({languages, util}) => {
+(({ languages, util }) => {
   // https://agraef.github.io/pure-docs/pure.html#lexical-matters
 
   languages.pure = {
@@ -57,7 +57,7 @@
   const inlineLanguages = ["c", { lang: "c++", alias: "cpp" }, "fortran"];
   const inlineLanguageRe = /%< *-\*- *<lang>\d* *-\*-[\s\S]+?%>/.source;
 
-  inlineLanguages.forEach(lang => {
+  inlineLanguages.forEach((lang) => {
     let alias = lang;
     if (typeof lang !== "string") {
       alias = lang.alias;
@@ -75,17 +75,13 @@
         ),
         inside: util.clone(languages.pure["inline-lang"].inside),
       };
-      o[`inline-lang-${alias}`].inside.rest = util.clone(
-        languages[alias]
-      );
+      o[`inline-lang-${alias}`].inside.rest = util.clone(languages[alias]);
       languages.insertBefore("pure", "inline-lang", o);
     }
   });
 
   // C is the default inline language
   if (languages.c) {
-    languages.pure["inline-lang"].inside.rest = util.clone(
-      languages.c
-    );
+    languages.pure["inline-lang"].inside.rest = util.clone(languages.c);
   }
 })(Prism);

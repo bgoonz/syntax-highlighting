@@ -1,4 +1,4 @@
-(function({util, languages}) {
+(function ({ util, languages }) {
   /**
    * Functions to construct regular expressions
    * e.g. (interactive ... or (interactive)
@@ -16,9 +16,7 @@
    * @returns {RegExp}
    */
   function primitive(pattern) {
-    return RegExp(
-      `${/([\s([])/.source}(?:${pattern})${/(?=[\s)])/.source}`
-    );
+    return RegExp(`${/([\s([])/.source}(?:${pattern})${/(?=[\s)])/.source}`);
   }
 
   // Patterns in regular expressions

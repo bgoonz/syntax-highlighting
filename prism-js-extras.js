@@ -1,4 +1,4 @@
-(({languages, util}) => {
+(({ languages, util }) => {
   languages.insertBefore("javascript", "function-variable", {
     "method-variable": {
       pattern: RegExp(
@@ -11,9 +11,7 @@
 
   languages.insertBefore("javascript", "function", {
     method: {
-      pattern: RegExp(
-        `(\\.\\s*)${languages.javascript["function"].source}`
-      ),
+      pattern: RegExp(`(\\.\\s*)${languages.javascript["function"].source}`),
       lookbehind: true,
       alias: ["function", "property-access"],
     },
@@ -133,7 +131,7 @@
     "property-access",
   ];
 
-  maybeClassNameTokens.forEach(token => {
+  maybeClassNameTokens.forEach((token) => {
     let value = languages.javascript[token];
 
     // convert regex to object

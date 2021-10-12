@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   languages.etlua = {
     delimiter: {
       pattern: /^<%[-=]?|-?%>$/,
@@ -10,16 +10,12 @@
     },
   };
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     const pattern = /<%[\s\S]+?%>/g;
-    languages["markup-templating"].buildPlaceholders(
-      env,
-      "etlua",
-      pattern
-    );
+    languages["markup-templating"].buildPlaceholders(env, "etlua", pattern);
   });
 
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "etlua");
   });
 })(Prism);

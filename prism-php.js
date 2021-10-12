@@ -5,7 +5,7 @@
  *
  * Supports PHP 5.3 - 8.0
  */
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   const comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
   const constant = [
     {
@@ -336,21 +336,17 @@
     },
   });
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     if (!/<\?/.test(env.code)) {
       return;
     }
 
     const phpPattern =
       /<\?(?:[^"'/#]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|(?:\/\/|#(?!\[))(?:[^?\n\r]|\?(?!>))*(?=$|\?>|[\r\n])|#\[|\/\*(?:[^*]|\*(?!\/))*(?:\*\/|$))*?(?:\?>|$)/gi;
-    languages["markup-templating"].buildPlaceholders(
-      env,
-      "php",
-      phpPattern
-    );
+    languages["markup-templating"].buildPlaceholders(env, "php", phpPattern);
   });
 
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "php");
   });
 })(Prism);

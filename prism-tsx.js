@@ -1,4 +1,4 @@
-(({util, languages}) => {
+(({ util, languages }) => {
   const typescript = util.clone(languages.typescript);
   languages.tsx = languages.extend("jsx", typescript);
 

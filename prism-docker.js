@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // Many of the following regexes will contain negated lookaheads like `[ \t]+(?![ \t])`. This is a trick to ensure
   // that quantifiers behave *atomically*. Atomic quantifiers are necessary to prevent exponential backtracking.
 

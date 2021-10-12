@@ -1,6 +1,6 @@
 // https://www.freedesktop.org/software/systemd/man/systemd.syntax.html
 
-(({languages}) => {
+(({ languages }) => {
   const comment = {
     pattern: /^[;#].*/m,
     greedy: true,
@@ -39,7 +39,11 @@
         // main loop
         // handle spaces separately because of quotes
         // line continuation
-        `${/(=[ \t]*(?!\s))/.source}(?:${quotesSource}|(?=[^"\r\n]))(?:${/[^\s\\]/.source}|[ \t]+(?:(?![ \t"])|${quotesSource})|${/\\[\r\n]+(?:[#;].*[\r\n]+)*(?![#;])/.source})*`
+        `${/(=[ \t]*(?!\s))/.source}(?:${quotesSource}|(?=[^"\r\n]))(?:${
+          /[^\s\\]/.source
+        }|[ \t]+(?:(?![ \t"])|${quotesSource})|${
+          /\\[\r\n]+(?:[#;].*[\r\n]+)*(?![#;])/.source
+        })*`
       ),
       lookbehind: true,
       greedy: true,

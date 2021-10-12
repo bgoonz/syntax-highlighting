@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // Pascaligo is a layer 2 smart contract language for the tezos blockchain
 
   const braces = /\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\)/.source;
@@ -81,7 +81,7 @@
     return accum;
   }, {});
 
-  pascaligo["class-name"].forEach(p => {
+  pascaligo["class-name"].forEach((p) => {
     p.inside = classNameInside;
   });
 })(Prism);

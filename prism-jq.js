@@ -1,12 +1,9 @@
-(({languages}) => {
+(({ languages }) => {
   const interpolation = /\\\((?:[^()]|\([^()]*\))*\)/.source;
   const string = RegExp(
-    /(^|[^\\])"(?:[^"\r\n\\]|\\[^\r\n(]|__)*"/.source.replace(
-      /__/g,
-      () => {
-        return interpolation;
-      }
-    )
+    /(^|[^\\])"(?:[^"\r\n\\]|\\[^\r\n(]|__)*"/.source.replace(/__/g, () => {
+      return interpolation;
+    })
   );
   const stringInterpolation = {
     interpolation: {

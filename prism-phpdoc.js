@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const typeExpression = /(?:\b[a-zA-Z]\w*|[|\\[\]])+/.source;
 
   languages.phpdoc = languages.extend("javadoclike", {

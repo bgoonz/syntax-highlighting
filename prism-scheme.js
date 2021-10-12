@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.scheme = {
     // this supports "normal" single-line comments:
     //   ; comment
@@ -123,7 +123,7 @@
    */
   function SortedBNF(grammar) {
     for (var key in grammar) {
-      grammar[key] = grammar[key].replace(/<[\w\s]+>/g, key => {
+      grammar[key] = grammar[key].replace(/<[\w\s]+>/g, (key) => {
         return `(?:${grammar[key].trim()})`;
       });
     }

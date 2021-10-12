@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const unit = {
     pattern: /(\b\d+)(?:%|[a-z]+)/,
     lookbehind: true,

@@ -1,4 +1,4 @@
-(({languages, Token, hooks}) => {
+(({ languages, Token, hooks }) => {
   languages.xquery = languages.extend("markup", {
     "xquery-comment": {
       pattern: /\(:[\s\S]*?:\)/,
@@ -62,8 +62,7 @@
     /<\/?(?!\d)[^\s>\/=$<%]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i;
   languages.xquery["tag"].inside["attr-value"].pattern =
     /=(?:("|')(?:\\[\s\S]|\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}|(?!\1)[^\\])*\1|[^\s'">=]+)/i;
-  languages.xquery["tag"].inside["attr-value"].inside["punctuation"] =
-    /^="|"$/;
+  languages.xquery["tag"].inside["attr-value"].inside["punctuation"] = /^="|"$/;
   languages.xquery["tag"].inside["attr-value"].inside["expression"] = {
     // Allow for two levels of nesting
     pattern: /\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}/,
@@ -72,7 +71,7 @@
   };
 
   // The following will handle plain text inside tags
-  const stringifyToken = token => {
+  const stringifyToken = (token) => {
     if (typeof token === "string") {
       return token;
     }
@@ -82,7 +81,7 @@
     return token.content.map(stringifyToken).join("");
   };
 
-  const walkTokens = tokens => {
+  const walkTokens = (tokens) => {
     const openedTags = [];
 
     tokens.forEach((token, i) => {
@@ -174,12 +173,7 @@
           if (/^\s+$/.test(plainText)) {
             tokens[i] = plainText;
           } else {
-            tokens[i] = new Token(
-              "plain-text",
-              plainText,
-              null,
-              plainText
-            );
+            tokens[i] = new Token("plain-text", plainText, null, plainText);
           }
         }
       }
@@ -190,7 +184,7 @@
     });
   };
 
-  hooks.add("after-tokenize", ({language, tokens}) => {
+  hooks.add("after-tokenize", ({ language, tokens }) => {
     if (language !== "xquery") {
       return;
     }

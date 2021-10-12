@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   /**
    * Replaces all placeholders "<<n>>" of given pattern with the n-th replacement (zero based).
    *

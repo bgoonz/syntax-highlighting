@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const comment_inside = {
     function:
       /\b(?:BUGS?|FIX(?:MES?)?|NOTES?|TODOS?|XX+|HACKS?|WARN(?:ING)?|\?{2,}|!{2,})\b/,
@@ -347,11 +347,11 @@
     },
   };
 
-  const escape = str => {
-    return (`${str}`).replace(/([.?*+\^$\[\]\\(){}|\-])/g, "\\$1");
+  const escape = (str) => {
+    return `${str}`.replace(/([.?*+\^$\[\]\\(){}|\-])/g, "\\$1");
   };
 
-  const arrToWordsRegExp = arr => {
+  const arrToWordsRegExp = (arr) => {
     return new RegExp(`(^|\\s)(?:${arr.map(escape).join("|")})(?=\\s|$)`);
   };
 
@@ -729,7 +729,7 @@
     // that's all for now
   };
 
-  Object.keys(builtins).forEach(k => {
+  Object.keys(builtins).forEach((k) => {
     factor[k].pattern = arrToWordsRegExp(builtins[k]);
   });
 

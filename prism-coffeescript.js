@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // Ignore comments starting with { to privilege string interpolation highlighting
   const comment = /#(?!\{).+/;
   const interpolation = {

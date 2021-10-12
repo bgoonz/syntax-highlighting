@@ -1,4 +1,4 @@
-(Prism => {
+((Prism) => {
   /**
    * Returns the placeholder for the given language id and index.
    *
@@ -30,7 +30,7 @@
 
         const tokenStack = (env.tokenStack = []);
 
-        env.code = env.code.replace(placeholderPattern, match => {
+        env.code = env.code.replace(placeholderPattern, (match) => {
           if (typeof replaceFilter === "function" && !replaceFilter(match)) {
             return match;
           }
@@ -39,7 +39,7 @@
 
           // Check for existing strings
           while (
-            env.code.indexOf((placeholder = getPlaceholder(language, i))) !== -1
+            env.code.includes((placeholder = getPlaceholder(language, i)))
           ) {
             ++i;
           }

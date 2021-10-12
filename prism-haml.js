@@ -5,7 +5,7 @@
 			code |
 */
 
-(({languages}) => {
+(({ languages }) => {
   languages.haml = {
     // Multiline stuff should appear before the rest
 

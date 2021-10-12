@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // https://github.com/coq/coq
 
   let commentSource = /\(\*(?:[^(*]|\((?!\*)|\*(?!\))|<self>)*\*\)/.source;

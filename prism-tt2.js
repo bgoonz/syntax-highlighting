@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   languages.tt2 = languages.extend("clike", {
     comment: /#.*|\[%#[\s\S]*?%\]/,
     keyword:
@@ -41,16 +41,12 @@
   // The different types of TT2 strings "replace" the C-like standard string
   delete languages.tt2.string;
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     const tt2Pattern = /\[%[\s\S]+?%\]/g;
-    languages["markup-templating"].buildPlaceholders(
-      env,
-      "tt2",
-      tt2Pattern
-    );
+    languages["markup-templating"].buildPlaceholders(env, "tt2", tt2Pattern);
   });
 
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "tt2");
   });
 })(Prism);

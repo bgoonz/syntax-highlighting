@@ -1,18 +1,17 @@
 // https://www.graphviz.org/doc/info/lang.html
 
-(({languages}) => {
-  const ID =
-    `(?:${[
-  // an identifier
-  /[a-zA-Z_\x80-\uFFFF][\w\x80-\uFFFF]*/.source,
-  // a number
-  /-?(?:\.\d+|\d+(?:\.\d*)?)/.source,
-  // a double-quoted string
-  /"[^"\\]*(?:\\[\s\S][^"\\]*)*"/.source,
-  // HTML-like string
-  /<(?:[^<>]|(?!<!--)<(?:[^<>"']|"[^"]*"|'[^']*')+>|<!--(?:[^-]|-(?!->))*-->)*>/
-    .source,
-].join("|")})`;
+(({ languages }) => {
+  const ID = `(?:${[
+    // an identifier
+    /[a-zA-Z_\x80-\uFFFF][\w\x80-\uFFFF]*/.source,
+    // a number
+    /-?(?:\.\d+|\d+(?:\.\d*)?)/.source,
+    // a double-quoted string
+    /"[^"\\]*(?:\\[\s\S][^"\\]*)*"/.source,
+    // HTML-like string
+    /<(?:[^<>]|(?!<!--)<(?:[^<>"']|"[^"]*"|'[^']*')+>|<!--(?:[^-]|-(?!->))*-->)*>/
+      .source,
+  ].join("|")})`;
 
   const IDInside = {
     markup: {

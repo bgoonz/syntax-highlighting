@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.diff = {
     coord: [
       // Match all kinds of coord lines (prefixed by "+++", "---" or "***").
@@ -27,7 +27,7 @@
   };
 
   // add a token for each prefix
-  Object.keys(PREFIXES).forEach(name => {
+  Object.keys(PREFIXES).forEach((name) => {
     const prefix = PREFIXES[name];
 
     const alias = [];

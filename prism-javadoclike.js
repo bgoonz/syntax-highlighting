@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const javaDocLike = (languages.javadoclike = {
     parameter: {
       pattern: /(^[\t ]*(?:\/{3}|\*|\/\*\*)\s*@(?:arg|arguments|param)\s+)\w+/m,
@@ -69,8 +69,8 @@
       languages = [languages];
     }
 
-    languages.forEach(lang => {
-      docCommentSupport(lang, pattern => {
+    languages.forEach((lang) => {
+      docCommentSupport(lang, (pattern) => {
         if (!pattern.inside) {
           pattern.inside = {};
         }

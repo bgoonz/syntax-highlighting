@@ -1,9 +1,8 @@
-(({languages}) => {
+(({ languages }) => {
   const javascript = languages.javascript;
 
   const type = /\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})+\}/.source;
-  const parameterPrefix =
-    `(@(?:arg|argument|param|property)\\s+(?:${type}\\s+)?)`;
+  const parameterPrefix = `(@(?:arg|argument|param|property)\\s+(?:${type}\\s+)?)`;
 
   languages.jsdoc = languages.extend("javadoclike", {
     parameter: {

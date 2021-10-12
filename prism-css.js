@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const string =
     /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
 
@@ -24,7 +24,9 @@
     url: {
       // https://drafts.csswg.org/css-values-3/#urls
       pattern: RegExp(
-        `\\burl\\((?:${string.source}|${/(?:[^\\\r\n()"']|\\[\s\S])*/.source})\\)`,
+        `\\burl\\((?:${string.source}|${
+          /(?:[^\\\r\n()"']|\\[\s\S])*/.source
+        })\\)`,
         "i"
       ),
       greedy: true,

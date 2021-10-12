@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.llvm = {
     comment: /;.*/,
     string: {

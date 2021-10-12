@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const coreRules =
     "(?:ALPHA|BIT|CHAR|CR|CRLF|CTL|DIGIT|DQUOTE|HEXDIG|HTAB|LF|LWSP|OCTET|SP|VCHAR|WSP)";
 

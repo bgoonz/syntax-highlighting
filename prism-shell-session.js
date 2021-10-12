@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // CAREFUL!
   // The following patterns are concatenated, so the group referenced by a back reference is non-obvious!
 
@@ -23,18 +23,26 @@
         // prevent false positives.
         // shell symbol
         // bash command
-        `${/^/.source}(?:${/[^\s@:$#%*!/\\]+@[^\r\n@:$#%*!/\\]+(?::[^\0-\x1F$#%*?"<>:;|]+)?/
-    .source}|${// <path>
-// Since the path pattern is quite general, we will require it to start with a special character to
-// prevent false positives.
-/[/~.][^\0-\x1F$#%*?"<>@:;|]*/.source})?${// shell symbol
-/[$#%](?=\s)/.source}${// bash command
-/(?:[^\\\r\n \t'"<$]|[ \t](?:(?!#)|#.*$)|\\(?:[^\r]|\r\n?)|\$(?!')|<(?!<)|<<str>>)+/.source.replace(
-  /<<str>>/g,
-  () => {
-    return strings;
-  }
-)}`,
+        `${/^/.source}(?:${
+          /[^\s@:$#%*!/\\]+@[^\r\n@:$#%*!/\\]+(?::[^\0-\x1F$#%*?"<>:;|]+)?/
+            .source
+        }|${
+          // <path>
+          // Since the path pattern is quite general, we will require it to start with a special character to
+          // prevent false positives.
+          /[/~.][^\0-\x1F$#%*?"<>@:;|]*/.source
+        })?${
+          // shell symbol
+          /[$#%](?=\s)/.source
+        }${
+          // bash command
+          /(?:[^\\\r\n \t'"<$]|[ \t](?:(?!#)|#.*$)|\\(?:[^\r]|\r\n?)|\$(?!')|<(?!<)|<<str>>)+/.source.replace(
+            /<<str>>/g,
+            () => {
+              return strings;
+            }
+          )
+        }`,
         "m"
       ),
       greedy: true,

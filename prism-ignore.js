@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.ignore = {
     // https://git-scm.com/docs/gitignore
     comment: /^#.*/m,

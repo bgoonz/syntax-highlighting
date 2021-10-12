@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // We don't allow for pipes inside parentheses
   // to not break table pattern |(. foo |). bar |
   const modifierRegex = /\([^|()\n]+\)|\[[^\]\n]+\]|\{[^}\n]+\}/.source;

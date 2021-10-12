@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   let parser = (languages.parser = languages.extend("markup", {
     keyword: {
       pattern:

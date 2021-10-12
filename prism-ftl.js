@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   // https://freemarker.apache.org/docs/dgui_template_exp.html
 
   // FTL expression with 4 levels of nesting supported
@@ -103,7 +103,7 @@
     },
   };
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     // eslint-disable-next-line regexp/no-useless-lazy
     const pattern = RegExp(
       /<#--[\s\S]*?-->|<\/?[#@][a-zA-Z](?:<expr>)*?>|\$\{(?:<expr>)*?\}/.source.replace(
@@ -117,7 +117,7 @@
     languages["markup-templating"].buildPlaceholders(env, "ftl", pattern);
   });
 
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "ftl");
   });
 })(Prism);

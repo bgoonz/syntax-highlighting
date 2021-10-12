@@ -1,7 +1,10 @@
-(({languages}) => {
+(({ languages }) => {
   const id = /(?:\B-|\b_|\b)[A-Za-z][\w-]*(?![\w-])/.source;
-  const type =
-    `(?:${/\b(?:unsigned\s+)?long\s+long(?![\w-])/.source}|${/\b(?:unrestricted|unsigned)\s+[a-z]+(?![\w-])/.source}|${/(?!(?:unrestricted|unsigned)\b)/.source}${id}${/(?:\s*<(?:[^<>]|<[^<>]*>)*>)?/.source})${/(?:\s*\?)?/.source}`;
+  const type = `(?:${/\b(?:unsigned\s+)?long\s+long(?![\w-])/.source}|${
+    /\b(?:unrestricted|unsigned)\s+[a-z]+(?![\w-])/.source
+  }|${/(?!(?:unrestricted|unsigned)\b)/.source}${id}${
+    /(?:\s*<(?:[^<>]|<[^<>]*>)*>)?/.source
+  })${/(?:\s*\?)?/.source}`;
 
   const typeInside = {};
 

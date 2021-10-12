@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const powershell = (languages.powershell = {
     comment: [
       {

@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   // https://yaml.org/spec/1.2/spec.html#c-ns-anchor-property
   // https://yaml.org/spec/1.2/spec.html#c-ns-alias-node
   const anchorOrAlias = /[*&][^\s[\]{},]+/;
@@ -6,8 +6,7 @@
   const tag =
     /!(?:<[\w\-%#;/?:@&=+$,.!~*'()[\]]+>|(?:[a-zA-Z\d-]*!)?[\w\-%#;/?:@&=+$.~*'()]+)?/;
   // https://yaml.org/spec/1.2/spec.html#c-ns-properties(n,c)
-  const properties =
-    `(?:${tag.source}(?:[ \t]+${anchorOrAlias.source})?|${anchorOrAlias.source}(?:[ \t]+${tag.source})?)`;
+  const properties = `(?:${tag.source}(?:[ \t]+${anchorOrAlias.source})?|${anchorOrAlias.source}(?:[ \t]+${tag.source})?)`;
   // https://yaml.org/spec/1.2/spec.html#ns-plain(n,c)
   // This is a simplified version that doesn't support "#" and multiline keys
   // All these long scarry character classes are simplified versions of YAML's characters

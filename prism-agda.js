@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.agda = {
     comment: /\{-[\s\S]*?(?:-\}|$)|--.*/,
     string: {

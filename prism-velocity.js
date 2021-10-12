@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.velocity = languages.extend("markup", {});
 
   const velocity = {

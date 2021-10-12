@@ -4,7 +4,7 @@
  * Adds the following new token classes:
  *     constant, builtin, variable, symbol, regex
  */
-(({languages}) => {
+(({ languages }) => {
   languages.ruby = languages.extend("clike", {
     comment: [
       /#.*/,
@@ -42,13 +42,13 @@
       {
         pattern: RegExp(
           `${/%r/.source}(?:${[
-  /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
-  /\((?:[^()\\]|\\[\s\S])*\)/.source,
-  // Here we need to specifically allow interpolation
-  /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
-  /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
-  /<(?:[^<>\\]|\\[\s\S])*>/.source,
-].join("|")})${/[egimnosux]{0,6}/.source}`
+            /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
+            /\((?:[^()\\]|\\[\s\S])*\)/.source,
+            // Here we need to specifically allow interpolation
+            /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
+            /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
+            /<(?:[^<>\\]|\\[\s\S])*>/.source,
+          ].join("|")})${/[egimnosux]{0,6}/.source}`
         ),
         greedy: true,
         inside: {
@@ -90,13 +90,13 @@
     {
       pattern: RegExp(
         `${/%[qQiIwWxs]?/.source}(?:${[
-  /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
-  /\((?:[^()\\]|\\[\s\S])*\)/.source,
-  // Here we need to specifically allow interpolation
-  /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
-  /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
-  /<(?:[^<>\\]|\\[\s\S])*>/.source,
-].join("|")})`
+          /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
+          /\((?:[^()\\]|\\[\s\S])*\)/.source,
+          // Here we need to specifically allow interpolation
+          /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
+          /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
+          /<(?:[^<>\\]|\\[\s\S])*>/.source,
+        ].join("|")})`
       ),
       greedy: true,
       inside: {

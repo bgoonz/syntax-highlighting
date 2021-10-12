@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.puppet = {
     heredoc: [
       // Matches the content of a quoted heredoc string (subject to interpolation)
@@ -140,7 +140,6 @@
     },
   ];
   languages.puppet["heredoc"][0].inside.interpolation = interpolation;
-  languages.puppet["string"].inside[
-    "double-quoted"
-  ].inside.interpolation = interpolation;
+  languages.puppet["string"].inside["double-quoted"].inside.interpolation =
+    interpolation;
 })(Prism);

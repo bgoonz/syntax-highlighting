@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   languages.kotlin = languages.extend("clike", {
     keyword: {
       // The lookbehind prevents wrong highlighting of e.g. kotlin.properties.get
@@ -62,9 +62,7 @@
     },
   ];
 
-  languages.kotlin["string"].inside = languages.kotlin[
-    "raw-string"
-  ].inside = {
+  languages.kotlin["string"].inside = languages.kotlin["raw-string"].inside = {
     interpolation: interpolation,
   };
 

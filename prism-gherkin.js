@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const tableRow = /(?:\r?\n|\r)[ \t]*\|.+\|(?:(?!\|).)*/.source;
 
   languages.gherkin = {

@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   /* OpenCL kernel language */
   languages.opencl = languages.extend("c", {
     // Extracted from the official specs (2.0) and http://streamcomputing.eu/downloads/?opencl.lang (opencl-keywords, opencl-types) and http://sourceforge.net/tracker/?func=detail&aid=2957794&group_id=95717&atid=612384 (Words2, partly Words3)

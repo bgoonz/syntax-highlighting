@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   languages.ejs = {
     delimiter: {
       pattern: /^<%[-_=]?|[-_]?%>$/,
@@ -11,16 +11,12 @@
     },
   };
 
-  hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", (env) => {
     const ejsPattern = /<%(?!%)[\s\S]+?%>/g;
-    languages["markup-templating"].buildPlaceholders(
-      env,
-      "ejs",
-      ejsPattern
-    );
+    languages["markup-templating"].buildPlaceholders(env, "ejs", ejsPattern);
   });
 
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     languages["markup-templating"].tokenizePlaceholders(env, "ejs");
   });
 

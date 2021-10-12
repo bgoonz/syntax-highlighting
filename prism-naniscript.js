@@ -1,4 +1,4 @@
-(({languages, hooks}) => {
+(({ languages, hooks }) => {
   const expressionDef = /\{[^\r\n\[\]{}]*\}/;
 
   const params = {
@@ -117,10 +117,10 @@
    * This hook is used to validate generic-text tokens for balanced brackets.
    * Mark token as bad-line when contains not balanced brackets: {},[]
    */
-  hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", (env) => {
     /** @type {(Token | string)[]} */
     const tokens = env.tokens;
-    tokens.forEach(token => {
+    tokens.forEach((token) => {
       if (typeof token !== "string" && token.type === "generic-text") {
         const content = getTextContent(token);
         if (!isBracketsBalanced(content)) {

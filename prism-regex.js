@@ -1,4 +1,4 @@
-(({languages}) => {
+(({ languages }) => {
   const specialEscape = {
     pattern: /\\[\\(){}[\]^$+*?|.]/,
     alias: "escape",

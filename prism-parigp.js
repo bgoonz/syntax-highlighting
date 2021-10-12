@@ -34,7 +34,7 @@ Prism.languages.parigp = {
       "while",
     ];
     keywords = keywords
-      .map(keyword => {
+      .map((keyword) => {
         return keyword.split("").join(" *");
       })
       .join("|");
