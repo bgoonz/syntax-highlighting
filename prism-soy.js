@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var stringPattern = /(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;
   var numberPattern = /\b\d+(?:\.\d+)?(?:[eE][+-]?\d+)?\b|\b0x[\dA-F]+\b/;
 
@@ -67,7 +67,7 @@
   };
 
   // Tokenize all inline Soy expressions
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     var soyPattern = /\{\{.+?\}\}|\{.+?\}|\s\/\/.*|\/\*[\s\S]*?\*\//g;
     var soyLitteralStart = "{literal}";
     var soyLitteralEnd = "{/literal}";
@@ -77,7 +77,7 @@
       env,
       "soy",
       soyPattern,
-      function (match) {
+      match => {
         // Soy tags inside {literal} block are ignored
         if (match === soyLitteralEnd) {
           soyLitteralMode = false;
@@ -96,7 +96,7 @@
   });
 
   // Re-insert the tokens after tokenizing
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "soy");
   });
 })(Prism);

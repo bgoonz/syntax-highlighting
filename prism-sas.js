@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var stringPattern = /(?:"(?:""|[^"])*"(?!")|'(?:''|[^'])*'(?!'))/.source;
 
   var number = /\b(?:\d[\da-f]*x|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b/i;
@@ -106,7 +106,7 @@
     pattern: RegExp(
       /(^|\s)(?:action\s+)?(?:<act>)\.[a-z]+\b[^;]+/.source.replace(
         /<act>/g,
-        function () {
+        () => {
           return actionSets;
         }
       ),
@@ -115,7 +115,7 @@
     lookbehind: true,
     inside: {
       keyword: RegExp(
-        /(?:<act>)\.[a-z]+\b/.source.replace(/<act>/g, function () {
+        /(?:<act>)\.[a-z]+\b/.source.replace(/<act>/g, () => {
           return actionSets;
         }),
         "i"
@@ -164,7 +164,7 @@
           pattern: RegExp(
             /^[ \t]*(?:select|alter\s+table|(?:create|describe|drop)\s+(?:index|table(?:\s+constraints)?|view)|create\s+unique\s+index|insert\s+into|update)(?:<str>|[^;"'])+;/.source.replace(
               /<str>/g,
-              function () {
+              () => {
                 return stringPattern;
               }
             ),
@@ -197,7 +197,7 @@
           pattern: RegExp(
             /(^[ \t]*submit(?:\s+(?:load|norun|parseonly))?)(?:<str>|[^"'])+?(?=endsubmit;)/.source.replace(
               /<str>/g,
-              function () {
+              () => {
                 return stringPattern;
               }
             ),
@@ -227,7 +227,7 @@
           pattern: RegExp(
             /(^[ \t]*submit(?:\s+(?:load|norun|parseonly))?)(?:<str>|[^"'])+?(?=endsubmit;)/.source.replace(
               /<str>/g,
-              function () {
+              () => {
                 return stringPattern;
               }
             ),
@@ -289,7 +289,7 @@
       pattern: RegExp(
         /(^proc\s+\w+\s+)(?!\s)(?:[^;"']|<str>)+;/.source.replace(
           /<str>/g,
-          function () {
+          () => {
             return stringPattern;
           }
         ),

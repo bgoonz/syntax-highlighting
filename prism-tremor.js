@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.tremor = {
     comment: {
       pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,

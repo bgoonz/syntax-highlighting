@@ -1,9 +1,9 @@
-(function (Prism) {
+(Prism => {
   // https://github.com/coq/coq
 
-  var commentSource = /\(\*(?:[^(*]|\((?!\*)|\*(?!\))|<self>)*\*\)/.source;
-  for (var i = 0; i < 2; i++) {
-    commentSource = commentSource.replace(/<self>/g, function () {
+  let commentSource = /\(\*(?:[^(*]|\((?!\*)|\*(?!\))|<self>)*\*\)/.source;
+  for (let i = 0; i < 2; i++) {
+    commentSource = commentSource.replace(/<self>/g, () => {
       return commentSource;
     });
   }
@@ -20,7 +20,7 @@
         pattern: RegExp(
           /#\[(?:[^\[\]("]|"(?:[^"]|"")*"(?!")|\((?!\*)|<comment>)*\]/.source.replace(
             /<comment>/g,
-            function () {
+            () => {
               return commentSource;
             }
           )

@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // TODO:
   // - Add CSS highlighting inside <style> tags
   // - Add support for multi-line code blocks
@@ -175,7 +175,7 @@
     if (Prism.languages[filter.language]) {
       all_filters["filter-" + filter.filter] = {
         pattern: RegExp(
-          filter_pattern.replace("<filter_name>", function () {
+          filter_pattern.replace("<filter_name>", () => {
             return filter.filter;
           }),
           "m"

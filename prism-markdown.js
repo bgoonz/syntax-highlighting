@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // Allow only one line break
   var inner = /(?:\\.|[^\\\n\r]|(?:\n|\r\n?)(?![\r\n]))/.source;
 
@@ -13,7 +13,7 @@
    * @returns {RegExp}
    */
   function createInline(pattern) {
-    pattern = pattern.replace(/<inner>/g, function () {
+    pattern = pattern.replace(/<inner>/g, () => {
       return inner;
     });
     return RegExp(/((?:^|[^\\])(?:\\{2})*)/.source + "(?:" + pattern + ")");
@@ -23,7 +23,7 @@
     .source;
   var tableRow = /\|?__(?:\|__)+\|?(?:(?:\n|\r\n?)|(?![\s\S]))/.source.replace(
     /__/g,
-    function () {
+    () => {
       return tableCell;
     }
   );
@@ -274,10 +274,8 @@
     },
   });
 
-  ["url", "bold", "italic", "strike"].forEach(function (token) {
-    ["url", "bold", "italic", "strike", "code-snippet"].forEach(function (
-      inside
-    ) {
+  ["url", "bold", "italic", "strike"].forEach(token => {
+    ["url", "bold", "italic", "strike", "code-snippet"].forEach(inside => {
       if (token !== inside) {
         Prism.languages.markdown[token].inside.content.inside[inside] =
           Prism.languages.markdown[inside];
@@ -285,7 +283,7 @@
     });
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     if (env.language !== "markdown" && env.language !== "md") {
       return;
     }
@@ -352,7 +350,7 @@
     walkTokens(env.tokens);
   });
 
-  Prism.hooks.add("wrap", function (env) {
+  Prism.hooks.add("wrap", env => {
     if (env.type !== "code-block") {
       return;
     }
@@ -375,7 +373,7 @@
           "md-" + new Date().valueOf() + "-" + Math.floor(Math.random() * 1e16);
         env.attributes["id"] = id;
 
-        Prism.plugins.autoloader.loadLanguages(codeLang, function () {
+        Prism.plugins.autoloader.loadLanguages(codeLang, () => {
           var ele = document.getElementById(id);
           if (ele) {
             ele.innerHTML = Prism.highlight(
@@ -425,7 +423,7 @@
     var text = html.replace(tagPattern, "");
 
     // decode known entities
-    text = text.replace(/&(\w{1,8}|#x?[\da-f]{1,8});/gi, function (m, code) {
+    text = text.replace(/&(\w{1,8}|#x?[\da-f]{1,8});/gi, (m, code) => {
       code = code.toLowerCase();
 
       if (code[0] === "#") {

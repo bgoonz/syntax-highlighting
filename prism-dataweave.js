@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.dataweave = {
     url: /\b[A-Za-z]+:\/\/[\w/:.?=&-]+|\burn:[\w:.?=&-]+/,
     property: {

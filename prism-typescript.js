@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.typescript = Prism.languages.extend("javascript", {
     "class-name": {
       pattern:

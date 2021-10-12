@@ -1,7 +1,7 @@
 // Django/Jinja2 syntax definition for Prism.js <http://prismjs.com> syntax highlighter.
 // Mostly it works OK but can paint code incorrectly on complex html/template tag combinations.
 
-(function (Prism) {
+(Prism => {
   Prism.languages.django = {
     comment: /^\{#[\s\S]*?#\}$/,
     tag: {
@@ -37,22 +37,22 @@
     punctuation: /[{}[\](),.:;]/,
   };
 
-  var pattern = /\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}|\{#[\s\S]*?#\}/g;
-  var markupTemplating = Prism.languages["markup-templating"];
+  const pattern = /\{\{[\s\S]*?\}\}|\{%[\s\S]*?%\}|\{#[\s\S]*?#\}/g;
+  const markupTemplating = Prism.languages["markup-templating"];
 
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     markupTemplating.buildPlaceholders(env, "django", pattern);
   });
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     markupTemplating.tokenizePlaceholders(env, "django");
   });
 
   // Add an Jinja2 alias
   Prism.languages.jinja2 = Prism.languages.django;
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     markupTemplating.buildPlaceholders(env, "jinja2", pattern);
   });
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     markupTemplating.tokenizePlaceholders(env, "jinja2");
   });
 })(Prism);

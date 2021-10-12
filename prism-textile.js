@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // We don't allow for pipes inside parentheses
   // to not break table pattern |(. foo |). bar |
   var modifierRegex = /\([^|()\n]+\)|\[[^\]\n]+\]|\{[^}\n]+\}/.source;
@@ -12,10 +12,10 @@
   function withModifier(source, flags) {
     return RegExp(
       source
-        .replace(/<MOD>/g, function () {
+        .replace(/<MOD>/g, () => {
           return "(?:" + modifierRegex + ")";
         })
-        .replace(/<PAR>/g, function () {
+        .replace(/<PAR>/g, () => {
           return "(?:" + parenthesesRegex + ")";
         }),
       flags || ""

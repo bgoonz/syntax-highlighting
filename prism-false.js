@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   /**
    * Based on the manual by Wouter van Oortmerssen.
    *

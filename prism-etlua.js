@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.etlua = {
     delimiter: {
       pattern: /^<%[-=]?|-?%>$/,
@@ -10,8 +10,8 @@
     },
   };
 
-  Prism.hooks.add("before-tokenize", function (env) {
-    var pattern = /<%[\s\S]+?%>/g;
+  Prism.hooks.add("before-tokenize", env => {
+    const pattern = /<%[\s\S]+?%>/g;
     Prism.languages["markup-templating"].buildPlaceholders(
       env,
       "etlua",
@@ -19,7 +19,7 @@
     );
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "etlua");
   });
 })(Prism);

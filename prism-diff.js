@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.diff = {
     coord: [
       // Match all kinds of coord lines (prefixed by "+++", "---" or "***").
@@ -17,7 +17,7 @@
    *
    * @type {Object<string, string>}
    */
-  var PREFIXES = {
+  const PREFIXES = {
     "deleted-sign": "-",
     "deleted-arrow": "<",
     "inserted-sign": "+",
@@ -27,10 +27,10 @@
   };
 
   // add a token for each prefix
-  Object.keys(PREFIXES).forEach(function (name) {
-    var prefix = PREFIXES[name];
+  Object.keys(PREFIXES).forEach(name => {
+    const prefix = PREFIXES[name];
 
-    var alias = [];
+    const alias = [];
     if (!/^\w+$/.test(name)) {
       // "deleted-sign" -> "deleted"
       alias.push(/\w+/.exec(name)[0]);

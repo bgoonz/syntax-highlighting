@@ -3,7 +3,7 @@
 	Add support for {php}
 */
 
-(function (Prism) {
+(Prism => {
   Prism.languages.smarty = {
     comment: /\{\*[\s\S]*?\*\}/,
     delimiter: {
@@ -53,7 +53,7 @@
   };
 
   // Tokenize all inline Smarty expressions
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     var smartyPattern = /\{\*[\s\S]*?\*\}|\{[\s\S]+?\}/g;
     var smartyLitteralStart = "{literal}";
     var smartyLitteralEnd = "{/literal}";
@@ -63,7 +63,7 @@
       env,
       "smarty",
       smartyPattern,
-      function (match) {
+      match => {
         // Smarty tags inside {literal} block are ignored
         if (match === smartyLitteralEnd) {
           smartyLitteralMode = false;
@@ -82,7 +82,7 @@
   });
 
   // Re-insert the tokens after tokenizing
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "smarty");
   });
 })(Prism);

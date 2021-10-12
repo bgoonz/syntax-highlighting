@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.crystal = Prism.languages.extend("ruby", {
     keyword: [
       /\b(?:__DIR__|__END_LINE__|__FILE__|__LINE__|abstract|alias|as|asm|begin|break|case|class|def|do|else|elsif|end|ensure|enum|extend|for|fun|if|include|instance_sizeof|lib|macro|module|next|of|out|pointerof|private|protected|require|rescue|return|select|self|sizeof|struct|super|then|type|typeof|uninitialized|union|unless|until|when|while|with|yield)\b/,

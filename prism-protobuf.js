@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var builtinTypes =
     /\b(?:bool|bytes|double|s?fixed(?:32|64)|float|[su]?int(?:32|64)|string)\b/;
 

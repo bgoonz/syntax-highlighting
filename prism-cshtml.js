@@ -2,10 +2,10 @@
 // https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-5.0&tabs=visual-studio
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0
 
-(function (Prism) {
-  var commentLike = /\/(?![/*])|\/\/.*[\r\n]|\/\*[^*]*(?:\*(?!\/)[^*]*)*\*\//
+(Prism => {
+  const commentLike = /\/(?![/*])|\/\/.*[\r\n]|\/\*[^*]*(?:\*(?!\/)[^*]*)*\*\//
     .source;
-  var stringLike =
+  const stringLike =
     /@(?!")|"(?:[^\r\n\\"]|\\.)*"|@"(?:[^\\"]|""|\\[\s\S])*"(?!")/.source +
     "|" +
     /'(?:(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'|(?=[^\\](?!')))/.source;
@@ -18,8 +18,8 @@
    * @returns {string}
    */
   function nested(pattern, depthLog2) {
-    for (var i = 0; i < depthLog2; i++) {
-      pattern = pattern.replace(/<self>/g, function () {
+    for (let i = 0; i < depthLog2; i++) {
+      pattern = pattern.replace(/<self>/g, () => {
         return "(?:" + pattern + ")";
       });
     }
@@ -29,10 +29,10 @@
       .replace(/<comment>/g, "(?:" + commentLike + ")");
   }
 
-  var round = nested(/\((?:[^()'"@/]|<str>|<comment>|<self>)*\)/.source, 2);
-  var square = nested(/\[(?:[^\[\]'"@/]|<str>|<comment>|<self>)*\]/.source, 2);
-  var curly = nested(/\{(?:[^{}'"@/]|<str>|<comment>|<self>)*\}/.source, 2);
-  var angle = nested(/<(?:[^<>'"@/]|<str>|<comment>|<self>)*>/.source, 2);
+  const round = nested(/\((?:[^()'"@/]|<str>|<comment>|<self>)*\)/.source, 2);
+  const square = nested(/\[(?:[^\[\]'"@/]|<str>|<comment>|<self>)*\]/.source, 2);
+  const curly = nested(/\{(?:[^{}'"@/]|<str>|<comment>|<self>)*\}/.source, 2);
+  const angle = nested(/<(?:[^<>'"@/]|<str>|<comment>|<self>)*>/.source, 2);
 
   // Note about the above bracket patterns:
   // They all ignore HTML expressions that might be in the C# code. This is a problem because HTML (like strings and
@@ -46,11 +46,11 @@
   // To somewhat alleviate the problem a bit, the patterns for characters (e.g. 'a') is very permissive, it also
   // allows invalid characters to support HTML expressions like this: <p>That's it!</p>.
 
-  var tagAttrs =
+  const tagAttrs =
     /(?:\s(?:\s*[^\s>\/=]+(?:\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))|(?=[\s/>])))+)?/
       .source;
-  var tagContent = /(?!\d)[^\s>\/=$<%]+/.source + tagAttrs + /\s*\/?>/.source;
-  var tagRegion =
+  const tagContent = /(?!\d)[^\s>\/=$<%]+/.source + tagAttrs + /\s*\/?>/.source;
+  const tagRegion =
     /\B@?/.source +
     "(?:" +
     /<([a-zA-Z][\w:]*)/.source +
@@ -103,7 +103,7 @@
 
   Prism.languages.cshtml = Prism.languages.extend("markup", {});
 
-  var csharpWithHtml = Prism.languages.insertBefore(
+  const csharpWithHtml = Prism.languages.insertBefore(
     "csharp",
     "string",
     {
@@ -116,7 +116,7 @@
     { csharp: Prism.languages.extend("csharp", {}) }
   );
 
-  var cs = {
+  const cs = {
     pattern: /\S[\s\S]*/,
     alias: "language-csharp",
     inside: csharpWithHtml,

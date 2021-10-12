@@ -1,5 +1,5 @@
-(function (Prism) {
-  var coreRules =
+(Prism => {
+  const coreRules =
     "(?:ALPHA|BIT|CHAR|CR|CRLF|CTL|DIGIT|DQUOTE|HEXDIG|HTAB|LF|LWSP|OCTET|SP|VCHAR|WSP)";
 
   Prism.languages.abnf = {

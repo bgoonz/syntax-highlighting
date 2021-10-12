@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var operators = [
     // query and projection
     "$eq",
@@ -252,7 +252,7 @@
     "UUID",
   ];
 
-  operators = operators.map(function (operator) {
+  operators = operators.map(operator => {
     return operator.replace("$", "\\$");
   });
 

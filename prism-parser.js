@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var parser = (Prism.languages.parser = Prism.languages.extend("markup", {
     keyword: {
       pattern:

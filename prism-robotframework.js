@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var comment = {
     pattern: /(^[ \t]*| {2}|\t)#.*/m,
     lookbehind: true,
@@ -40,7 +40,7 @@
       pattern: RegExp(
         /^ ?\*{3}[ \t]*<name>[ \t]*\*{3}(?:.|[\r\n](?!\*{3}))*/.source.replace(
           /<name>/g,
-          function () {
+          () => {
             return name;
           }
         ),

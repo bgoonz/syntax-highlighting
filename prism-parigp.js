@@ -7,7 +7,7 @@ Prism.languages.parigp = {
   // PARI/GP does not care about white spaces at all
   // so let's process the keywords to build an appropriate regexp
   // (e.g. "b *r *e *a *k", etc.)
-  keyword: (function () {
+  keyword: (() => {
     var keywords = [
       "breakpoint",
       "break",
@@ -34,7 +34,7 @@ Prism.languages.parigp = {
       "while",
     ];
     keywords = keywords
-      .map(function (keyword) {
+      .map(keyword => {
         return keyword.split("").join(" *");
       })
       .join("|");

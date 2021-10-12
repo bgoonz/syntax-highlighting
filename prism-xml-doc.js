@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   /**
    * If the given language is present, it will insert the given doc comment grammar token into it.
    *

@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var interpolationExpr = {
     pattern: /[\s\S]+/,
     inside: null,

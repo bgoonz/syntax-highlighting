@@ -1,5 +1,5 @@
-(function (Prism) {
-  var javaDocLike = (Prism.languages.javadoclike = {
+(Prism => {
+  const javaDocLike = (Prism.languages.javadoclike = {
     parameter: {
       pattern: /(^[\t ]*(?:\/{3}|\*|\/\*\*)\s*@(?:arg|arguments|param)\s+)\w+/m,
       lookbehind: true,
@@ -20,17 +20,17 @@
    * @param {(pattern: {inside: {rest: undefined}}) => void} callback the function called with each doc comment pattern as argument.
    */
   function docCommentSupport(lang, callback) {
-    var tokenName = "doc-comment";
+    const tokenName = "doc-comment";
 
-    var grammar = Prism.languages[lang];
+    let grammar = Prism.languages[lang];
     if (!grammar) {
       return;
     }
-    var token = grammar[tokenName];
+    let token = grammar[tokenName];
 
     if (!token) {
       // add doc comment: /** */
-      var definition = {};
+      const definition = {};
       definition[tokenName] = {
         pattern: /(^|[^\\])\/\*\*[^/][\s\S]*?(?:\*\/|$)/,
         lookbehind: true,
@@ -47,7 +47,7 @@
     }
 
     if (Array.isArray(token)) {
-      for (var i = 0, l = token.length; i < l; i++) {
+      for (let i = 0, l = token.length; i < l; i++) {
         if (token[i] instanceof RegExp) {
           token[i] = { pattern: token[i] };
         }
@@ -69,8 +69,8 @@
       languages = [languages];
     }
 
-    languages.forEach(function (lang) {
-      docCommentSupport(lang, function (pattern) {
+    languages.forEach(lang => {
+      docCommentSupport(lang, pattern => {
         if (!pattern.inside) {
           pattern.inside = {};
         }

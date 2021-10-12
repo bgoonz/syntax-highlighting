@@ -1,18 +1,18 @@
-(function (Prism) {
+(Prism => {
   // https://freemarker.apache.org/docs/dgui_template_exp.html
 
   // FTL expression with 4 levels of nesting supported
-  var FTL_EXPR =
+  let FTL_EXPR =
     /[^<()"']|\((?:<expr>)*\)|<(?!#--)|<#--(?:[^-]|-(?!->))*-->|"(?:[^\\"]|\\.)*"|'(?:[^\\']|\\.)*'/
       .source;
-  for (var i = 0; i < 2; i++) {
-    FTL_EXPR = FTL_EXPR.replace(/<expr>/g, function () {
+  for (let i = 0; i < 2; i++) {
+    FTL_EXPR = FTL_EXPR.replace(/<expr>/g, () => {
       return FTL_EXPR;
     });
   }
   FTL_EXPR = FTL_EXPR.replace(/<expr>/g, /[^\s\S]/.source);
 
-  var ftl = {
+  const ftl = {
     comment: /<#--[\s\S]*?-->/,
     string: [
       {
@@ -24,7 +24,7 @@
         pattern: RegExp(
           /("|')(?:(?!\1|\$\{)[^\\]|\\.|\$\{(?:(?!\})(?:<expr>))*\})*\1/.source.replace(
             /<expr>/g,
-            function () {
+            () => {
               return FTL_EXPR;
             }
           )
@@ -35,7 +35,7 @@
             pattern: RegExp(
               /((?:^|[^\\])(?:\\\\)*)\$\{(?:(?!\})(?:<expr>))*\}/.source.replace(
                 /<expr>/g,
-                function () {
+                () => {
                   return FTL_EXPR;
                 }
               )
@@ -103,12 +103,12 @@
     },
   };
 
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     // eslint-disable-next-line regexp/no-useless-lazy
-    var pattern = RegExp(
+    const pattern = RegExp(
       /<#--[\s\S]*?-->|<\/?[#@][a-zA-Z](?:<expr>)*?>|\$\{(?:<expr>)*?\}/.source.replace(
         /<expr>/g,
-        function () {
+        () => {
           return FTL_EXPR;
         }
       ),
@@ -117,7 +117,7 @@
     Prism.languages["markup-templating"].buildPlaceholders(env, "ftl", pattern);
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "ftl");
   });
 })(Prism);

@@ -1,11 +1,11 @@
-(function (Prism) {
-  var codeLinePattern = /(^(?:[\t ]*(?:\*\s*)*))[^*\s].*$/m;
+(Prism => {
+  const codeLinePattern = /(^(?:[\t ]*(?:\*\s*)*))[^*\s].*$/m;
 
-  var memberReference = /#\s*\w+(?:\s*\([^()]*\))?/.source;
-  var reference =
+  const memberReference = /#\s*\w+(?:\s*\([^()]*\))?/.source;
+  const reference =
     /(?:\b[a-zA-Z]\w+\s*\.\s*)*\b[A-Z]\w*(?:\s*<mem>)?|<mem>/.source.replace(
       /<mem>/g,
-      function () {
+      () => {
         return memberReference;
       }
     );

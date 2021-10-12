@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   /**
    * Replaces all placeholders "<<n>>" of given pattern with the n-th replacement (zero based).
    *
@@ -10,7 +10,7 @@
    * @example replace(/a<<0>>a/.source, [/b+/.source]) === /a(?:b+)a/.source
    */
   function replace(pattern, replacements) {
-    return pattern.replace(/<<(\d+)>>/g, function (m, index) {
+    return pattern.replace(/<<(\d+)>>/g, (m, index) => {
       return "(?:" + replacements[+index] + ")";
     });
   }
@@ -33,7 +33,7 @@
    */
   function nested(pattern, depthLog2) {
     for (var i = 0; i < depthLog2; i++) {
-      pattern = pattern.replace(/<<self>>/g, function () {
+      pattern = pattern.replace(/<<self>>/g, () => {
         return "(?:" + pattern + ")";
       });
     }

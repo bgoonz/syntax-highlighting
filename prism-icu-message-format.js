@@ -1,7 +1,7 @@
 // https://unicode-org.github.io/icu/userguide/format_parse/messages/
 // https://unicode-org.github.io/icu-docs/apidoc/released/icu4j/com/ibm/icu/text/MessageFormat.html
 
-(function (Prism) {
+(Prism => {
   /**
    * @param {string} source
    * @param {number} level
@@ -11,20 +11,20 @@
     if (level <= 0) {
       return /[]/.source;
     } else {
-      return source.replace(/<SELF>/g, function () {
+      return source.replace(/<SELF>/g, () => {
         return nested(source, level - 1);
       });
     }
   }
 
-  var stringPattern = /'[{}:=,](?:[^']|'')*'(?!')/;
+  const stringPattern = /'[{}:=,](?:[^']|'')*'(?!')/;
 
-  var escape = {
+  const escape = {
     pattern: /''/,
     greedy: true,
     alias: "operator",
   };
-  var string = {
+  const string = {
     pattern: stringPattern,
     greedy: true,
     inside: {
@@ -32,17 +32,17 @@
     },
   };
 
-  var argumentSource = nested(
+  const argumentSource = nested(
     /\{(?:[^{}']|'(?![{},'])|''|<STR>|<SELF>)*\}/.source.replace(
       /<STR>/g,
-      function () {
+      () => {
         return stringPattern.source;
       }
     ),
     8
   );
 
-  var nestedMessage = {
+  const nestedMessage = {
     pattern: RegExp(argumentSource),
     inside: {
       message: {

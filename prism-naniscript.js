@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var expressionDef = /\{[^\r\n\[\]{}]*\}/;
 
   var params = {
@@ -117,10 +117,10 @@
    * This hook is used to validate generic-text tokens for balanced brackets.
    * Mark token as bad-line when contains not balanced brackets: {},[]
    */
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     /** @type {(Token | string)[]} */
     var tokens = env.tokens;
-    tokens.forEach(function (token) {
+    tokens.forEach(token => {
       if (typeof token !== "string" && token.type === "generic-text") {
         var content = getTextContent(token);
         if (!isBracketsBalanced(content)) {

@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var id = /(?:\B-|\b_|\b)[A-Za-z][\w-]*(?![\w-])/.source;
   var type =
     "(?:" +

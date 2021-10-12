@@ -1,7 +1,7 @@
 // http://avisynth.nl/index.php/The_full_AviSynth_grammar
-(function (Prism) {
+(Prism => {
   function replace(pattern, replacements) {
-    return pattern.replace(/<<(\d+)>>/g, function (m, index) {
+    return pattern.replace(/<<(\d+)>>/g, (m, index) => {
       return replacements[+index];
     });
   }
@@ -10,8 +10,8 @@
     return RegExp(replace(pattern, replacements), flags || "");
   }
 
-  var types = /bool|clip|float|int|string|val/.source;
-  var internals = [
+  const types = /bool|clip|float|int|string|val/.source;
+  const internals = [
     // bools
     /is(?:bool|clip|float|int|string)|defined|(?:(?:internal)?function|var)?exists?/
       .source,
@@ -46,7 +46,7 @@
     // avsplus
     /addautoloaddir|on(?:cpu|cuda)|prefetch|setfiltermtmode/.source,
   ].join("|");
-  var properties = [
+  const properties = [
     // content
     /has(?:audio|video)/.source,
     // resolution
@@ -62,7 +62,7 @@
     /audio(?:bits|channels|duration|length(?:[fs]|hi|lo)?|rate)|isaudio(?:float|int)/
       .source,
   ].join("|");
-  var filters = [
+  const filters = [
     // source
     /avi(?:file)?source|directshowsource|image(?:reader|source|sourceanim)|opendmlsource|segmented(?:avisource|directshowsource)|wavsource/
       .source,
@@ -95,7 +95,7 @@
     /blackness|blankclip|colorbars(?:hd)?|compare|dumpfiltergraph|echo|histogram|info|messageclip|preroll|setgraphanalysis|show(?:framenumber|smpte|time)|showfiveversions|stack(?:horizontal|vertical)|subtitle|tone|version/
       .source,
   ].join("|");
-  var allinternals = [internals, properties, filters].join("|");
+  const allinternals = [internals, properties, filters].join("|");
 
   Prism.languages.avisynth = {
     comment: [

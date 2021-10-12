@@ -1,7 +1,7 @@
 // Thanks to: https://github.com/prometheus-community/monaco-promql/blob/master/src/promql/promql.ts
 // As well as: https://kausal.co/blog/slate-prism-add-new-syntax-promql/
 
-(function (Prism) {
+(Prism => {
   // PromQL Aggregation Operators
   // (https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators)
   var aggregations = [

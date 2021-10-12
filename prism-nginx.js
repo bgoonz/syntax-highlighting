@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var variable =
     /\$(?:\w[a-z\d]*(?:_[^\x00-\x1F\s"'\\()$]*)?|\{[^}\s"'\\]+\})/i;
 

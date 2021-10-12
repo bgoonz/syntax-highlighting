@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.xquery = Prism.languages.extend("markup", {
     "xquery-comment": {
       pattern: /\(:[\s\S]*?:\)/,
@@ -72,7 +72,7 @@
   };
 
   // The following will handle plain text inside tags
-  var stringifyToken = function (token) {
+  var stringifyToken = token => {
     if (typeof token === "string") {
       return token;
     }
@@ -82,7 +82,7 @@
     return token.content.map(stringifyToken).join("");
   };
 
-  var walkTokens = function (tokens) {
+  var walkTokens = tokens => {
     var openedTags = [];
     for (var i = 0; i < tokens.length; i++) {
       var token = tokens[i];
@@ -190,7 +190,7 @@
     }
   };
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     if (env.language !== "xquery") {
       return;
     }

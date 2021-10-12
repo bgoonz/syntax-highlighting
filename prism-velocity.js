@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.velocity = Prism.languages.extend("markup", {});
 
   var velocity = {

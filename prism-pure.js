@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // https://agraef.github.io/pure-docs/pure.html#lexical-matters
 
   Prism.languages.pure = {
@@ -57,7 +57,7 @@
   var inlineLanguages = ["c", { lang: "c++", alias: "cpp" }, "fortran"];
   var inlineLanguageRe = /%< *-\*- *<lang>\d* *-\*-[\s\S]+?%>/.source;
 
-  inlineLanguages.forEach(function (lang) {
+  inlineLanguages.forEach(lang => {
     var alias = lang;
     if (typeof lang !== "string") {
       alias = lang.alias;

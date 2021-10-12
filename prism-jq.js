@@ -1,14 +1,14 @@
-(function (Prism) {
-  var interpolation = /\\\((?:[^()]|\([^()]*\))*\)/.source;
-  var string = RegExp(
+(Prism => {
+  const interpolation = /\\\((?:[^()]|\([^()]*\))*\)/.source;
+  const string = RegExp(
     /(^|[^\\])"(?:[^"\r\n\\]|\\[^\r\n(]|__)*"/.source.replace(
       /__/g,
-      function () {
+      () => {
         return interpolation;
       }
     )
   );
-  var stringInterpolation = {
+  const stringInterpolation = {
     interpolation: {
       pattern: RegExp(/((?:^|[^\\])(?:\\{2})*)/.source + interpolation),
       lookbehind: true,
@@ -23,7 +23,7 @@
     },
   };
 
-  var jq = (Prism.languages.jq = {
+  const jq = (Prism.languages.jq = {
     comment: /#.*/,
     property: {
       pattern: RegExp(string.source + /(?=\s*:(?!:))/.source),
@@ -72,4 +72,4 @@
   });
 
   stringInterpolation.interpolation.inside.content.inside = jq;
-})(Prism);
+})(

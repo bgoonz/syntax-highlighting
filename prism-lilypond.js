@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var schemeExpression =
     /\((?:[^();"#\\]|\\[\s\S]|;.*(?!.)|"(?:[^"\\]|\\.)*"|#(?:\{(?:(?!#\})[\s\S])*#\}|[^{])|<expr>)*\)/
       .source;
@@ -6,7 +6,7 @@
   // For some reason, this can't be 4
   var recursivenessLog2 = 5;
   for (var i = 0; i < recursivenessLog2; i++) {
-    schemeExpression = schemeExpression.replace(/<expr>/g, function () {
+    schemeExpression = schemeExpression.replace(/<expr>/g, () => {
       return schemeExpression;
     });
   }
@@ -18,7 +18,7 @@
       pattern: RegExp(
         /(^|[=\s])#(?:"(?:[^"\\]|\\.)*"|[^\s()"]*(?:[^\s()]|<expr>))/.source.replace(
           /<expr>/g,
-          function () {
+          () => {
             return schemeExpression;
           }
         ),

@@ -1,6 +1,6 @@
-(function (Prism) {
+(Prism => {
   function literal(str) {
-    return function () {
+    return () => {
       return str;
     };
   }
@@ -116,7 +116,7 @@
     punctuation: /[.:,;(){}[\]]/,
   };
 
-  Prism.languages.zig["class-name"].forEach(function (obj) {
+  Prism.languages.zig["class-name"].forEach(obj => {
     if (obj.inside === null) {
       obj.inside = Prism.languages.zig;
     }

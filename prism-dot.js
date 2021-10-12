@@ -1,7 +1,7 @@
 // https://www.graphviz.org/doc/info/lang.html
 
-(function (Prism) {
-  var ID =
+(Prism => {
+  const ID =
     "(?:" +
     [
       // an identifier
@@ -16,7 +16,7 @@
     ].join("|") +
     ")";
 
-  var IDInside = {
+  const IDInside = {
     markup: {
       pattern: /(^<)[\s\S]+(?=>$)/,
       lookbehind: true,
@@ -32,7 +32,7 @@
    */
   function withID(source, flags) {
     return RegExp(
-      source.replace(/<ID>/g, function () {
+      source.replace(/<ID>/g, () => {
         return ID;
       }),
       flags

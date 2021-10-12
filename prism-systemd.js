@@ -1,6 +1,6 @@
 // https://www.freedesktop.org/software/systemd/man/systemd.syntax.html
 
-(function (Prism) {
+(Prism => {
   var comment = {
     pattern: /^[;#].*/m,
     greedy: true,

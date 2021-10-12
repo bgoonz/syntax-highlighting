@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.ejs = {
     delimiter: {
       pattern: /^<%[-_=]?|[-_]?%>$/,
@@ -11,8 +11,8 @@
     },
   };
 
-  Prism.hooks.add("before-tokenize", function (env) {
-    var ejsPattern = /<%(?!%)[\s\S]+?%>/g;
+  Prism.hooks.add("before-tokenize", env => {
+    const ejsPattern = /<%(?!%)[\s\S]+?%>/g;
     Prism.languages["markup-templating"].buildPlaceholders(
       env,
       "ejs",
@@ -20,7 +20,7 @@
     );
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "ejs");
   });
 

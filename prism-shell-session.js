@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // CAREFUL!
   // The following patterns are concatenated, so the group referenced by a back reference is non-obvious!
 
@@ -33,7 +33,7 @@
           // bash command
           /(?:[^\\\r\n \t'"<$]|[ \t](?:(?!#)|#.*$)|\\(?:[^\r]|\r\n?)|\$(?!')|<(?!<)|<<str>>)+/.source.replace(
             /<<str>>/g,
-            function () {
+            () => {
               return strings;
             }
           ),

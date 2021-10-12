@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.kotlin = Prism.languages.extend("clike", {
     keyword: {
       // The lookbehind prevents wrong highlighting of e.g. kotlin.properties.get

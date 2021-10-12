@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var unit = {
     pattern: /(\b\d+)(?:%|[a-z]+)/,
     lookbehind: true,

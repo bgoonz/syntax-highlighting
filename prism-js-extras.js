@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.insertBefore("javascript", "function-variable", {
     "method-variable": {
       pattern: RegExp(
@@ -46,7 +46,7 @@
    */
   function withId(source, flags) {
     return RegExp(
-      source.replace(/<ID>/g, function () {
+      source.replace(/<ID>/g, () => {
         return /(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*/.source;
       }),
       flags
@@ -126,7 +126,7 @@
   });
 
   // add 'maybe-class-name' to tokens which might be a class name
-  var maybeClassNameTokens = [
+  const maybeClassNameTokens = [
     "function",
     "function-variable",
     "method",
@@ -134,9 +134,9 @@
     "property-access",
   ];
 
-  for (var i = 0; i < maybeClassNameTokens.length; i++) {
-    var token = maybeClassNameTokens[i];
-    var value = Prism.languages.javascript[token];
+  for (let i = 0; i < maybeClassNameTokens.length; i++) {
+    const token = maybeClassNameTokens[i];
+    let value = Prism.languages.javascript[token];
 
     // convert regex to object
     if (Prism.util.type(value) === "RegExp") {
@@ -147,9 +147,9 @@
 
     // keep in mind that we don't support arrays
 
-    var inside = value.inside || {};
+    const inside = value.inside || {};
     value.inside = inside;
 
     inside["maybe-class-name"] = /^[A-Z][\s\S]*/;
   }
-})(Prism);
+})(Pr

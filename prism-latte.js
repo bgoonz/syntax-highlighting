@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.latte = {
     comment: /^\{\*[\s\S]*/,
     ld: {
@@ -58,7 +58,7 @@
     markupLatte.tag
   );
 
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     if (env.language !== "latte") {
       return;
     }
@@ -72,7 +72,7 @@
     env.grammar = markupLatte;
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "latte");
   });
 })(Prism);

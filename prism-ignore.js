@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.ignore = {
     // https://git-scm.com/docs/gitignore
     comment: /^#.*/m,

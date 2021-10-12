@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var javascript = Prism.languages.javascript;
 
   var type = /\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})+\}/.source;
@@ -48,7 +48,7 @@
         pattern: RegExp(
           /(@(?:augments|class|extends|interface|memberof!?|template|this|typedef)\s+(?:<TYPE>\s+)?)[A-Z]\w*(?:\.[A-Z]\w*)*/.source.replace(
             /<TYPE>/g,
-            function () {
+            () => {
               return type;
             }
           )

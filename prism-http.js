@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.http = {
     "request-line": {
       pattern:
@@ -54,8 +54,8 @@
   };
 
   // Create a mapping of Content-Type headers to language definitions
-  var langs = Prism.languages;
-  var httpLanguages = {
+  const langs = Prism.languages;
+  const httpLanguages = {
     "application/javascript": langs.javascript,
     "application/json": langs.json || langs.javascript,
     "application/xml": langs.xml,
@@ -65,7 +65,7 @@
   };
 
   // Declare which types can also be suffixes
-  var suffixTypes = {
+  const suffixTypes = {
     "application/json": true,
     "application/xml": true,
   };
@@ -77,19 +77,19 @@
    * @returns {string}
    */
   function getSuffixPattern(contentType) {
-    var suffix = contentType.replace(/^[a-z]+\//, "");
-    var suffixPattern = "\\w+/(?:[\\w.-]+\\+)+" + suffix + "(?![+\\w.-])";
+    const suffix = contentType.replace(/^[a-z]+\//, "");
+    const suffixPattern = "\\w+/(?:[\\w.-]+\\+)+" + suffix + "(?![+\\w.-])";
     return "(?:" + contentType + "|" + suffixPattern + ")";
   }
 
   // Insert each content type parser that has its associated language
   // currently loaded.
-  var options;
-  for (var contentType in httpLanguages) {
+  let options;
+  for (const contentType in httpLanguages) {
     if (httpLanguages[contentType]) {
       options = options || {};
 
-      var pattern = suffixTypes[contentType]
+      const pattern = suffixTypes[contentType]
         ? getSuffixPattern(contentType)
         : contentType;
       options[contentType.replace(/\//g, "-")] = {

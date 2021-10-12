@@ -1,5 +1,5 @@
-(function (Prism) {
-  var string =
+(Prism => {
+  const string =
     /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
 
   Prism.languages.css = {
@@ -68,7 +68,7 @@
 
   Prism.languages.css["atrule"].inside.rest = Prism.languages.css;
 
-  var markup = Prism.languages.markup;
+  const markup = Prism.languages.markup;
   if (markup) {
     markup.tag.addInlined("style", "css");
     markup.tag.addAttribute("style", "css");

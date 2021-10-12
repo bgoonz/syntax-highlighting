@@ -5,7 +5,7 @@
  *
  * Supports PHP 5.3 - 8.0
  */
-(function (Prism) {
+(Prism => {
   var comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
   var constant = [
     {
@@ -336,7 +336,7 @@
     },
   });
 
-  Prism.hooks.add("before-tokenize", function (env) {
+  Prism.hooks.add("before-tokenize", env => {
     if (!/<\?/.test(env.code)) {
       return;
     }
@@ -350,7 +350,7 @@
     );
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "php");
   });
 })(Prism);

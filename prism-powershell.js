@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var powershell = (Prism.languages.powershell = {
     comment: [
       {

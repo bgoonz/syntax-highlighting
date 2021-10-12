@@ -1,11 +1,11 @@
-(function (Prism) {
+(Prism => {
   var key = /(?:[\w-]+|'[^'\n\r]*'|"(?:\\.|[^\\"\r\n])*")/.source;
 
   /**
    * @param {string} pattern
    */
   function insertKey(pattern) {
-    return pattern.replace(/__/g, function () {
+    return pattern.replace(/__/g, () => {
       return key;
     });
   }

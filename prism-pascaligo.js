@@ -1,10 +1,10 @@
-(function (Prism) {
+(Prism => {
   // Pascaligo is a layer 2 smart contract language for the tezos blockchain
 
   var braces = /\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\)/.source;
   var type = /(?:\b\w+(?:<braces>)?|<braces>)/.source.replace(
     /<braces>/g,
-    function () {
+    () => {
       return braces;
     }
   );
@@ -18,7 +18,7 @@
     "class-name": [
       {
         pattern: RegExp(
-          /(\btype\s+\w+\s+is\s+)<type>/.source.replace(/<type>/g, function () {
+          /(\btype\s+\w+\s+is\s+)<type>/.source.replace(/<type>/g, () => {
             return type;
           }),
           "i"
@@ -28,7 +28,7 @@
       },
       {
         pattern: RegExp(
-          /<type>(?=\s+is\b)/.source.replace(/<type>/g, function () {
+          /<type>(?=\s+is\b)/.source.replace(/<type>/g, () => {
             return type;
           }),
           "i"
@@ -37,7 +37,7 @@
       },
       {
         pattern: RegExp(
-          /(:\s*)<type>/.source.replace(/<type>/g, function () {
+          /(:\s*)<type>/.source.replace(/<type>/g, () => {
             return type;
           })
         ),
@@ -76,12 +76,12 @@
     "builtin",
     "operator",
     "punctuation",
-  ].reduce(function (accum, key) {
+  ].reduce((accum, key) => {
     accum[key] = pascaligo[key];
     return accum;
   }, {});
 
-  pascaligo["class-name"].forEach(function (p) {
+  pascaligo["class-name"].forEach(p => {
     p.inside = classNameInside;
   });
 })(Prism);

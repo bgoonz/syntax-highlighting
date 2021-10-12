@@ -1,12 +1,12 @@
-(function (Prism) {
+(Prism => {
   var multilineComment = /\/\*(?:[^*/]|\*(?!\/)|\/(?!\*)|<self>)*\*\//.source;
   for (var i = 0; i < 2; i++) {
     // support 4 levels of nested comments
-    multilineComment = multilineComment.replace(/<self>/g, function () {
+    multilineComment = multilineComment.replace(/<self>/g, () => {
       return multilineComment;
     });
   }
-  multilineComment = multilineComment.replace(/<self>/g, function () {
+  multilineComment = multilineComment.replace(/<self>/g, () => {
     return /[^\s\S]/.source;
   });
 

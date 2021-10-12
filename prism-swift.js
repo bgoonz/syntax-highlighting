@@ -149,6 +149,6 @@ Prism.languages.swift = {
   punctuation: /[{}[\]();,.:\\]/,
 };
 
-Prism.languages.swift["string-literal"].forEach(function (rule) {
+Prism.languages.swift["string-literal"].forEach(rule => {
   rule.inside["interpolation"].inside = Prism.languages.swift;
 });

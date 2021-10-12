@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.flow = Prism.languages.extend("javascript", {});
 
   Prism.languages.insertBefore("flow", "keyword", {

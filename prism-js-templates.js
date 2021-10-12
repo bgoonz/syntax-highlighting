@@ -1,12 +1,12 @@
-(function (Prism) {
-  var templateString = Prism.languages.javascript["template-string"];
+(Prism => {
+  const templateString = Prism.languages.javascript["template-string"];
 
   // see the pattern in prism-javascript.js
-  var templateLiteralPattern = templateString.pattern.source;
-  var interpolationObject = templateString.inside["interpolation"];
-  var interpolationPunctuationObject =
+  const templateLiteralPattern = templateString.pattern.source;
+  const interpolationObject = templateString.inside["interpolation"];
+  const interpolationPunctuationObject =
     interpolationObject.inside["interpolation-punctuation"];
-  var interpolationPattern = interpolationObject.pattern.source;
+  const interpolationPattern = interpolationObject.pattern.source;
 
   /**
    * Creates a new pattern to match a template string with a special tag.
@@ -95,7 +95,7 @@
    * @returns {(string|Token)[]}
    */
   function tokenizeWithHooks(code, grammar, language) {
-    var env = {
+    const env = {
       code: code,
       grammar: grammar,
       language: language,
@@ -113,11 +113,11 @@
    * @returns {Token}
    */
   function tokenizeInterpolationExpression(expression) {
-    var tempGrammar = {};
+    const tempGrammar = {};
     tempGrammar["interpolation-punctuation"] = interpolationPunctuationObject;
 
     /** @type {Array} */
-    var tokens = Prism.tokenize(expression, tempGrammar);
+    const tokens = Prism.tokenize(expression, tempGrammar);
     if (tokens.length === 3) {
       /**
        * The token array will look like this
@@ -128,7 +128,7 @@
        * ]
        */
 
-      var args = [1, 1];
+      const args = [1, 1];
       args.push.apply(
         args,
         tokenizeWithHooks(tokens[1], Prism.languages.javascript, "javascript")
@@ -167,7 +167,7 @@
 
     // because they might be escaped, we need a lookbehind, so we use Prism
     /** @type {(Token|string)[]} */
-    var _tokens = Prism.tokenize(code, {
+    const _tokens = Prism.tokenize(code, {
       interpolation: {
         pattern: RegExp(interpolationPattern),
         lookbehind: true,
@@ -175,17 +175,17 @@
     });
 
     // replace all interpolations with a placeholder which is not in the code already
-    var placeholderCounter = 0;
+    let placeholderCounter = 0;
     /** @type {Object<string, string>} */
-    var placeholderMap = {};
-    var embeddedCode = _tokens
-      .map(function (token) {
+    const placeholderMap = {};
+    const embeddedCode = _tokens
+      .map(token => {
         if (typeof token === "string") {
           return token;
         } else {
-          var interpolationExpression = token.content;
+          const interpolationExpression = token.content;
 
-          var placeholder;
+          let placeholder;
           while (
             code.indexOf(
               (placeholder = getPlaceholder(placeholderCounter++, language))
@@ -201,11 +201,11 @@
 
     // 2. Tokenize the embedded code
 
-    var embeddedTokens = tokenizeWithHooks(embeddedCode, grammar, language);
+    const embeddedTokens = tokenizeWithHooks(embeddedCode, grammar, language);
 
     // 3. Re-insert the interpolation
 
-    var placeholders = Object.keys(placeholderMap);
+    const placeholders = Object.keys(placeholderMap);
     placeholderCounter = 0;
 
     /**
@@ -214,37 +214,37 @@
      * @returns {void}
      */
     function walkTokens(tokens) {
-      for (var i = 0; i < tokens.length; i++) {
+      for (let i = 0; i < tokens.length; i++) {
         if (placeholderCounter >= placeholders.length) {
           return;
         }
 
-        var token = tokens[i];
+        const token = tokens[i];
 
         if (typeof token === "string" || typeof token.content === "string") {
-          var placeholder = placeholders[placeholderCounter];
-          var s =
+          const placeholder = placeholders[placeholderCounter];
+          const s =
             typeof token === "string"
               ? token
               : /** @type {string} */ (token.content);
 
-          var index = s.indexOf(placeholder);
+          const index = s.indexOf(placeholder);
           if (index !== -1) {
             ++placeholderCounter;
 
-            var before = s.substring(0, index);
-            var middle = tokenizeInterpolationExpression(
+            const before = s.substring(0, index);
+            const middle = tokenizeInterpolationExpression(
               placeholderMap[placeholder]
             );
-            var after = s.substring(index + placeholder.length);
+            const after = s.substring(index + placeholder.length);
 
-            var replacement = [];
+            const replacement = [];
             if (before) {
               replacement.push(before);
             }
             replacement.push(middle);
             if (after) {
-              var afterTokens = [after];
+              const afterTokens = [after];
               walkTokens(afterTokens);
               replacement.push.apply(replacement, afterTokens);
             }
@@ -257,7 +257,7 @@
             }
           }
         } else {
-          var content = token.content;
+          const content = token.content;
           if (Array.isArray(content)) {
             walkTokens(content);
           } else {
@@ -281,7 +281,7 @@
    *
    * JS templating isn't active for only JavaScript but also related languages like TypeScript, JSX, and TSX.
    */
-  var supportedLanguages = {
+  const supportedLanguages = {
     javascript: true,
     js: true,
     typescript: true,
@@ -289,7 +289,7 @@
     jsx: true,
     tsx: true,
   };
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     if (!(env.language in supportedLanguages)) {
       return;
     }
@@ -301,14 +301,14 @@
      * @returns {void}
      */
     function findTemplateStrings(tokens) {
-      for (var i = 0, l = tokens.length; i < l; i++) {
-        var token = tokens[i];
+      for (let i = 0, l = tokens.length; i < l; i++) {
+        const token = tokens[i];
 
         if (typeof token === "string") {
           continue;
         }
 
-        var content = token.content;
+        const content = token.content;
         if (!Array.isArray(content)) {
           if (typeof content !== "string") {
             findTemplateStrings([content]);
@@ -332,19 +332,19 @@
            * ]]
            */
 
-          var embedded = content[1];
+          const embedded = content[1];
           if (
             content.length === 3 &&
             typeof embedded !== "string" &&
             embedded.type === "embedded-code"
           ) {
             // get string content
-            var code = stringContent(embedded);
+            const code = stringContent(embedded);
 
-            var alias = embedded.alias;
-            var language = Array.isArray(alias) ? alias[0] : alias;
+            const alias = embedded.alias;
+            const language = Array.isArray(alias) ? alias[0] : alias;
 
-            var grammar = Prism.languages[language];
+            const grammar = Prism.languages[language];
             if (!grammar) {
               // the embedded language isn't registered.
               continue;
@@ -372,8 +372,4 @@
       return value;
     } else if (Array.isArray(value)) {
       return value.map(stringContent).join("");
-    } else {
-      return stringContent(value.content);
-    }
-  }
-})(Prism);
+    } else 

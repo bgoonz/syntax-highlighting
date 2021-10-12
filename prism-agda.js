@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.agda = {
     comment: /\{-[\s\S]*?(?:-\}|$)|--.*/,
     string: {

@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var specialEscape = {
     pattern: /\\[\\(){}[\]^$+*?|.]/,
     alias: "escape",

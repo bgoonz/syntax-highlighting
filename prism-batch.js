@@ -1,14 +1,14 @@
-(function (Prism) {
-  var variable = /%%?[~:\w]+%?|!\S+!/;
-  var parameter = {
+(Prism => {
+  const variable = /%%?[~:\w]+%?|!\S+!/;
+  const parameter = {
     pattern: /\/[a-z?]+(?=[ :]|$):?|-[a-z]\b|--[a-z-]+\b/im,
     alias: "attr-name",
     inside: {
       punctuation: /:/,
     },
   };
-  var string = /"(?:[\\"]"|[^"])*"(?!")/;
-  var number = /(?:\b|-)\d+\b/;
+  const string = /"(?:[\\"]"|[^"])*"(?!")/;
+  const number = /(?:\b|-)\d+\b/;
 
   Prism.languages.batch = {
     comment: [

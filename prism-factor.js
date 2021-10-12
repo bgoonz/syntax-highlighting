@@ -1,13 +1,13 @@
-(function (Prism) {
-  var comment_inside = {
+(Prism => {
+  const comment_inside = {
     function:
       /\b(?:BUGS?|FIX(?:MES?)?|NOTES?|TODOS?|XX+|HACKS?|WARN(?:ING)?|\?{2,}|!{2,})\b/,
   };
-  var string_inside = {
+  const string_inside = {
     number: /\\[^\s']|%\w/,
   };
 
-  var factor = {
+  const factor = {
     comment: [
       {
         // ! single-line exclamation point comments with whitespace after/around the !
@@ -347,15 +347,15 @@
     },
   };
 
-  var escape = function (str) {
+  const escape = str => {
     return (str + "").replace(/([.?*+\^$\[\]\\(){}|\-])/g, "\\$1");
   };
 
-  var arrToWordsRegExp = function (arr) {
+  const arrToWordsRegExp = arr => {
     return new RegExp("(^|\\s)(?:" + arr.map(escape).join("|") + ")(?=\\s|$)");
   };
 
-  var builtins = {
+  const builtins = {
     "kernel-builtin": [
       "or",
       "2nipd",
@@ -729,11 +729,11 @@
     // that's all for now
   };
 
-  Object.keys(builtins).forEach(function (k) {
+  Object.keys(builtins).forEach(k => {
     factor[k].pattern = arrToWordsRegExp(builtins[k]);
   });
 
-  var combinators = [
+  const combinators = [
     // kernel
     "2bi",
     "while",

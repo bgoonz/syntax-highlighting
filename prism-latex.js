@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var funcPattern = /\\(?:[^a-z()[\]]|[a-z*]+)/i;
   var insideEqu = {
     "equation-command": {

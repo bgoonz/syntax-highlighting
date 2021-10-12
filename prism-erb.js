@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.erb = Prism.languages.extend("ruby", {});
   Prism.languages.insertBefore("erb", "comment", {
     delimiter: {
@@ -7,8 +7,8 @@
     },
   });
 
-  Prism.hooks.add("before-tokenize", function (env) {
-    var erbPattern =
+  Prism.hooks.add("before-tokenize", env => {
+    const erbPattern =
       /<%=?(?:[^\r\n]|[\r\n](?!=begin)|[\r\n]=begin\s(?:[^\r\n]|[\r\n](?!=end))*[\r\n]=end)+?%>/gm;
     Prism.languages["markup-templating"].buildPlaceholders(
       env,
@@ -17,7 +17,7 @@
     );
   });
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     Prism.languages["markup-templating"].tokenizePlaceholders(env, "erb");
   });
 })(Prism);

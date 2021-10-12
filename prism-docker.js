@@ -1,32 +1,32 @@
-(function (Prism) {
+(Prism => {
   // Many of the following regexes will contain negated lookaheads like `[ \t]+(?![ \t])`. This is a trick to ensure
   // that quantifiers behave *atomically*. Atomic quantifiers are necessary to prevent exponential backtracking.
 
-  var spaceAfterBackSlash =
+  const spaceAfterBackSlash =
     /\\[\r\n](?:\s|\\[\r\n]|#.*(?!.))*(?![\s#]|\\[\r\n])/.source;
   // At least one space, comment, or line break
-  var space = /(?:[ \t]+(?![ \t])(?:<SP_BS>)?|<SP_BS>)/.source.replace(
+  const space = /(?:[ \t]+(?![ \t])(?:<SP_BS>)?|<SP_BS>)/.source.replace(
     /<SP_BS>/g,
-    function () {
+    () => {
       return spaceAfterBackSlash;
     }
   );
 
-  var string =
+  const string =
     /"(?:[^"\\\r\n]|\\(?:\r\n|[\s\S]))*"|'(?:[^'\\\r\n]|\\(?:\r\n|[\s\S]))*'/
       .source;
-  var option = /--[\w-]+=(?:<STR>|(?!["'])(?:[^\s\\]|\\.)+)/.source.replace(
+  const option = /--[\w-]+=(?:<STR>|(?!["'])(?:[^\s\\]|\\.)+)/.source.replace(
     /<STR>/g,
-    function () {
+    () => {
       return string;
     }
   );
 
-  var stringRule = {
+  const stringRule = {
     pattern: RegExp(string),
     greedy: true,
   };
-  var commentRule = {
+  const commentRule = {
     pattern: /(^[ \t]*)#.*/m,
     lookbehind: true,
     greedy: true,
@@ -39,10 +39,10 @@
    */
   function re(source, flags) {
     source = source
-      .replace(/<OPT>/g, function () {
+      .replace(/<OPT>/g, () => {
         return option;
       })
-      .replace(/<SP>/g, function () {
+      .replace(/<SP>/g, () => {
         return space;
       });
 

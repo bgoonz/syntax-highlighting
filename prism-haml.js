@@ -5,7 +5,7 @@
 			code |
 */
 
-(function (Prism) {
+(Prism => {
   Prism.languages.haml = {
     // Multiline stuff should appear before the rest
 
@@ -107,11 +107,11 @@
     },
   };
 
-  var filter_pattern =
+  const filter_pattern =
     "((?:^|\\r?\\n|\\r)([\\t ]*)):{{filter_name}}(?:(?:\\r?\\n|\\r)(?:\\2[\\t ].+|\\s*?(?=\\r?\\n|\\r)))+";
 
   // Non exhaustive list of available filters and associated languages
-  var filters = [
+  const filters = [
     "css",
     { filter: "coffee", language: "coffeescript" },
     "erb",
@@ -122,9 +122,9 @@
     "scss",
     "textile",
   ];
-  var all_filters = {};
-  for (var i = 0, l = filters.length; i < l; i++) {
-    var filter = filters[i];
+  const all_filters = {};
+  for (let i = 0, l = filters.length; i < l; i++) {
+    let filter = filters[i];
     filter =
       typeof filter === "string"
         ? { filter: filter, language: filter }
@@ -132,7 +132,7 @@
     if (Prism.languages[filter.language]) {
       all_filters["filter-" + filter.filter] = {
         pattern: RegExp(
-          filter_pattern.replace("{{filter_name}}", function () {
+          filter_pattern.replace("{{filter_name}}", () => {
             return filter.filter;
           })
         ),

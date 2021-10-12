@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var javascript = Prism.util.clone(Prism.languages.javascript);
 
   var space = /(?:\s|\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))\*\/)/.source;
@@ -11,13 +11,13 @@
    */
   function re(source, flags) {
     source = source
-      .replace(/<S>/g, function () {
+      .replace(/<S>/g, () => {
         return space;
       })
-      .replace(/<BRACES>/g, function () {
+      .replace(/<BRACES>/g, () => {
         return braces;
       })
-      .replace(/<SPREAD>/g, function () {
+      .replace(/<SPREAD>/g, () => {
         return spread;
       });
     return RegExp(source, flags);
@@ -71,7 +71,7 @@
   );
 
   // The following will handle plain text inside tags
-  var stringifyToken = function (token) {
+  var stringifyToken = token => {
     if (!token) {
       return "";
     }
@@ -84,7 +84,7 @@
     return token.content.map(stringifyToken).join("");
   };
 
-  var walkTokens = function (tokens) {
+  var walkTokens = tokens => {
     var openedTags = [];
     for (var i = 0; i < tokens.length; i++) {
       var token = tokens[i];
@@ -176,7 +176,7 @@
     }
   };
 
-  Prism.hooks.add("after-tokenize", function (env) {
+  Prism.hooks.add("after-tokenize", env => {
     if (env.language !== "jsx" && env.language !== "tsx") {
       return;
     }

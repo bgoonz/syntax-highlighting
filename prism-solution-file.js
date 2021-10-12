@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   var guid = {
     // https://en.wikipedia.org/wiki/Universally_unique_identifier#Format
     pattern: /\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}/i,

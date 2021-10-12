@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   // https://yaml.org/spec/1.2/spec.html#c-ns-anchor-property
   // https://yaml.org/spec/1.2/spec.html#c-ns-alias-node
   var anchorOrAlias = /[*&][^\s[\]{},]+/;
@@ -22,7 +22,7 @@
   var plainKey =
     /(?:[^\s\x00-\x08\x0e-\x1f!"#%&'*,\-:>?@[\]`{|}\x7f-\x84\x86-\x9f\ud800-\udfff\ufffe\uffff]|[?:-]<PLAIN>)(?:[ \t]*(?:(?![#:])<PLAIN>|:<PLAIN>))*/.source.replace(
       /<PLAIN>/g,
-      function () {
+      () => {
         return /[^\s\x00-\x08\x0e-\x1f,[\]{}\x7f-\x84\x86-\x9f\ud800-\udfff\ufffe\uffff]/
           .source;
       }
@@ -39,10 +39,10 @@
     flags = (flags || "").replace(/m/g, "") + "m"; // add m flag
     var pattern =
       /([:\-,[{]\s*(?:\s<<prop>>[ \t]+)?)(?:<<value>>)(?=[ \t]*(?:$|,|\]|\}|(?:[\r\n]\s*)?#))/.source
-        .replace(/<<prop>>/g, function () {
+        .replace(/<<prop>>/g, () => {
           return properties;
         })
-        .replace(/<<value>>/g, function () {
+        .replace(/<<value>>/g, () => {
           return value;
         });
     return RegExp(pattern, flags);
@@ -53,7 +53,7 @@
       pattern: RegExp(
         /([\-:]\s*(?:\s<<prop>>[ \t]+)?[|>])[ \t]*(?:((?:\r?\n|\r)[ \t]+)\S[^\r\n]*(?:\2[^\r\n]+)*)/.source.replace(
           /<<prop>>/g,
-          function () {
+          () => {
             return properties;
           }
         )
@@ -65,10 +65,10 @@
     key: {
       pattern: RegExp(
         /((?:^|[:\-,[{\r\n?])[ \t]*(?:<<prop>>[ \t]+)?)<<key>>(?=\s*:\s)/.source
-          .replace(/<<prop>>/g, function () {
+          .replace(/<<prop>>/g, () => {
             return properties;
           })
-          .replace(/<<key>>/g, function () {
+          .replace(/<<key>>/g, () => {
             return "(?:" + plainKey + "|" + string + ")";
           })
       ),

@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.puppet = {
     heredoc: [
       // Matches the content of a quoted heredoc string (subject to interpolation)

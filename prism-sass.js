@@ -1,4 +1,4 @@
-(function (Prism) {
+(Prism => {
   Prism.languages.sass = Prism.languages.extend("css", {
     // Sass comments don't need to be closed, only indented
     comment: {
