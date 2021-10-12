@@ -1,7 +1,7 @@
 (Prism => {
-  var expressionDef = /\{[^\r\n\[\]{}]*\}/;
+  const expressionDef = /\{[^\r\n\[\]{}]*\}/;
 
-  var params = {
+  const params = {
     "quoted-string": {
       pattern: /"(?:[^"\\]|\\.)*"/,
       alias: "operator",
@@ -119,10 +119,10 @@
    */
   Prism.hooks.add("after-tokenize", env => {
     /** @type {(Token | string)[]} */
-    var tokens = env.tokens;
+    const tokens = env.tokens;
     tokens.forEach(token => {
       if (typeof token !== "string" && token.type === "generic-text") {
-        var content = getTextContent(token);
+        const content = getTextContent(token);
         if (!isBracketsBalanced(content)) {
           token.type = "bad-line";
           token.content = content;
@@ -136,11 +136,11 @@
    * @returns {boolean}
    */
   function isBracketsBalanced(input) {
-    var brackets = "[]{}";
-    var stack = [];
-    for (var i = 0; i < input.length; i++) {
-      var bracket = input[i];
-      var bracketsIndex = brackets.indexOf(bracket);
+    const brackets = "[]{}";
+    const stack = [];
+
+    for (const bracket of input) {
+      const bracketsIndex = brackets.indexOf(bracket);
       if (bracketsIndex !== -1) {
         if (bracketsIndex % 2 === 0) {
           stack.push(bracketsIndex + 1);
@@ -149,6 +149,7 @@
         }
       }
     }
+
     return stack.length === 0;
   }
 

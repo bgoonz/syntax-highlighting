@@ -1,7 +1,7 @@
 (Prism => {
   Prism.languages.velocity = Prism.languages.extend("markup", {});
 
-  var velocity = {
+  const velocity = {
     variable: {
       pattern:
         /(^|[^\\](?:\\\\)*)\$!?(?:[a-z][\w-]*(?:\([^)]*\))?(?:\.[a-z][\w-]*(?:\([^)]*\))?|\[[^\]]+\])*|\{[^}]+\})/i,

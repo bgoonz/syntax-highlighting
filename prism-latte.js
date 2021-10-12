@@ -24,7 +24,7 @@
     },
   };
 
-  var markupLatte = Prism.languages.extend("markup", {});
+  const markupLatte = Prism.languages.extend("markup", {});
   Prism.languages.insertBefore(
     "inside",
     "attr-value",
@@ -62,7 +62,7 @@
     if (env.language !== "latte") {
       return;
     }
-    var lattePattern =
+    const lattePattern =
       /\{\*[\s\S]*?\*\}|\{[^'"\s{}*](?:[^"'/{}]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|\/\*(?:[^*]|\*(?!\/))*\*\/)*\}/g;
     Prism.languages["markup-templating"].buildPlaceholders(
       env,

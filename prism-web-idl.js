@@ -1,6 +1,6 @@
 (Prism => {
-  var id = /(?:\B-|\b_|\b)[A-Za-z][\w-]*(?![\w-])/.source;
-  var type =
+  const id = /(?:\B-|\b_|\b)[A-Za-z][\w-]*(?![\w-])/.source;
+  const type =
     "(?:" +
     /\b(?:unsigned\s+)?long\s+long(?![\w-])/.source +
     "|" +
@@ -12,7 +12,7 @@
     ")" +
     /(?:\s*\?)?/.source;
 
-  var typeInside = {};
+  const typeInside = {};
 
   Prism.languages["web-idl"] = {
     comment: {
@@ -110,7 +110,7 @@
     punctuation: /[(){}[\].,;]/,
   };
 
-  for (var key in Prism.languages["web-idl"]) {
+  for (const key in Prism.languages["web-idl"]) {
     if (key !== "class-name") {
       typeInside[key] = Prism.languages["web-idl"][key];
     }

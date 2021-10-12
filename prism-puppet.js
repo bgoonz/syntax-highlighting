@@ -107,7 +107,7 @@
     punctuation: /[\[\]{}().,;]|:+/,
   };
 
-  var interpolation = [
+  const interpolation = [
     {
       // Allow for one nested level of braces inside interpolation
       pattern:

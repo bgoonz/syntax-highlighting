@@ -1,12 +1,12 @@
 // https://www.freedesktop.org/software/systemd/man/systemd.syntax.html
 
 (Prism => {
-  var comment = {
+  const comment = {
     pattern: /^[;#].*/m,
     greedy: true,
   };
 
-  var quotesSource = /"(?:[^\r\n"\\]|\\(?:[^\r]|\r\n?))*"(?!\S)/.source;
+  const quotesSource = /"(?:[^\r\n"\\]|\\(?:[^\r]|\r\n?))*"(?!\S)/.source;
 
   Prism.languages.systemd = {
     comment: comment,

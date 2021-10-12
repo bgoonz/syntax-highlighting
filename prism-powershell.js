@@ -1,5 +1,5 @@
 (Prism => {
-  var powershell = (Prism.languages.powershell = {
+  const powershell = (Prism.languages.powershell = {
     comment: [
       {
         pattern: /(^|[^`])<#[\s\S]*?#>/,
@@ -53,7 +53,7 @@
   });
 
   // Variable interpolation inside strings, and nested expressions
-  var stringInside = powershell.string[0].inside;
+  const stringInside = powershell.string[0].inside;
   stringInside.boolean = powershell.boolean;
   stringInside.variable = powershell.variable;
   stringInside.function.inside = powershell;

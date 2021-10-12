@@ -1,5 +1,5 @@
 (Prism => {
-  var operators = [
+  let operators = [
     // query and projection
     "$eq",
     "$gt",
@@ -237,7 +237,7 @@
     "$natural",
   ];
 
-  var builtinFunctions = [
+  const builtinFunctions = [
     "ObjectId",
     "Code",
     "BinData",
@@ -256,7 +256,7 @@
     return operator.replace("$", "\\$");
   });
 
-  var operatorsSource = "(?:" + operators.join("|") + ")\\b";
+  const operatorsSource = "(?:" + operators.join("|") + ")\\b";
 
   Prism.languages.mongodb = Prism.languages.extend("javascript", {});
 

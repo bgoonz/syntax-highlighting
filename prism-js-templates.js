@@ -129,12 +129,9 @@
        */
 
       const args = [1, 1];
-      args.push.apply(
-        args,
-        tokenizeWithHooks(tokens[1], Prism.languages.javascript, "javascript")
-      );
+      args.push(...tokenizeWithHooks(tokens[1], Prism.languages.javascript, "javascript"));
 
-      tokens.splice.apply(tokens, args);
+      tokens.splice(...args);
     }
 
     return new Prism.Token(
@@ -246,11 +243,11 @@
             if (after) {
               const afterTokens = [after];
               walkTokens(afterTokens);
-              replacement.push.apply(replacement, afterTokens);
+              replacement.push(...afterTokens);
             }
 
             if (typeof token === "string") {
-              tokens.splice.apply(tokens, [i, 1].concat(replacement));
+              tokens.splice(...[i, 1].concat(replacement));
               i += replacement.length - 1;
             } else {
               token.content = replacement;
@@ -372,4 +369,8 @@
       return value;
     } else if (Array.isArray(value)) {
       return value.map(stringContent).join("");
-    } else 
+    } else {
+      return stringContent(value.content);
+    }
+  }
+})(Prism);

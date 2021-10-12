@@ -54,17 +54,17 @@
     punctuation: /[(){}\[\];,|]/,
   };
 
-  var inlineLanguages = ["c", { lang: "c++", alias: "cpp" }, "fortran"];
-  var inlineLanguageRe = /%< *-\*- *<lang>\d* *-\*-[\s\S]+?%>/.source;
+  const inlineLanguages = ["c", { lang: "c++", alias: "cpp" }, "fortran"];
+  const inlineLanguageRe = /%< *-\*- *<lang>\d* *-\*-[\s\S]+?%>/.source;
 
   inlineLanguages.forEach(lang => {
-    var alias = lang;
+    let alias = lang;
     if (typeof lang !== "string") {
       alias = lang.alias;
       lang = lang.lang;
     }
     if (Prism.languages[alias]) {
-      var o = {};
+      const o = {};
       o["inline-lang-" + alias] = {
         pattern: RegExp(
           inlineLanguageRe.replace(

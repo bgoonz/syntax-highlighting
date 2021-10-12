@@ -25,19 +25,19 @@
 
   // Symbol name. See https://www.gnu.org/software/emacs/manual/html_node/elisp/Symbol-Type.html
   // & and : are excluded as they are usually used for special purposes
-  var symbol = /(?!\d)[-+*/~!@$%^=<>{}\w]+/.source;
+  const symbol = /(?!\d)[-+*/~!@$%^=<>{}\w]+/.source;
   // symbol starting with & used in function arguments
-  var marker = "&" + symbol;
+  const marker = "&" + symbol;
   // Open parenthesis for look-behind
-  var par = "(\\()";
-  var endpar = "(?=\\))";
+  const par = "(\\()";
+  const endpar = "(?=\\))";
   // End the pattern with look-ahead space
-  var space = "(?=\\s)";
-  var nestedPar =
+  const space = "(?=\\s)";
+  const nestedPar =
     /(?:[^()]|\((?:[^()]|\((?:[^()]|\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\))*\))*\))*/
       .source;
 
-  var language = {
+  const language = {
     // Three or four semicolons are considered a heading.
     // See https://www.gnu.org/software/emacs/manual/html_node/elisp/Comment-Tips.html
     heading: {
@@ -164,7 +164,7 @@
     ],
   };
 
-  var arg = {
+  const arg = {
     "lisp-marker": RegExp(marker),
     varform: {
       pattern: RegExp(
@@ -180,9 +180,9 @@
     rest: language,
   };
 
-  var forms = "\\S+(?:\\s+\\S+)*";
+  const forms = "\\S+(?:\\s+\\S+)*";
 
-  var arglist = {
+  const arglist = {
     pattern: RegExp(par + nestedPar + endpar),
     lookbehind: true,
     inside: {

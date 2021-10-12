@@ -1,15 +1,15 @@
 (Prism => {
-  var unit = {
+  const unit = {
     pattern: /(\b\d+)(?:%|[a-z]+)/,
     lookbehind: true,
   };
   // 123 -123 .123 -.123 12.3 -12.3
-  var number = {
+  const number = {
     pattern: /(^|[^\w.-])-?(?:\d+(?:\.\d+)?|\.\d+)/,
     lookbehind: true,
   };
 
-  var inside = {
+  const inside = {
     comment: {
       pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|\/\/.*)/,
       lookbehind: true,

@@ -21,8 +21,8 @@
   });
   delete Prism.languages.sass.atrule;
 
-  var variable = /\$[-\w]+|#\{\$[-\w]+\}/;
-  var operator = [
+  const variable = /\$[-\w]+|#\{\$[-\w]+\}/;
+  const operator = [
     /[+*\/%]|[=!]=|<=?|>=?|\b(?:and|not|or)\b/,
     {
       pattern: /(\s)-(?=\s)/,

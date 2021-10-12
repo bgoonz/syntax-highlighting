@@ -54,10 +54,10 @@
 
   // Tokenize all inline Smarty expressions
   Prism.hooks.add("before-tokenize", env => {
-    var smartyPattern = /\{\*[\s\S]*?\*\}|\{[\s\S]+?\}/g;
-    var smartyLitteralStart = "{literal}";
-    var smartyLitteralEnd = "{/literal}";
-    var smartyLitteralMode = false;
+    const smartyPattern = /\{\*[\s\S]*?\*\}|\{[\s\S]+?\}/g;
+    const smartyLitteralStart = "{literal}";
+    const smartyLitteralEnd = "{/literal}";
+    let smartyLitteralMode = false;
 
     Prism.languages["markup-templating"].buildPlaceholders(
       env,

@@ -1,6 +1,6 @@
 (Prism => {
-  var funcPattern = /\\(?:[^a-z()[\]]|[a-z*]+)/i;
-  var insideEqu = {
+  const funcPattern = /\\(?:[^a-z()[\]]|[a-z*]+)/i;
+  const insideEqu = {
     "equation-command": {
       pattern: funcPattern,
       alias: "regex",

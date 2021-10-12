@@ -149,12 +149,12 @@
     punctuation: /[.\-!=|]+/,
   };
 
-  var filter_pattern =
+  const filter_pattern =
     /(^([\t ]*)):<filter_name>(?:(?:\r?\n|\r(?!\n))(?:\2[\t ].+|\s*?(?=\r?\n|\r)))+/
       .source;
 
   // Non exhaustive list of available filters and associated languages
-  var filters = [
+  const filters = [
     { filter: "atpl", language: "twig" },
     { filter: "coffee", language: "coffeescript" },
     "ejs",
@@ -165,9 +165,9 @@
     { filter: "sass", language: "scss" },
     "stylus",
   ];
-  var all_filters = {};
-  for (var i = 0, l = filters.length; i < l; i++) {
-    var filter = filters[i];
+  const all_filters = {};
+  for (let i = 0, l = filters.length; i < l; i++) {
+    let filter = filters[i];
     filter =
       typeof filter === "string"
         ? { filter: filter, language: filter }

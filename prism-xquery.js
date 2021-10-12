@@ -72,7 +72,7 @@
   };
 
   // The following will handle plain text inside tags
-  var stringifyToken = token => {
+  const stringifyToken = token => {
     if (typeof token === "string") {
       return token;
     }
@@ -82,11 +82,11 @@
     return token.content.map(stringifyToken).join("");
   };
 
-  var walkTokens = tokens => {
-    var openedTags = [];
-    for (var i = 0; i < tokens.length; i++) {
-      var token = tokens[i];
-      var notTagNorBrace = false;
+  const walkTokens = tokens => {
+    const openedTags = [];
+
+    tokens.forEach((token, i) => {
+      let notTagNorBrace = false;
 
       if (typeof token !== "string") {
         if (
@@ -150,7 +150,7 @@
         ) {
           // Here we are inside a tag, and not inside an XQuery expression.
           // That's plain text: drop any tokens matched.
-          var plainText = stringifyToken(token);
+          let plainText = stringifyToken(token);
 
           // And merge text with adjacent text
           if (
@@ -187,7 +187,7 @@
       if (token.content && typeof token.content !== "string") {
         walkTokens(token.content);
       }
-    }
+    });
   };
 
   Prism.hooks.add("after-tokenize", env => {

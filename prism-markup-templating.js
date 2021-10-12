@@ -28,14 +28,14 @@
           return;
         }
 
-        var tokenStack = (env.tokenStack = []);
+        const tokenStack = (env.tokenStack = []);
 
         env.code = env.code.replace(placeholderPattern, match => {
           if (typeof replaceFilter === "function" && !replaceFilter(match)) {
             return match;
           }
-          var i = tokenStack.length;
-          var placeholder;
+          let i = tokenStack.length;
+          let placeholder;
 
           // Check for existing strings
           while (
@@ -69,50 +69,50 @@
         // Switch the grammar back
         env.grammar = Prism.languages[language];
 
-        var j = 0;
-        var keys = Object.keys(env.tokenStack);
+        let j = 0;
+        const keys = Object.keys(env.tokenStack);
 
         function walkTokens(tokens) {
-          for (var i = 0; i < tokens.length; i++) {
+          for (let i = 0; i < tokens.length; i++) {
             // all placeholders are replaced already
             if (j >= keys.length) {
               break;
             }
 
-            var token = tokens[i];
+            const token = tokens[i];
             if (
               typeof token === "string" ||
               (token.content && typeof token.content === "string")
             ) {
-              var k = keys[j];
-              var t = env.tokenStack[k];
-              var s = typeof token === "string" ? token : token.content;
-              var placeholder = getPlaceholder(language, k);
+              const k = keys[j];
+              const t = env.tokenStack[k];
+              const s = typeof token === "string" ? token : token.content;
+              const placeholder = getPlaceholder(language, k);
 
-              var index = s.indexOf(placeholder);
+              const index = s.indexOf(placeholder);
               if (index > -1) {
                 ++j;
 
-                var before = s.substring(0, index);
-                var middle = new Prism.Token(
+                const before = s.substring(0, index);
+                const middle = new Prism.Token(
                   language,
                   Prism.tokenize(t, env.grammar),
                   "language-" + language,
                   t
                 );
-                var after = s.substring(index + placeholder.length);
+                const after = s.substring(index + placeholder.length);
 
-                var replacement = [];
+                const replacement = [];
                 if (before) {
-                  replacement.push.apply(replacement, walkTokens([before]));
+                  replacement.push(...walkTokens([before]));
                 }
                 replacement.push(middle);
                 if (after) {
-                  replacement.push.apply(replacement, walkTokens([after]));
+                  replacement.push(...walkTokens([after]));
                 }
 
                 if (typeof token === "string") {
-                  tokens.splice.apply(tokens, [i, 1].concat(replacement));
+                  tokens.splice(...[i, 1].concat(replacement));
                 } else {
                   token.content = replacement;
                 }

@@ -1,6 +1,6 @@
 (Prism => {
   // Allow only one line break
-  var inner = /(?:\\.|[^\\\n\r]|(?:\n|\r\n?)(?![\r\n]))/.source;
+  const inner = /(?:\\.|[^\\\n\r]|(?:\n|\r\n?)(?![\r\n]))/.source;
 
   /**
    * This function is intended for the creation of the bold or italic pattern.
@@ -19,15 +19,15 @@
     return RegExp(/((?:^|[^\\])(?:\\{2})*)/.source + "(?:" + pattern + ")");
   }
 
-  var tableCell = /(?:\\.|``(?:[^`\r\n]|`(?!`))+``|`[^`\r\n]+`|[^\\|\r\n`])+/
+  const tableCell = /(?:\\.|``(?:[^`\r\n]|`(?!`))+``|`[^`\r\n]+`|[^\\|\r\n`])+/
     .source;
-  var tableRow = /\|?__(?:\|__)+\|?(?:(?:\n|\r\n?)|(?![\s\S]))/.source.replace(
+  const tableRow = /\|?__(?:\|__)+\|?(?:(?:\n|\r\n?)|(?![\s\S]))/.source.replace(
     /__/g,
     () => {
       return tableCell;
     }
   );
-  var tableLine =
+  const tableLine =
     /\|?[ \t]*:?-{3,}:?[ \t]*(?:\|[ \t]*:?-{3,}:?[ \t]*)+\|?(?:\n|\r\n?)/
       .source;
 
@@ -293,8 +293,8 @@
         return;
       }
 
-      for (var i = 0, l = tokens.length; i < l; i++) {
-        var token = tokens[i];
+      for (let i = 0, l = tokens.length; i < l; i++) {
+        const token = tokens[i];
 
         if (token.type !== "code") {
           walkTokens(token.content);
@@ -315,8 +315,8 @@
          * ];
          */
 
-        var codeLang = token.content[1];
-        var codeBlock = token.content[3];
+        const codeLang = token.content[1];
+        const codeBlock = token.content[3];
 
         if (
           codeLang &&
@@ -328,12 +328,12 @@
           // this might be a language that Prism does not support
 
           // do some replacements to support C++, C#, and F#
-          var lang = codeLang.content
+          let lang = codeLang.content
             .replace(/\b#/g, "sharp")
             .replace(/\b\+\+/g, "pp");
           // only use the first word
           lang = (/[a-z][\w-]*/i.exec(lang) || [""])[0].toLowerCase();
-          var alias = "language-" + lang;
+          const alias = "language-" + lang;
 
           // add alias
           if (!codeBlock.alias) {
@@ -355,26 +355,26 @@
       return;
     }
 
-    var codeLang = "";
-    for (var i = 0, l = env.classes.length; i < l; i++) {
-      var cls = env.classes[i];
-      var match = /language-(.+)/.exec(cls);
+    let codeLang = "";
+    for (let i = 0, l = env.classes.length; i < l; i++) {
+      const cls = env.classes[i];
+      const match = /language-(.+)/.exec(cls);
       if (match) {
         codeLang = match[1];
         break;
       }
     }
 
-    var grammar = Prism.languages[codeLang];
+    const grammar = Prism.languages[codeLang];
 
     if (!grammar) {
       if (codeLang && codeLang !== "none" && Prism.plugins.autoloader) {
-        var id =
+        const id =
           "md-" + new Date().valueOf() + "-" + Math.floor(Math.random() * 1e16);
         env.attributes["id"] = id;
 
         Prism.plugins.autoloader.loadLanguages(codeLang, () => {
-          var ele = document.getElementById(id);
+          const ele = document.getElementById(id);
           if (ele) {
             ele.innerHTML = Prism.highlight(
               ele.textContent,
@@ -393,7 +393,7 @@
     }
   });
 
-  var tagPattern = RegExp(Prism.languages.markup.tag.pattern.source, "gi");
+  const tagPattern = RegExp(Prism.languages.markup.tag.pattern.source, "gi");
 
   /**
    * A list of known entity names.
@@ -402,7 +402,7 @@
    *
    * @see {@link https://github.com/lodash/lodash/blob/2da024c3b4f9947a48517639de7560457cd4ec6c/unescape.js#L2}
    */
-  var KNOWN_ENTITY_NAMES = {
+  const KNOWN_ENTITY_NAMES = {
     amp: "&",
     lt: "<",
     gt: ">",
@@ -410,7 +410,7 @@
   };
 
   // IE 11 doesn't support `String.fromCodePoint`
-  var fromCodePoint = String.fromCodePoint || String.fromCharCode;
+  const fromCodePoint = String.fromCodePoint || String.fromCharCode;
 
   /**
    * Returns the text content of a given HTML source code string.
@@ -420,14 +420,14 @@
    */
   function textContent(html) {
     // remove all tags
-    var text = html.replace(tagPattern, "");
+    let text = html.replace(tagPattern, "");
 
     // decode known entities
     text = text.replace(/&(\w{1,8}|#x?[\da-f]{1,8});/gi, (m, code) => {
       code = code.toLowerCase();
 
       if (code[0] === "#") {
-        var value;
+        let value;
         if (code[1] === "x") {
           value = parseInt(code.slice(2), 16);
         } else {
@@ -436,7 +436,7 @@
 
         return fromCodePoint(value);
       } else {
-        var known = KNOWN_ENTITY_NAMES[code];
+        const known = KNOWN_ENTITY_NAMES[code];
         if (known) {
           return known;
         }

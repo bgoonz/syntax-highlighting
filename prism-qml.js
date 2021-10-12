@@ -1,8 +1,8 @@
 (Prism => {
-  var jsString = /"(?:\\.|[^\\"\r\n])*"|'(?:\\.|[^\\'\r\n])*'/.source;
-  var jsComment = /\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))*\*\//.source;
+  const jsString = /"(?:\\.|[^\\"\r\n])*"|'(?:\\.|[^\\'\r\n])*'/.source;
+  const jsComment = /\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))*\*\//.source;
 
-  var jsExpr =
+  let jsExpr =
     /(?:[^\\()[\]{}"'/]|<string>|\/(?![*/])|<comment>|\(<expr>*\)|\[<expr>*\]|\{<expr>*\}|\\[\s\S])/.source
       .replace(/<string>/g, () => {
         return jsString;
@@ -12,7 +12,7 @@
       });
 
   // the pattern will blow up, so only a few iterations
-  for (var i = 0; i < 2; i++) {
+  for (let i = 0; i < 2; i++) {
     jsExpr = jsExpr.replace(/<expr>/g, () => {
       return jsExpr;
     });

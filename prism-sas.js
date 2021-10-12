@@ -1,30 +1,30 @@
 (Prism => {
-  var stringPattern = /(?:"(?:""|[^"])*"(?!")|'(?:''|[^'])*'(?!'))/.source;
+  const stringPattern = /(?:"(?:""|[^"])*"(?!")|'(?:''|[^'])*'(?!'))/.source;
 
-  var number = /\b(?:\d[\da-f]*x|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b/i;
-  var numericConstant = {
+  const number = /\b(?:\d[\da-f]*x|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b/i;
+  const numericConstant = {
     pattern: RegExp(stringPattern + "[bx]"),
     alias: "number",
   };
 
-  var macroVariable = {
+  const macroVariable = {
     pattern: /&[a-z_]\w*/i,
   };
 
-  var macroKeyword = {
+  const macroKeyword = {
     pattern:
       /((?:^|\s|=|\())%(?:ABORT|BY|CMS|COPY|DISPLAY|DO|ELSE|END|EVAL|GLOBAL|GO|GOTO|IF|INC|INCLUDE|INDEX|INPUT|KTRIM|LENGTH|LET|LIST|LOCAL|PUT|QKTRIM|QSCAN|QSUBSTR|QSYSFUNC|QUPCASE|RETURN|RUN|SCAN|SUBSTR|SUPERQ|SYMDEL|SYMEXIST|SYMGLOBL|SYMLOCAL|SYSCALL|SYSEVALF|SYSEXEC|SYSFUNC|SYSGET|SYSRPUT|THEN|TO|TSO|UNQUOTE|UNTIL|UPCASE|WHILE|WINDOW)\b/i,
     lookbehind: true,
     alias: "keyword",
   };
 
-  var step = {
+  const step = {
     pattern: /(^|\s)(?:proc\s+\w+|data(?!=)|quit|run)\b/i,
     alias: "keyword",
     lookbehind: true,
   };
 
-  var comment = [
+  const comment = [
     /\/\*[\s\S]*?\*\//,
     {
       pattern: /(^[ \t]*|;\s*)\*[^;]*;/m,
@@ -32,19 +32,19 @@
     },
   ];
 
-  var string = {
+  const string = {
     pattern: RegExp(stringPattern),
     greedy: true,
   };
 
-  var punctuation = /[$%@.(){}\[\];,\\]/;
+  const punctuation = /[$%@.(){}\[\];,\\]/;
 
-  var func = {
+  const func = {
     pattern: /%?\b\w+(?=\()/,
     alias: "keyword",
   };
 
-  var args = {
+  const args = {
     function: func,
     "arg-value": {
       pattern: /(=\s*)[A-Z\.]+/i,
@@ -62,7 +62,7 @@
     string: string,
   };
 
-  var format = {
+  const format = {
     pattern: /\b(?:format|put)\b=?[\w'$.]+/im,
     inside: {
       keyword: /^(?:format|put)(?==)/i,
@@ -74,7 +74,7 @@
     },
   };
 
-  var altformat = {
+  const altformat = {
     pattern: /\b(?:format|put)\s+[\w']+(?:\s+[$.\w]+)+(?=;)/i,
     inside: {
       keyword: /^(?:format|put)/i,
@@ -85,24 +85,24 @@
     },
   };
 
-  var globalStatements = {
+  const globalStatements = {
     pattern:
       /((?:^|\s)=?)(?:catname|checkpoint execute_always|dm|endsas|filename|footnote|%include|libname|%list|lock|missing|options|page|resetline|%run|sasfile|skip|sysecho|title\d?)\b/i,
     lookbehind: true,
     alias: "keyword",
   };
 
-  var submitStatement = {
+  const submitStatement = {
     pattern: /(^|\s)(?:submit(?:\s+(?:load|norun|parseonly))?|endsubmit)\b/i,
     lookbehind: true,
     alias: "keyword",
   };
 
-  var actionSets =
+  const actionSets =
     /aStore|accessControl|aggregation|audio|autotune|bayesianNetClassifier|bioMedImage|boolRule|builtins|cardinality|cdm|clustering|conditionalRandomFields|configuration|copula|countreg|dataDiscovery|dataPreprocess|dataSciencePilot|dataStep|decisionTree|deduplication|deepLearn|deepNeural|deepRnn|ds2|ecm|entityRes|espCluster|explainModel|factmac|fastKnn|fcmpact|fedSql|freqTab|gVarCluster|gam|gleam|graphSemiSupLearn|hiddenMarkovModel|hyperGroup|ica|image|iml|kernalPca|langModel|ldaTopic|loadStreams|mbc|mixed|mlTools|modelPublishing|network|neuralNet|nmf|nonParametricBayes|nonlinear|optNetwork|optimization|panel|pca|percentile|phreg|pls|qkb|qlim|quantreg|recommend|regression|reinforcementLearn|robustPca|ruleMining|sampling|sandwich|sccasl|search(?:Analytics)?|sentimentAnalysis|sequence|session(?:Prop)?|severity|simSystem|simple|smartData|sparkEmbeddedProcess|sparseML|spatialreg|spc|stabilityMonitoring|svDataDescription|svm|table|text(?:Filters|Frequency|Mining|Parse|Rule(?:Develop|Score)|Topic|Util)|timeData|transpose|tsInfo|tsReconcile|uniTimeSeries|varReduce/
       .source;
 
-  var casActions = {
+  const casActions = {
     pattern: RegExp(
       /(^|\s)(?:action\s+)?(?:<act>)\.[a-z]+\b[^;]+/.source.replace(
         /<act>/g,
@@ -136,7 +136,7 @@
     },
   };
 
-  var keywords = {
+  const keywords = {
     pattern:
       /((?:^|\s)=?)(?:after|analysis|and|array|barchart|barwidth|begingraph|by|call|cas|cbarline|cfill|class(?:lev)?|close|column|computed?|contains|continue|data(?==)|define|delete|describe|document|do\s+over|do|dol|drop|dul|else|end(?:comp|source)?|entryTitle|eval(?:uate)?|exec(?:ute)?|exit|file(?:name)?|fill(?:attrs)?|flist|fnc|function(?:list)?|global|goto|group(?:by)?|headline|headskip|histogram|if|infile|keep|keylabel|keyword|label|layout|leave|legendlabel|length|libname|loadactionset|merge|midpoints|_?null_|name|noobs|nowd|ods|options|or|otherwise|out(?:put)?|over(?:lay)?|plot|print|put|raise|ranexp|rannor|rbreak|retain|return|select|session|sessref|set|source|statgraph|sum|summarize|table|temp|terminate|then\s+do|then|title\d?|to|var|when|where|xaxisopts|y2axisopts|yaxisopts)\b/i,
     lookbehind: true,

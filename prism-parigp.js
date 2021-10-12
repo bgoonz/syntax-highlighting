@@ -8,7 +8,7 @@ Prism.languages.parigp = {
   // so let's process the keywords to build an appropriate regexp
   // (e.g. "b *r *e *a *k", etc.)
   keyword: (() => {
-    var keywords = [
+    let keywords = [
       "breakpoint",
       "break",
       "dbg_down",

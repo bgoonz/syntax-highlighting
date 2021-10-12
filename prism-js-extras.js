@@ -134,8 +134,7 @@
     "property-access",
   ];
 
-  for (let i = 0; i < maybeClassNameTokens.length; i++) {
-    const token = maybeClassNameTokens[i];
+  maybeClassNameTokens.forEach(token => {
     let value = Prism.languages.javascript[token];
 
     // convert regex to object
@@ -151,5 +150,5 @@
     value.inside = inside;
 
     inside["maybe-class-name"] = /^[A-Z][\s\S]*/;
-  }
-})(Pr
+  });
+})(Prism);

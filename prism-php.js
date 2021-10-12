@@ -6,8 +6,8 @@
  * Supports PHP 5.3 - 8.0
  */
 (Prism => {
-  var comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
-  var constant = [
+  const comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
+  const constant = [
     {
       pattern: /\b(?:false|true)\b/i,
       alias: "boolean",
@@ -25,11 +25,11 @@
     /\b(?:null)\b/i,
     /\b[A-Z_][A-Z0-9_]*\b(?!\s*\()/,
   ];
-  var number =
+  const number =
     /\b0b[01]+(?:_[01]+)*\b|\b0o[0-7]+(?:_[0-7]+)*\b|\b0x[\da-f]+(?:_[\da-f]+)*\b|(?:\b\d+(?:_\d+)*\.?(?:\d+(?:_\d+)*)?|\B\.\d+)(?:e[+-]?\d+)?/i;
-  var operator =
+  const operator =
     /<?=>|\?\?=?|\.{3}|\??->|[!=]=?=?|::|\*\*=?|--|\+\+|&&|\|\||<<|>>|[?~]|[/^|%*&<>.+-]=?/;
-  var punctuation = /[{}\[\](),:;]/;
+  const punctuation = /[{}\[\](),:;]/;
 
   Prism.languages.php = {
     delimiter: {
@@ -233,14 +233,14 @@
     punctuation: punctuation,
   };
 
-  var string_interpolation = {
+  const string_interpolation = {
     pattern:
       /\{\$(?:\{(?:\{[^{}]+\}|[^{}]+)\}|[^{}])+\}|(^|[^\\{])\$+(?:\w+(?:\[[^\r\n\[\]]+\]|->\w+)?)/,
     lookbehind: true,
     inside: Prism.languages.php,
   };
 
-  var string = [
+  const string = [
     {
       pattern: /<<<'([^']+)'[\r\n](?:.*[\r\n])*?\1;/,
       alias: "nowdoc-string",
@@ -341,7 +341,7 @@
       return;
     }
 
-    var phpPattern =
+    const phpPattern =
       /<\?(?:[^"'/#]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|(?:\/\/|#(?!\[))(?:[^?\n\r]|\?(?!>))*(?=$|\?>|[\r\n])|#\[|\/\*(?:[^*]|\*(?!\/))*(?:\*\/|$))*?(?:\?>|$)/gi;
     Prism.languages["markup-templating"].buildPlaceholders(
       env,

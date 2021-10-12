@@ -43,18 +43,18 @@ Prism.languages.liquid = {
 };
 
 Prism.hooks.add("before-tokenize", env => {
-  var liquidPattern =
+  const liquidPattern =
     /\{%\s*comment\s*%\}[\s\S]*?\{%\s*endcomment\s*%\}|\{(?:%[\s\S]*?%|\{\{[\s\S]*?\}\}|\{[\s\S]*?\})\}/g;
-  var insideRaw = false;
+  let insideRaw = false;
 
   Prism.languages["markup-templating"].buildPlaceholders(
     env,
     "liquid",
     liquidPattern,
     match => {
-      var tagMatch = /^\{%-?\s*(\w+)/.exec(match);
+      const tagMatch = /^\{%-?\s*(\w+)/.exec(match);
       if (tagMatch) {
-        var tag = tagMatch[1];
+        const tag = tagMatch[1];
         if (tag === "raw" && !insideRaw) {
           insideRaw = true;
           return true;

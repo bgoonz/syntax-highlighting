@@ -100,7 +100,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
    * addInlined('style', 'css');
    */
   value: function addInlined(tagName, lang) {
-    var includedCdataInside = {};
+    const includedCdataInside = {};
     includedCdataInside["language-" + lang] = {
       pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
       lookbehind: true,
@@ -108,7 +108,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
     };
     includedCdataInside["cdata"] = /^<!\[CDATA\[|\]\]>$/i;
 
-    var inside = {
+    const inside = {
       "included-cdata": {
         pattern: /<!\[CDATA\[[\s\S]*?\]\]>/i,
         inside: includedCdataInside,
@@ -119,7 +119,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
       inside: Prism.languages[lang],
     };
 
-    var def = {};
+    const def = {};
     def[tagName] = {
       pattern: RegExp(
         /(<__[^>]*>)(?:<!\[CDATA\[(?:[^\]]|\](?!\]>))*\]\]>|(?!<!\[CDATA\[)[\s\S])*?(?=<\/__>)/.source.replace(

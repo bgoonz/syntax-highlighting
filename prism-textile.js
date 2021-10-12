@@ -1,10 +1,10 @@
 (Prism => {
   // We don't allow for pipes inside parentheses
   // to not break table pattern |(. foo |). bar |
-  var modifierRegex = /\([^|()\n]+\)|\[[^\]\n]+\]|\{[^}\n]+\}/.source;
+  const modifierRegex = /\([^|()\n]+\)|\[[^\]\n]+\]|\{[^}\n]+\}/.source;
   // Opening and closing parentheses which are not a modifier
   // This pattern is necessary to prevent exponential backtracking
-  var parenthesesRegex = /\)|\((?![^|()\n]+\))/.source;
+  const parenthesesRegex = /\)|\((?![^|()\n]+\))/.source;
   /**
    * @param {string} source
    * @param {string} [flags]
@@ -22,7 +22,7 @@
     );
   }
 
-  var modifierTokens = {
+  const modifierTokens = {
     css: {
       pattern: /\{[^{}]+\}/,
       inside: {
@@ -43,7 +43,7 @@
     punctuation: /[\\\/]\d+|\S/,
   };
 
-  var textile = (Prism.languages.textile = Prism.languages.extend("markup", {
+  const textile = (Prism.languages.textile = Prism.languages.extend("markup", {
     phrase: {
       pattern: /(^|\r|\n)\S[\s\S]*?(?=$|\r?\n\r?\n|\r\r)/,
       lookbehind: true,
@@ -274,8 +274,8 @@
     },
   }));
 
-  var phraseInside = textile["phrase"].inside;
-  var nestedPatterns = {
+  const phraseInside = textile["phrase"].inside;
+  const nestedPatterns = {
     inline: phraseInside["inline"],
     link: phraseInside["link"],
     image: phraseInside["image"],
@@ -289,7 +289,7 @@
     /<\/?(?!\d)[a-z0-9]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i;
 
   // Allow some nesting
-  var phraseInlineInside = phraseInside["inline"].inside;
+  const phraseInlineInside = phraseInside["inline"].inside;
   phraseInlineInside["bold"].inside = nestedPatterns;
   phraseInlineInside["italic"].inside = nestedPatterns;
   phraseInlineInside["inserted"].inside = nestedPatterns;
@@ -297,7 +297,7 @@
   phraseInlineInside["span"].inside = nestedPatterns;
 
   // Allow some styles inside table cells
-  var phraseTableInside = phraseInside["table"].inside;
+  const phraseTableInside = phraseInside["table"].inside;
   phraseTableInside["inline"] = nestedPatterns["inline"];
   phraseTableInside["link"] = nestedPatterns["link"];
   phraseTableInside["image"] = nestedPatterns["image"];

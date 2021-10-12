@@ -45,7 +45,7 @@
     },
   });
 
-  var interpolation = [
+  const interpolation = [
     {
       pattern: /\$\{[^}]+\}/,
       inside: {

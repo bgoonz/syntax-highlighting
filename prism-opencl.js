@@ -27,7 +27,7 @@
     },
   });
 
-  var attributes = {
+  const attributes = {
     // Extracted from http://streamcomputing.eu/downloads/?opencl_host.lang (opencl-types and opencl-host)
     "type-opencl-host": {
       pattern:
