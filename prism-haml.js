@@ -5,8 +5,8 @@
 			code |
 */
 
-(Prism => {
-  Prism.languages.haml = {
+(({languages}) => {
+  languages.haml = {
     // Multiline stuff should appear before the rest
 
     "multiline-comment": {
@@ -20,13 +20,13 @@
         pattern:
           /((?:^|\r?\n|\r)([\t ]*)(?:[~-]|[&!]?=)).*,[\t ]*(?:(?:\r?\n|\r)\2[\t ].*,[\t ]*)*(?:(?:\r?\n|\r)\2[\t ].+)/,
         lookbehind: true,
-        inside: Prism.languages.ruby,
+        inside: languages.ruby,
       },
       {
         pattern:
           /((?:^|\r?\n|\r)([\t ]*)(?:[~-]|[&!]?=)).*\|[\t ]*(?:(?:\r?\n|\r)\2[\t ].*\|[\t ]*)*/,
         lookbehind: true,
-        inside: Prism.languages.ruby,
+        inside: languages.ruby,
       },
     ],
 
@@ -46,7 +46,7 @@
     markup: {
       pattern: /((?:^|\r?\n|\r)[\t ]*)<.+/,
       lookbehind: true,
-      inside: Prism.languages.markup,
+      inside: languages.markup,
     },
     doctype: {
       pattern: /((?:^|\r?\n|\r)[\t ]*)!!!(?: .+)?/,
@@ -64,7 +64,7 @@
             // Allows for one nested group of braces
             pattern: /(^|[^#])\{(?:\{[^}]+\}|[^{}])+\}/,
             lookbehind: true,
-            inside: Prism.languages.ruby,
+            inside: languages.ruby,
           },
           {
             pattern: /\([^)]+\)/,
@@ -79,7 +79,7 @@
           },
           {
             pattern: /\[[^\]]+\]/,
-            inside: Prism.languages.ruby,
+            inside: languages.ruby,
           },
         ],
         punctuation: /[<>]/,
@@ -88,7 +88,7 @@
     code: {
       pattern: /((?:^|\r?\n|\r)[\t ]*(?:[~-]|[&!]?=)).+/,
       lookbehind: true,
-      inside: Prism.languages.ruby,
+      inside: languages.ruby,
     },
     // Interpolations in plain text
     interpolation: {
@@ -98,7 +98,7 @@
           pattern: /^#\{|\}$/,
           alias: "punctuation",
         },
-        rest: Prism.languages.ruby,
+        rest: languages.ruby,
       },
     },
     punctuation: {
@@ -129,8 +129,8 @@
       typeof filter === "string"
         ? { filter: filter, language: filter }
         : filter;
-    if (Prism.languages[filter.language]) {
-      all_filters["filter-" + filter.filter] = {
+    if (languages[filter.language]) {
+      all_filters[`filter-${filter.filter}`] = {
         pattern: RegExp(
           filter_pattern.replace("{{filter_name}}", () => {
             return filter.filter;
@@ -142,11 +142,11 @@
             pattern: /^:[\w-]+/,
             alias: "variable",
           },
-          rest: Prism.languages[filter.language],
+          rest: languages[filter.language],
         },
       };
     }
   }
 
-  Prism.languages.insertBefore("haml", "filter", all_filters);
+  languages.insertBefore("haml", "filter", all_filters);
 })(Prism);

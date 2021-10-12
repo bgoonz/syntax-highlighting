@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.crystal = Prism.languages.extend("ruby", {
+(({languages}) => {
+  languages.crystal = languages.extend("ruby", {
     keyword: [
       /\b(?:__DIR__|__END_LINE__|__FILE__|__LINE__|abstract|alias|as|asm|begin|break|case|class|def|do|else|elsif|end|ensure|enum|extend|for|fun|if|include|instance_sizeof|lib|macro|module|next|of|out|pointerof|private|protected|require|rescue|return|select|self|sizeof|struct|super|then|type|typeof|uninitialized|union|unless|until|when|while|with|yield)\b/,
       {
@@ -12,7 +12,7 @@
       /\b(?:0b[01_]*[01]|0o[0-7_]*[0-7]|0x[\da-fA-F_]*[\da-fA-F]|(?:\d(?:[\d_]*\d)?)(?:\.[\d_]*\d)?(?:[eE][+-]?[\d_]*\d)?)(?:_(?:[uif](?:8|16|32|64))?)?\b/,
   });
 
-  Prism.languages.insertBefore("crystal", "string", {
+  languages.insertBefore("crystal", "string", {
     attribute: {
       pattern: /@\[.+?\]/,
       alias: "attr-name",
@@ -21,7 +21,7 @@
           pattern: /^@\[|\]$/,
           alias: "tag",
         },
-        rest: Prism.languages.crystal,
+        rest: languages.crystal,
       },
     },
 
@@ -33,7 +33,7 @@
             pattern: /^\{\{|\}\}$/,
             alias: "tag",
           },
-          rest: Prism.languages.crystal,
+          rest: languages.crystal,
         },
       },
       {
@@ -43,7 +43,7 @@
             pattern: /^\{%|%\}$/,
             alias: "tag",
           },
-          rest: Prism.languages.crystal,
+          rest: languages.crystal,
         },
       },
     ],

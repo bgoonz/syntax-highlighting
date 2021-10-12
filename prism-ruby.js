@@ -4,8 +4,8 @@
  * Adds the following new token classes:
  *     constant, builtin, variable, symbol, regex
  */
-(Prism => {
-  Prism.languages.ruby = Prism.languages.extend("clike", {
+(({languages}) => {
+  languages.ruby = languages.extend("clike", {
     comment: [
       /#.*/,
       {
@@ -31,28 +31,24 @@
         pattern: /^#\{|\}$/,
         alias: "tag",
       },
-      rest: Prism.languages.ruby,
+      rest: languages.ruby,
     },
   };
 
-  delete Prism.languages.ruby.function;
+  delete languages.ruby.function;
 
-  Prism.languages.insertBefore("ruby", "keyword", {
+  languages.insertBefore("ruby", "keyword", {
     regex: [
       {
         pattern: RegExp(
-          /%r/.source +
-            "(?:" +
-            [
-              /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
-              /\((?:[^()\\]|\\[\s\S])*\)/.source,
-              // Here we need to specifically allow interpolation
-              /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
-              /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
-              /<(?:[^<>\\]|\\[\s\S])*>/.source,
-            ].join("|") +
-            ")" +
-            /[egimnosux]{0,6}/.source
+          `${/%r/.source}(?:${[
+  /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
+  /\((?:[^()\\]|\\[\s\S])*\)/.source,
+  // Here we need to specifically allow interpolation
+  /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
+  /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
+  /<(?:[^<>\\]|\\[\s\S])*>/.source,
+].join("|")})${/[egimnosux]{0,6}/.source}`
         ),
         greedy: true,
         inside: {
@@ -79,31 +75,28 @@
       lookbehind: true,
       inside: {
         function: /\w+$/,
-        rest: Prism.languages.ruby,
+        rest: languages.ruby,
       },
     },
   });
 
-  Prism.languages.insertBefore("ruby", "number", {
+  languages.insertBefore("ruby", "number", {
     builtin:
       /\b(?:Array|Bignum|Binding|Class|Continuation|Dir|Exception|FalseClass|File|Fixnum|Float|Hash|IO|Integer|MatchData|Method|Module|NilClass|Numeric|Object|Proc|Range|Regexp|Stat|String|Struct|Symbol|TMS|Thread|ThreadGroup|Time|TrueClass)\b/,
     constant: /\b[A-Z]\w*(?:[?!]|\b)/,
   });
 
-  Prism.languages.ruby.string = [
+  languages.ruby.string = [
     {
       pattern: RegExp(
-        /%[qQiIwWxs]?/.source +
-          "(?:" +
-          [
-            /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
-            /\((?:[^()\\]|\\[\s\S])*\)/.source,
-            // Here we need to specifically allow interpolation
-            /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
-            /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
-            /<(?:[^<>\\]|\\[\s\S])*>/.source,
-          ].join("|") +
-          ")"
+        `${/%[qQiIwWxs]?/.source}(?:${[
+  /([^a-zA-Z0-9\s{(\[<])(?:(?!\1)[^\\]|\\[\s\S])*\1/.source,
+  /\((?:[^()\\]|\\[\s\S])*\)/.source,
+  // Here we need to specifically allow interpolation
+  /\{(?:[^#{}\\]|#(?:\{[^}]+\})?|\\[\s\S])*\}/.source,
+  /\[(?:[^\[\]\\]|\\[\s\S])*\]/.source,
+  /<(?:[^<>\\]|\\[\s\S])*>/.source,
+].join("|")})`
       ),
       greedy: true,
       inside: {
@@ -149,5 +142,5 @@
     },
   ];
 
-  Prism.languages.rb = Prism.languages.ruby;
+  languages.rb = languages.ruby;
 })(Prism);

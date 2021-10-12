@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.llvm = {
+(({languages}) => {
+  languages.llvm = {
     comment: /;.*/,
     string: {
       pattern: /"[^"]*"/,

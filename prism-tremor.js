@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.tremor = {
+(({languages}) => {
+  languages.tremor = {
     comment: {
       pattern: /(^|[^\\])(?:\/\*[\s\S]*?\*\/|(?:--|\/\/|#).*)/,
       lookbehind: true,
@@ -39,22 +39,9 @@
   const interpolationPattern =
     /#\{(?:[^"{}]|\{[^{}]*\}|"(?:[^"\\\r\n]|\\(?:\r\n|[\s\S]))*")*\}/.source;
 
-  Prism.languages.tremor["interpolated-string"] = {
+  languages.tremor["interpolated-string"] = {
     pattern: RegExp(
-      /(^|[^\\])/.source +
-        "(?:" +
-        '"""(?:' +
-        /[^"\\#]|\\[\s\S]|"(?!"")|#(?!\{)/.source +
-        "|" +
-        interpolationPattern +
-        ')*"""' +
-        "|" +
-        '"(?:' +
-        /[^"\\\r\n#]|\\(?:\r\n|[\s\S])|#(?!\{)/.source +
-        "|" +
-        interpolationPattern +
-        ')*"' +
-        ")"
+      `${/(^|[^\\])/.source}(?:"""(?:${/[^"\\#]|\\[\s\S]|"(?!"")|#(?!\{)/.source}|${interpolationPattern})*"""|"(?:${/[^"\\\r\n#]|\\(?:\r\n|[\s\S])|#(?!\{)/.source}|${interpolationPattern})*")`
     ),
     lookbehind: true,
     greedy: true,
@@ -65,7 +52,7 @@
           punctuation: /^#\{|\}$/,
           expression: {
             pattern: /[\s\S]+/,
-            inside: Prism.languages.tremor,
+            inside: languages.tremor,
           },
         },
       },
@@ -73,6 +60,6 @@
     },
   };
 
-  Prism.languages.troy = Prism.languages["tremor"];
-  Prism.languages.trickle = Prism.languages["tremor"];
+  languages.troy = languages["tremor"];
+  languages.trickle = languages["tremor"];
 })(Prism);

@@ -1,5 +1,5 @@
-(Prism => {
-  let parser = (Prism.languages.parser = Prism.languages.extend("markup", {
+(({languages}) => {
+  let parser = (languages.parser = languages.extend("markup", {
     keyword: {
       pattern:
         /(^|[^^])(?:\^(?:case|eval|for|if|switch|throw)\b|@(?:BASE|CLASS|GET(?:_DEFAULT)?|OPTIONS|SET_DEFAULT|USE)\b)/,
@@ -30,7 +30,7 @@
     punctuation: /[\[\](){};]/,
   }));
 
-  parser = Prism.languages.insertBefore("parser", "keyword", {
+  parser = languages.insertBefore("parser", "keyword", {
     "parser-comment": {
       pattern: /(\s)#.*/,
       lookbehind: true,
@@ -59,7 +59,7 @@
     },
   });
 
-  Prism.languages.insertBefore(
+  languages.insertBefore(
     "inside",
     "punctuation",
     {

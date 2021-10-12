@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.typescript = Prism.languages.extend("javascript", {
+(({languages}) => {
+  languages.typescript = languages.extend("javascript", {
     "class-name": {
       pattern:
         /(\b(?:class|extends|implements|instanceof|interface|new|type)\s+)(?!keyof\b)(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?:\s*<(?:[^<>]|<(?:[^<>]|<[^<>]*>)*>)*>)?/,
@@ -12,7 +12,7 @@
   });
 
   // The keywords TypeScript adds to JavaScript
-  Prism.languages.typescript.keyword.push(
+  languages.typescript.keyword.push(
     /\b(?:abstract|declare|is|keyof|readonly|require)\b/,
     // keywords that have to be followed by an identifier
     /\b(?:asserts|infer|interface|module|namespace|type)\b(?=\s*(?:[{_$a-zA-Z\xA0-\uFFFF]|$))/,
@@ -21,16 +21,16 @@
   );
 
   // doesn't work with TS because TS is too complex
-  delete Prism.languages.typescript["parameter"];
-  delete Prism.languages.typescript["literal-property"];
+  delete languages.typescript["parameter"];
+  delete languages.typescript["literal-property"];
 
   // a version of typescript specifically for highlighting types
-  const typeInside = Prism.languages.extend("typescript", {});
+  const typeInside = languages.extend("typescript", {});
   delete typeInside["class-name"];
 
-  Prism.languages.typescript["class-name"].inside = typeInside;
+  languages.typescript["class-name"].inside = typeInside;
 
-  Prism.languages.insertBefore("typescript", "function", {
+  languages.insertBefore("typescript", "function", {
     decorator: {
       pattern: /@[$\w\xA0-\uFFFF]+/,
       inside: {
@@ -57,5 +57,5 @@
     },
   });
 
-  Prism.languages.ts = Prism.languages.typescript;
+  languages.ts = languages.typescript;
 })(Prism);

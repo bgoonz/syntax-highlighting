@@ -1,5 +1,5 @@
-(Prism => {
-  const powershell = (Prism.languages.powershell = {
+(({languages}) => {
+  const powershell = (languages.powershell = {
     comment: [
       {
         pattern: /(^|[^`])<#[\s\S]*?#>/,

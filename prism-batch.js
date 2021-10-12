@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const variable = /%%?[~:\w]+%?|!\S+!/;
   const parameter = {
     pattern: /\/[a-z?]+(?=[ :]|$):?|-[a-z]\b|--[a-z-]+\b/im,
@@ -10,7 +10,7 @@
   const string = /"(?:[\\"]"|[^"])*"(?!")/;
   const number = /(?:\b|-)\d+\b/;
 
-  Prism.languages.batch = {
+  languages.batch = {
     comment: [
       /^::.*/m,
       {

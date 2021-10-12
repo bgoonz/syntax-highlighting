@@ -1,7 +1,7 @@
-(Prism => {
-  Prism.languages.flow = Prism.languages.extend("javascript", {});
+(({languages}) => {
+  languages.flow = languages.extend("javascript", {});
 
-  Prism.languages.insertBefore("flow", "keyword", {
+  languages.insertBefore("flow", "keyword", {
     type: [
       {
         pattern:
@@ -10,21 +10,21 @@
       },
     ],
   });
-  Prism.languages.flow["function-variable"].pattern =
+  languages.flow["function-variable"].pattern =
     /(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*(?=\s*=\s*(?:function\b|(?:\([^()]*\)(?:\s*:\s*\w+)?|(?!\s)[_$a-z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)\s*=>))/i;
-  delete Prism.languages.flow["parameter"];
+  delete languages.flow["parameter"];
 
-  Prism.languages.insertBefore("flow", "operator", {
+  languages.insertBefore("flow", "operator", {
     "flow-punctuation": {
       pattern: /\{\||\|\}/,
       alias: "punctuation",
     },
   });
 
-  if (!Array.isArray(Prism.languages.flow.keyword)) {
-    Prism.languages.flow.keyword = [Prism.languages.flow.keyword];
+  if (!Array.isArray(languages.flow.keyword)) {
+    languages.flow.keyword = [languages.flow.keyword];
   }
-  Prism.languages.flow.keyword.unshift(
+  languages.flow.keyword.unshift(
     {
       pattern: /(^|[^$]\b)(?:Class|declare|opaque|type)\b(?!\$)/,
       lookbehind: true,

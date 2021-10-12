@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const keywords =
     /\b(?:abstract|assert|boolean|break|byte|case|catch|char|class|const|continue|default|do|double|else|enum|exports|extends|final|finally|float|for|goto|if|implements|import|instanceof|int|interface|long|module|native|new|non-sealed|null|open|opens|package|permits|private|protected|provides|public|record|requires|return|sealed|short|static|strictfp|super|switch|synchronized|this|throw|throws|to|transient|transitive|try|uses|var|void|volatile|while|with|yield)\b/;
 
@@ -21,7 +21,7 @@
     },
   };
 
-  Prism.languages.java = Prism.languages.extend("clike", {
+  languages.java = languages.extend("clike", {
     "class-name": [
       className,
       {
@@ -36,7 +36,7 @@
     ],
     keyword: keywords,
     function: [
-      Prism.languages.clike.function,
+      languages.clike.function,
       {
         pattern: /(::\s*)[a-z_]\w*/,
         lookbehind: true,
@@ -51,7 +51,7 @@
     },
   });
 
-  Prism.languages.insertBefore("java", "string", {
+  languages.insertBefore("java", "string", {
     "triple-quoted-string": {
       // http://openjdk.java.net/jeps/355#Description
       pattern: /"""[ \t]*[\r\n](?:(?:"|"")?(?:\\.|[^"\\]))*"""/,
@@ -60,7 +60,7 @@
     },
   });
 
-  Prism.languages.insertBefore("java", "class-name", {
+  languages.insertBefore("java", "class-name", {
     annotation: {
       pattern: /(^|[^.])@\w+(?:\s*\.\s*\w+)*/,
       lookbehind: true,

@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const keyword =
     /\b(?:alignas|alignof|asm|auto|bool|break|case|catch|char|char16_t|char32_t|char8_t|class|co_await|co_return|co_yield|compl|concept|const|const_cast|consteval|constexpr|constinit|continue|decltype|default|delete|do|double|dynamic_cast|else|enum|explicit|export|extern|final|float|for|friend|goto|if|import|inline|int|int16_t|int32_t|int64_t|int8_t|long|module|mutable|namespace|new|noexcept|nullptr|operator|override|private|protected|public|register|reinterpret_cast|requires|return|short|signed|sizeof|static|static_assert|static_cast|struct|switch|template|this|thread_local|throw|try|typedef|typeid|typename|uint16_t|uint32_t|uint64_t|uint8_t|union|unsigned|using|virtual|void|volatile|wchar_t|while)\b/;
   const modName = /\b(?!<keyword>)\w+(?:\s*\.\s*\w+)*\b/.source.replace(
@@ -8,7 +8,7 @@
     }
   );
 
-  Prism.languages.cpp = Prism.languages.extend("c", {
+  languages.cpp = languages.extend("c", {
     "class-name": [
       {
         pattern: RegExp(
@@ -44,23 +44,20 @@
     boolean: /\b(?:false|true)\b/,
   });
 
-  Prism.languages.insertBefore("cpp", "string", {
+  languages.insertBefore("cpp", "string", {
     module: {
       // https://en.cppreference.com/w/cpp/language/modules
       pattern: RegExp(
-        /(\b(?:import|module)\s+)/.source +
-          "(?:" +
-          // header-name
-          /"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|<[^<>\r\n]*>/.source +
-          "|" +
-          // module name or partition or both
-          /<mod-name>(?:\s*:\s*<mod-name>)?|:\s*<mod-name>/.source.replace(
-            /<mod-name>/g,
-            () => {
-              return modName;
-            }
-          ) +
-          ")"
+        // header-name
+        // module name or partition or both
+        `${/(\b(?:import|module)\s+)/.source}(?:${// header-name
+/"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|<[^<>\r\n]*>/.source}|${// module name or partition or both
+/<mod-name>(?:\s*:\s*<mod-name>)?|:\s*<mod-name>/.source.replace(
+  /<mod-name>/g,
+  () => {
+    return modName;
+  }
+)})`
       ),
       lookbehind: true,
       greedy: true,
@@ -77,7 +74,7 @@
     },
   });
 
-  Prism.languages.insertBefore("cpp", "keyword", {
+  languages.insertBefore("cpp", "keyword", {
     "generic-function": {
       pattern: /\b(?!operator\b)[a-z_]\w*\s*<(?:[^<>]|<[^<>]*>)*>(?=\s*\()/i,
       inside: {
@@ -85,20 +82,20 @@
         generic: {
           pattern: /<[\s\S]+/,
           alias: "class-name",
-          inside: Prism.languages.cpp,
+          inside: languages.cpp,
         },
       },
     },
   });
 
-  Prism.languages.insertBefore("cpp", "operator", {
+  languages.insertBefore("cpp", "operator", {
     "double-colon": {
       pattern: /::/,
       alias: "punctuation",
     },
   });
 
-  Prism.languages.insertBefore("cpp", "class-name", {
+  languages.insertBefore("cpp", "class-name", {
     // the base clause is an optional list of parent classes
     // https://en.cppreference.com/w/cpp/language/class
     "base-clause": {
@@ -106,17 +103,17 @@
         /(\b(?:class|struct)\s+\w+\s*:\s*)[^;{}"'\s]+(?:\s+[^;{}"'\s]+)*(?=\s*[;{])/,
       lookbehind: true,
       greedy: true,
-      inside: Prism.languages.extend("cpp", {}),
+      inside: languages.extend("cpp", {}),
     },
   });
 
-  Prism.languages.insertBefore(
+  languages.insertBefore(
     "inside",
     "double-colon",
     {
       // All untokenized words that are not namespaces should be class names
       "class-name": /\b[a-z_]\w*\b(?!\s*::)/i,
     },
-    Prism.languages.cpp["base-clause"]
+    languages.cpp["base-clause"]
   );
 })(Prism);

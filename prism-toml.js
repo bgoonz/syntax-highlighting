@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const key = /(?:[\w-]+|'[^'\n\r]*'|"(?:\\.|[^\\"\r\n])*")/.source;
 
   /**
@@ -10,7 +10,7 @@
     });
   }
 
-  Prism.languages.toml = {
+  languages.toml = {
     comment: {
       pattern: /#.*/,
       greedy: true,

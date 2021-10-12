@@ -1,9 +1,9 @@
-(Prism => {
+(({languages}) => {
   const string = /("|')(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1/;
   let selectorInside;
 
-  Prism.languages.css.selector = {
-    pattern: Prism.languages.css.selector.pattern,
+  languages.css.selector = {
+    pattern: languages.css.selector.pattern,
     lookbehind: true,
     inside: (selectorInside = {
       "pseudo-element":
@@ -12,7 +12,7 @@
       class: /\.[-\w]+/,
       id: /#[-\w]+/,
       attribute: {
-        pattern: RegExp("\\[(?:[^[\\]\"']|" + string.source + ")*\\]"),
+        pattern: RegExp(`\\[(?:[^[\\]"']|${string.source})*\\]`),
         greedy: true,
         inside: {
           punctuation: /^\[|\]$/,
@@ -66,10 +66,10 @@
     }),
   };
 
-  Prism.languages.css["atrule"].inside["selector-function-argument"].inside =
+  languages.css["atrule"].inside["selector-function-argument"].inside =
     selectorInside;
 
-  Prism.languages.insertBefore("css", "property", {
+  languages.insertBefore("css", "property", {
     variable: {
       pattern:
         /(^|[^-\w\xA0-\uFFFF])--(?!\s)[-_a-z\xA0-\uFFFF](?:(?!\s)[-\w\xA0-\uFFFF])*/i,
@@ -87,7 +87,7 @@
     lookbehind: true,
   };
 
-  Prism.languages.insertBefore("css", "function", {
+  languages.insertBefore("css", "function", {
     operator: {
       pattern: /(\s)[+\-*\/](?=\s)/,
       lookbehind: true,

@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.xquery = Prism.languages.extend("markup", {
+(({languages, Token, hooks}) => {
+  languages.xquery = languages.extend("markup", {
     "xquery-comment": {
       pattern: /\(:[\s\S]*?:\)/,
       greedy: true,
@@ -58,16 +58,16 @@
     punctuation: /[[\](){},;:/]/,
   });
 
-  Prism.languages.xquery.tag.pattern =
+  languages.xquery.tag.pattern =
     /<\/?(?!\d)[^\s>\/=$<%]+(?:\s+[^\s>\/=]+(?:=(?:("|')(?:\\[\s\S]|\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}|(?!\1)[^\\])*\1|[^\s'">=]+))?)*\s*\/?>/i;
-  Prism.languages.xquery["tag"].inside["attr-value"].pattern =
+  languages.xquery["tag"].inside["attr-value"].pattern =
     /=(?:("|')(?:\\[\s\S]|\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}|(?!\1)[^\\])*\1|[^\s'">=]+)/i;
-  Prism.languages.xquery["tag"].inside["attr-value"].inside["punctuation"] =
+  languages.xquery["tag"].inside["attr-value"].inside["punctuation"] =
     /^="|"$/;
-  Prism.languages.xquery["tag"].inside["attr-value"].inside["expression"] = {
+  languages.xquery["tag"].inside["attr-value"].inside["expression"] = {
     // Allow for two levels of nesting
     pattern: /\{(?!\{)(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])+\}/,
-    inside: Prism.languages.xquery,
+    inside: languages.xquery,
     alias: "language-xquery",
   };
 
@@ -174,7 +174,7 @@
           if (/^\s+$/.test(plainText)) {
             tokens[i] = plainText;
           } else {
-            tokens[i] = new Prism.Token(
+            tokens[i] = new Token(
               "plain-text",
               plainText,
               null,
@@ -190,10 +190,10 @@
     });
   };
 
-  Prism.hooks.add("after-tokenize", env => {
-    if (env.language !== "xquery") {
+  hooks.add("after-tokenize", ({language, tokens}) => {
+    if (language !== "xquery") {
       return;
     }
-    walkTokens(env.tokens);
+    walkTokens(tokens);
   });
 })(Prism);

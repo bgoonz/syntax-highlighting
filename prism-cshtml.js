@@ -2,13 +2,11 @@
 // https://docs.microsoft.com/en-us/aspnet/core/razor-pages/?view=aspnetcore-5.0&tabs=visual-studio
 // https://docs.microsoft.com/en-us/aspnet/core/mvc/views/razor?view=aspnetcore-5.0
 
-(Prism => {
+(({languages}) => {
   const commentLike = /\/(?![/*])|\/\/.*[\r\n]|\/\*[^*]*(?:\*(?!\/)[^*]*)*\*\//
     .source;
   const stringLike =
-    /@(?!")|"(?:[^\r\n\\"]|\\.)*"|@"(?:[^\\"]|""|\\[\s\S])*"(?!")/.source +
-    "|" +
-    /'(?:(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'|(?=[^\\](?!')))/.source;
+    `${/@(?!")|"(?:[^\r\n\\"]|\\.)*"|@"(?:[^\\"]|""|\\[\s\S])*"(?!")/.source}|${/'(?:(?:[^\r\n'\\]|\\.|\\[Uux][\da-fA-F]{1,8})'|(?=[^\\](?!')))/.source}`;
 
   /**
    * Creates a nested pattern where all occurrences of the string `<<self>>` are replaced with the pattern itself.
@@ -20,13 +18,13 @@
   function nested(pattern, depthLog2) {
     for (let i = 0; i < depthLog2; i++) {
       pattern = pattern.replace(/<self>/g, () => {
-        return "(?:" + pattern + ")";
+        return `(?:${pattern})`;
       });
     }
     return pattern
       .replace(/<self>/g, "[^\\s\\S]")
-      .replace(/<str>/g, "(?:" + stringLike + ")")
-      .replace(/<comment>/g, "(?:" + commentLike + ")");
+      .replace(/<str>/g, `(?:${stringLike})`)
+      .replace(/<comment>/g, `(?:${commentLike})`);
   }
 
   const round = nested(/\((?:[^()'"@/]|<str>|<comment>|<self>)*\)/.source, 2);
@@ -51,46 +49,27 @@
       .source;
   const tagContent = /(?!\d)[^\s>\/=$<%]+/.source + tagAttrs + /\s*\/?>/.source;
   const tagRegion =
-    /\B@?/.source +
-    "(?:" +
-    /<([a-zA-Z][\w:]*)/.source +
-    tagAttrs +
-    /\s*>/.source +
-    "(?:" +
-    (/[^<]/.source +
-      "|" +
-      // all tags that are not the start tag
-      // eslint-disable-next-line regexp/strict
-      /<\/?(?!\1\b)/.source +
-      tagContent +
-      "|" +
-      // nested start tag
-      nested(
-        // eslint-disable-next-line regexp/strict
-        /<\1/.source +
-          tagAttrs +
-          /\s*>/.source +
-          "(?:" +
-          (/[^<]/.source +
-            "|" +
-            // all tags that are not the start tag
-            // eslint-disable-next-line regexp/strict
-            /<\/?(?!\1\b)/.source +
-            tagContent +
-            "|" +
-            "<self>") +
-          ")*" +
-          // eslint-disable-next-line regexp/strict
-          /<\/\1\s*>/.source,
-        2
-      )) +
-    ")*" +
+    // all tags that are not the start tag
     // eslint-disable-next-line regexp/strict
-    /<\/\1\s*>/.source +
-    "|" +
-    /</.source +
-    tagContent +
-    ")";
+    // nested start tag
+    // eslint-disable-next-line regexp/strict
+    `${/\B@?/.source}(?:${/<([a-zA-Z][\w:]*)/.source}${tagAttrs}${/\s*>/.source}(?:${/[^<]/.source}|${// all tags that are not the start tag
+// eslint-disable-next-line regexp/strict
+/<\/?(?!\1\b)/.source}${tagContent}|${// nested start tag
+nested(
+  // eslint-disable-next-line regexp/strict
+  // all tags that are not the start tag
+  // eslint-disable-next-line regexp/strict
+  // eslint-disable-next-line regexp/strict
+  `${/<\1/.source +
+  tagAttrs +
+  /\s*>/.source}(?:${/[^<]/.source}|${// all tags that are not the start tag
+// eslint-disable-next-line regexp/strict
+/<\/?(?!\1\b)/.source}${tagContent}|<self>)*${// eslint-disable-next-line regexp/strict
+/<\/\1\s*>/.source}`,
+  2
+)})*${// eslint-disable-next-line regexp/strict
+/<\/\1\s*>/.source}|${/</.source}${tagContent})`;
 
   // Now for the actual language definition(s):
   //
@@ -101,19 +80,19 @@
   // In the below code, both CSHTML and C#+HTML will be create as separate language definitions that reference each
   // other. However, only CSHTML will be exported via `Prism.languages`.
 
-  Prism.languages.cshtml = Prism.languages.extend("markup", {});
+  languages.cshtml = languages.extend("markup", {});
 
-  const csharpWithHtml = Prism.languages.insertBefore(
+  const csharpWithHtml = languages.insertBefore(
     "csharp",
     "string",
     {
       html: {
         pattern: RegExp(tagRegion),
         greedy: true,
-        inside: Prism.languages.cshtml,
+        inside: languages.cshtml,
       },
     },
-    { csharp: Prism.languages.extend("csharp", {}) }
+    { csharp: languages.extend("csharp", {}) }
   );
 
   const cs = {
@@ -122,7 +101,7 @@
     inside: csharpWithHtml,
   };
 
-  Prism.languages.insertBefore("cshtml", "prolog", {
+  languages.insertBefore("cshtml", "prolog", {
     "razor-comment": {
       pattern: /@\*[\s\S]*?\*@/,
       greedy: true,
@@ -131,49 +110,37 @@
 
     block: {
       pattern: RegExp(
-        /(^|[^@])@/.source +
-          "(?:" +
-          [
-            // @{ ... }
-            curly,
-            // @code{ ... }
-            /(?:code|functions)\s*/.source + curly,
-            // @for (...) { ... }
-            /(?:for|foreach|lock|switch|using|while)\s*/.source +
-              round +
-              /\s*/.source +
-              curly,
-            // @do { ... } while (...);
-            /do\s*/.source +
-              curly +
-              /\s*while\s*/.source +
-              round +
-              /(?:\s*;)?/.source,
-            // @try { ... } catch (...) { ... } finally { ... }
-            /try\s*/.source +
-              curly +
-              /\s*catch\s*/.source +
-              round +
-              /\s*/.source +
-              curly +
-              /\s*finally\s*/.source +
-              curly,
-            // @if (...) {...} else if (...) {...} else {...}
-            /if\s*/.source +
-              round +
-              /\s*/.source +
-              curly +
-              "(?:" +
-              /\s*else/.source +
-              "(?:" +
-              /\s+if\s*/.source +
-              round +
-              ")?" +
-              /\s*/.source +
-              curly +
-              ")*",
-          ].join("|") +
-          ")"
+        `${/(^|[^@])@/.source}(?:${[
+  // @{ ... }
+  curly,
+  // @code{ ... }
+  /(?:code|functions)\s*/.source + curly,
+  // @for (...) { ... }
+  /(?:for|foreach|lock|switch|using|while)\s*/.source +
+    round +
+    /\s*/.source +
+    curly,
+  // @do { ... } while (...);
+  /do\s*/.source +
+    curly +
+    /\s*while\s*/.source +
+    round +
+    /(?:\s*;)?/.source,
+  // @try { ... } catch (...) { ... } finally { ... }
+  /try\s*/.source +
+    curly +
+    /\s*catch\s*/.source +
+    round +
+    /\s*/.source +
+    curly +
+    /\s*finally\s*/.source +
+    curly,
+  // @if (...) {...} else if (...) {...} else {...}
+  `${/if\s*/.source +
+  round +
+  /\s*/.source +
+  curly}(?:${/\s*else/.source}(?:${/\s+if\s*/.source}${round})?${/\s*/.source}${curly})*`,
+].join("|")})`
       ),
       lookbehind: true,
       greedy: true,
@@ -196,23 +163,8 @@
 
     value: {
       pattern: RegExp(
-        /(^|[^@])@/.source +
-          /(?:await\b\s*)?/.source +
-          "(?:" +
-          /\w+\b/.source +
-          "|" +
-          round +
-          ")" +
-          "(?:" +
-          /[?!]?\.\w+\b/.source +
-          "|" +
-          round +
-          "|" +
-          square +
-          "|" +
-          angle +
-          round +
-          ")*"
+        `${/(^|[^@])@/.source +
+  /(?:await\b\s*)?/.source}(?:${/\w+\b/.source}|${round})(?:${/[?!]?\.\w+\b/.source}|${round}|${square}|${angle}${round})*`
       ),
       lookbehind: true,
       greedy: true,
@@ -230,5 +182,5 @@
     },
   });
 
-  Prism.languages.razor = Prism.languages.cshtml;
+  languages.razor = languages.cshtml;
 })(Prism);

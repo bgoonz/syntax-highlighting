@@ -1,11 +1,11 @@
-(Prism => {
+(({languages}) => {
   function createBlock(prefix, inside, contentAlias) {
     return {
-      pattern: RegExp("<#" + prefix + "[\\s\\S]*?#>"),
+      pattern: RegExp(`<#${prefix}[\\s\\S]*?#>`),
       alias: "block",
       inside: {
         delimiter: {
-          pattern: RegExp("^<#" + prefix + "|#>$"),
+          pattern: RegExp(`^<#${prefix}|#>$`),
           alias: "important",
         },
         content: {
@@ -18,8 +18,8 @@
   }
 
   function createT4(insideLang) {
-    const grammar = Prism.languages[insideLang];
-    const className = "language-" + insideLang;
+    const grammar = languages[insideLang];
+    const className = `language-${insideLang}`;
 
     return {
       block: {
@@ -43,7 +43,7 @@
     };
   }
 
-  Prism.languages["t4-templating"] = Object.defineProperty({}, "createT4", {
+  languages["t4-templating"] = Object.defineProperty({}, "createT4", {
     value: createT4,
   });
 })(Prism);

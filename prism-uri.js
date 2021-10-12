@@ -36,20 +36,18 @@ Prism.languages.uri = {
   },
   authority: {
     pattern: RegExp(
-      /^\/\//.source +
-        // [ userinfo "@" ]
-        /(?:[\w\-.~!$&'()*+,;=%:]*@)?/.source +
-        // host
-        ("(?:" +
-          // IP-literal
-          /\[(?:[0-9a-fA-F:.]{2,48}|v[0-9a-fA-F]+\.[\w\-.~!$&'()*+,;=]+)\]/
-            .source +
-          "|" +
-          // IPv4address or registered name
-          /[\w\-.~!$&'()*+,;=%]*/.source +
-          ")") +
-        // [ ":" port ]
-        /(?::\d*)?/.source,
+      // host
+      // IP-literal
+      // IPv4address or registered name
+      // [ ":" port ]
+      `${// host
+/^\/\//.source +
+  // [ userinfo "@" ]
+  /(?:[\w\-.~!$&'()*+,;=%:]*@)?/.source}(?:${// IP-literal
+/\[(?:[0-9a-fA-F:.]{2,48}|v[0-9a-fA-F]+\.[\w\-.~!$&'()*+,;=]+)\]/
+  .source}|${// IPv4address or registered name
+/[\w\-.~!$&'()*+,;=%]*/.source})${// [ ":" port ]
+/(?::\d*)?/.source}`,
       "m"
     ),
     inside: {

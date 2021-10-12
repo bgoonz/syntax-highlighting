@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   let operators = [
     // query and projection
     "$eq",
@@ -256,22 +256,22 @@
     return operator.replace("$", "\\$");
   });
 
-  const operatorsSource = "(?:" + operators.join("|") + ")\\b";
+  const operatorsSource = `(?:${operators.join("|")})\\b`;
 
-  Prism.languages.mongodb = Prism.languages.extend("javascript", {});
+  languages.mongodb = languages.extend("javascript", {});
 
-  Prism.languages.insertBefore("mongodb", "string", {
+  languages.insertBefore("mongodb", "string", {
     property: {
       pattern:
         /(?:(["'])(?:\\(?:\r\n|[\s\S])|(?!\1)[^\\\r\n])*\1|(?!\s)[_$a-zA-Z\xA0-\uFFFF](?:(?!\s)[$\w\xA0-\uFFFF])*)(?=\s*:)/,
       greedy: true,
       inside: {
-        keyword: RegExp("^(['\"])?" + operatorsSource + "(?:\\1)?$"),
+        keyword: RegExp(`^(['"])?${operatorsSource}(?:\\1)?$`),
       },
     },
   });
 
-  Prism.languages.mongodb.string.inside = {
+  languages.mongodb.string.inside = {
     url: {
       // url pattern
       pattern:
@@ -286,9 +286,9 @@
     },
   };
 
-  Prism.languages.insertBefore("mongodb", "constant", {
+  languages.insertBefore("mongodb", "constant", {
     builtin: {
-      pattern: RegExp("\\b(?:" + builtinFunctions.join("|") + ")\\b"),
+      pattern: RegExp(`\\b(?:${builtinFunctions.join("|")})\\b`),
       alias: "keyword",
     },
   });

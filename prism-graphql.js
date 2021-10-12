@@ -100,8 +100,7 @@ Prism.hooks.add("after-tokenize", function afterTokenizeGraphql(env) {
    * @param {number} [offset=0]
    * @returns {boolean}
    */
-  function isTokenType(types, offset) {
-    offset = offset || 0;
+  function isTokenType(types, offset = 0) {
     for (let i = 0; i < types.length; i++) {
       const token = getToken(i + offset);
       if (!token || token.type !== types[i]) {

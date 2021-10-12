@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   /**
    * Replaces all placeholders "<<n>>" of given pattern with the n-th replacement (zero based).
    *
@@ -11,7 +11,7 @@
    */
   function replace(pattern, replacements) {
     return pattern.replace(/<<(\d+)>>/g, (m, index) => {
-      return "(?:" + replacements[+index] + ")";
+      return `(?:${replacements[+index]})`;
     });
   }
   /**
@@ -34,7 +34,7 @@
   function nested(pattern, depthLog2) {
     for (let i = 0; i < depthLog2; i++) {
       pattern = pattern.replace(/<<self>>/g, () => {
-        return "(?:" + pattern + ")";
+        return `(?:${pattern})`;
       });
     }
     return pattern.replace(/<<self>>/g, "[^\\s\\S]");
@@ -57,33 +57,19 @@
 
   // keywords
   function keywordsToPattern(words) {
-    return "\\b(?:" + words.trim().replace(/ /g, "|") + ")\\b";
+    return `\\b(?:${words.trim().replace(/ /g, "|")})\\b`;
   }
   const typeDeclarationKeywords = keywordsToPattern(keywordKinds.typeDeclaration);
   const keywords = RegExp(
     keywordsToPattern(
-      keywordKinds.type +
-        " " +
-        keywordKinds.typeDeclaration +
-        " " +
-        keywordKinds.contextual +
-        " " +
-        keywordKinds.other
+      `${keywordKinds.type} ${keywordKinds.typeDeclaration} ${keywordKinds.contextual} ${keywordKinds.other}`
     )
   );
   const nonTypeKeywords = keywordsToPattern(
-    keywordKinds.typeDeclaration +
-      " " +
-      keywordKinds.contextual +
-      " " +
-      keywordKinds.other
+    `${keywordKinds.typeDeclaration} ${keywordKinds.contextual} ${keywordKinds.other}`
   );
   const nonContextualKeywords = keywordsToPattern(
-    keywordKinds.type +
-      " " +
-      keywordKinds.typeDeclaration +
-      " " +
-      keywordKinds.other
+    `${keywordKinds.type} ${keywordKinds.typeDeclaration} ${keywordKinds.other}`
   );
 
   // types
@@ -122,7 +108,7 @@
   const regularString = /"(?:\\.|[^\\"\r\n])*"/.source;
   const verbatimString = /@"(?:""|\\[\s\S]|[^\\"])*"(?!")/.source;
 
-  Prism.languages.csharp = Prism.languages.extend("clike", {
+  languages.csharp = languages.extend("clike", {
     string: [
       {
         pattern: re(/(^|[^$\\])<<0>>/.source, [verbatimString]),
@@ -218,14 +204,14 @@
     punctuation: /\?\.?|::|[{}[\];(),.:]/,
   });
 
-  Prism.languages.insertBefore("csharp", "number", {
+  languages.insertBefore("csharp", "number", {
     range: {
       pattern: /\.\./,
       alias: "operator",
     },
   });
 
-  Prism.languages.insertBefore("csharp", "punctuation", {
+  languages.insertBefore("csharp", "punctuation", {
     "named-parameter": {
       pattern: re(/([(,]\s*)<<0>>(?=\s*:)/.source, [name]),
       lookbehind: true,
@@ -233,7 +219,7 @@
     },
   });
 
-  Prism.languages.insertBefore("csharp", "class-name", {
+  languages.insertBefore("csharp", "class-name", {
     namespace: {
       // namespace Foo.Bar {}
       // using Foo.Bar;
@@ -319,7 +305,7 @@
           ]),
           lookbehind: true,
           greedy: true,
-          inside: Prism.languages.csharp,
+          inside: languages.csharp,
         },
         keyword: keywords,
         "class-name": {
@@ -347,7 +333,7 @@
   });
 
   // attributes
-  const regularStringOrCharacter = regularString + "|" + character;
+  const regularStringOrCharacter = `${regularString}|${character}`;
   const regularStringCharacterOrComment = replace(
     /\/(?![*/])|\/\/[^\r\n]*[\r\n]|\/\*(?:[^*]|\*(?!\/))*\*\/|<<0>>/.source,
     [regularStringOrCharacter]
@@ -368,7 +354,7 @@
     roundExpression,
   ]);
 
-  Prism.languages.insertBefore("csharp", "class-name", {
+  languages.insertBefore("csharp", "class-name", {
     attribute: {
       // Attributes
       // [Foo], [Foo(1), Bar(2, Prop = "foo")], [return: Foo(1), Bar(2)], [assembly: Foo(Bar)]
@@ -386,7 +372,7 @@
         },
         "attribute-arguments": {
           pattern: re(/\(<<0>>*\)/.source, [roundExpression]),
-          inside: Prism.languages.csharp,
+          inside: languages.csharp,
         },
         "class-name": {
           pattern: RegExp(identifier),
@@ -445,7 +431,7 @@
           expression: {
             pattern: /[\s\S]+/,
             alias: "language-csharp",
-            inside: Prism.languages.csharp,
+            inside: languages.csharp,
           },
         },
       },
@@ -453,7 +439,7 @@
     };
   }
 
-  Prism.languages.insertBefore("csharp", "string", {
+  languages.insertBefore("csharp", "string", {
     "interpolation-string": [
       {
         pattern: re(
@@ -475,5 +461,5 @@
     ],
   });
 
-  Prism.languages.dotnet = Prism.languages.cs = Prism.languages.csharp;
+  languages.dotnet = languages.cs = languages.csharp;
 })(Prism);

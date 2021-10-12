@@ -1,4 +1,4 @@
-(Prism => {
+(({languages, hooks}) => {
   const attributes = {
     pattern:
       /(^[ \t]*)\[(?!\[)(?:(["'$`])(?:(?!\2)[^\\]|\\.)*\2|\[(?:[^\[\]\\]|\\.)*\]|[^\[\]\\"'$`]|\\.)*\]/m,
@@ -26,7 +26,7 @@
     },
   };
 
-  const asciidoc = (Prism.languages.asciidoc = {
+  const asciidoc = (languages.asciidoc = {
     "comment-block": {
       pattern: /^(\/{4,})(?:\r?\n|\r)(?:[\s\S]*(?:\r?\n|\r))??\1/m,
       alias: "comment",
@@ -236,11 +236,11 @@
   );
 
   // Plugin to make entity title show the real entity, idea by Roman Komarov
-  Prism.hooks.add("wrap", env => {
+  hooks.add("wrap", env => {
     if (env.type === "entity") {
       env.attributes["title"] = env.content.replace(/&amp;/, "&");
     }
   });
 
-  Prism.languages.adoc = Prism.languages.asciidoc;
+  languages.adoc = languages.asciidoc;
 })(Prism);

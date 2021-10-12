@@ -38,7 +38,7 @@ Prism.languages.parigp = {
         return keyword.split("").join(" *");
       })
       .join("|");
-    return RegExp("\\b(?:" + keywords + ")\\b");
+    return RegExp(`\\b(?:${keywords})\\b`);
   })(),
   function: /\b\w(?:[\w ]*\w)?(?= *\()/,
   number: {

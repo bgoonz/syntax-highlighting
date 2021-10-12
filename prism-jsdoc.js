@@ -1,11 +1,11 @@
-(Prism => {
-  const javascript = Prism.languages.javascript;
+(({languages}) => {
+  const javascript = languages.javascript;
 
   const type = /\{(?:[^{}]|\{(?:[^{}]|\{[^{}]*\})*\})+\}/.source;
   const parameterPrefix =
-    "(@(?:arg|argument|param|property)\\s+(?:" + type + "\\s+)?)";
+    `(@(?:arg|argument|param|property)\\s+(?:${type}\\s+)?)`;
 
-  Prism.languages.jsdoc = Prism.languages.extend("javadoclike", {
+  languages.jsdoc = languages.extend("javadoclike", {
     parameter: {
       // @param {string} foo - foo bar
       pattern: RegExp(
@@ -18,7 +18,7 @@
     },
   });
 
-  Prism.languages.insertBefore("jsdoc", "keyword", {
+  languages.insertBefore("jsdoc", "keyword", {
     "optional-parameter": {
       // @param {string} [baz.foo="bar"] foo bar
       pattern: RegExp(
@@ -59,13 +59,13 @@
         },
       },
       {
-        pattern: RegExp("(@[a-z]+\\s+)" + type),
+        pattern: RegExp(`(@[a-z]+\\s+)${type}`),
         lookbehind: true,
         inside: {
           string: javascript.string,
           number: javascript.number,
           boolean: javascript.boolean,
-          keyword: Prism.languages.typescript.keyword,
+          keyword: languages.typescript.keyword,
           operator: /=>|\.\.\.|[&|?:*]/,
           punctuation: /[.,;=<>{}()[\]]/,
         },
@@ -86,5 +86,5 @@
     },
   });
 
-  Prism.languages.javadoclike.addSupport("javascript", Prism.languages.jsdoc);
+  languages.javadoclike.addSupport("javascript", languages.jsdoc);
 })(Prism);

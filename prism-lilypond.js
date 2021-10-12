@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   let schemeExpression =
     /\((?:[^();"#\\]|\\[\s\S]|;.*(?!.)|"(?:[^"\\]|\\.)*"|#(?:\{(?:(?!#\})[\s\S])*#\}|[^{])|<expr>)*\)/
       .source;
@@ -12,7 +12,7 @@
   }
   schemeExpression = schemeExpression.replace(/<expr>/g, /[^\s\S]/.source);
 
-  const lilypond = (Prism.languages.lilypond = {
+  const lilypond = (languages.lilypond = {
     comment: /%(?:(?!\{).*|\{[\s\S]*?%\})/,
     "embedded-scheme": {
       pattern: RegExp(
@@ -44,7 +44,7 @@
                 },
               },
             },
-            rest: Prism.languages.scheme,
+            rest: languages.scheme,
           },
         },
         punctuation: /#/,
@@ -77,5 +77,5 @@
     "embedded-lilypond"
   ].inside["lilypond"].inside = lilypond;
 
-  Prism.languages.ly = lilypond;
+  languages.ly = lilypond;
 })(Prism);

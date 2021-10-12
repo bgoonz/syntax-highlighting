@@ -1,7 +1,7 @@
-(Prism => {
+(({languages, util}) => {
   // https://agraef.github.io/pure-docs/pure.html#lexical-matters
 
-  Prism.languages.pure = {
+  languages.pure = {
     comment: [
       {
         pattern: /(^|[^\\])\/\*[\s\S]*?\*\//,
@@ -63,9 +63,9 @@
       alias = lang.alias;
       lang = lang.lang;
     }
-    if (Prism.languages[alias]) {
+    if (languages[alias]) {
       const o = {};
-      o["inline-lang-" + alias] = {
+      o[`inline-lang-${alias}`] = {
         pattern: RegExp(
           inlineLanguageRe.replace(
             "<lang>",
@@ -73,19 +73,19 @@
           ),
           "i"
         ),
-        inside: Prism.util.clone(Prism.languages.pure["inline-lang"].inside),
+        inside: util.clone(languages.pure["inline-lang"].inside),
       };
-      o["inline-lang-" + alias].inside.rest = Prism.util.clone(
-        Prism.languages[alias]
+      o[`inline-lang-${alias}`].inside.rest = util.clone(
+        languages[alias]
       );
-      Prism.languages.insertBefore("pure", "inline-lang", o);
+      languages.insertBefore("pure", "inline-lang", o);
     }
   });
 
   // C is the default inline language
-  if (Prism.languages.c) {
-    Prism.languages.pure["inline-lang"].inside.rest = Prism.util.clone(
-      Prism.languages.c
+  if (languages.c) {
+    languages.pure["inline-lang"].inside.rest = util.clone(
+      languages.c
     );
   }
 })(Prism);

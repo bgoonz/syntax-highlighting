@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // $ set | grep '^[A-Z][^[:space:]]*=' | cut -d= -f1 | tr '\n' '|'
   // + LC_ALL, RANDOM, REPLY, SECONDS.
   // + make sure PS1..4 are here as they are not always set,
@@ -16,7 +16,7 @@
   const insideString = {
     bash: commandAfterHeredoc,
     environment: {
-      pattern: RegExp("\\$" + envVars),
+      pattern: RegExp(`\\$${envVars}`),
       alias: "constant",
     },
     variable: [
@@ -56,7 +56,7 @@
           operator: /:[-=?+]?|[!\/]|##?|%%?|\^\^?|,,?/,
           punctuation: /[\[\]]/,
           environment: {
-            pattern: RegExp("(\\{)" + envVars),
+            pattern: RegExp(`(\\{)${envVars}`),
             lookbehind: true,
             alias: "constant",
           },
@@ -69,7 +69,7 @@
       /\\(?:[abceEfnrtv\\"]|O?[0-7]{1,3}|U[0-9a-fA-F]{8}|u[0-9a-fA-F]{4}|x[0-9a-fA-F]{1,2})/,
   };
 
-  Prism.languages.bash = {
+  languages.bash = {
     shebang: {
       pattern: /^#!\s*\/.*/,
       alias: "important",
@@ -107,7 +107,7 @@
       pattern: /(^|[\s;|&]|[<>]\()\w+(?=\+?=)/,
       inside: {
         environment: {
-          pattern: RegExp("(^|[\\s;|&]|[<>]\\()" + envVars),
+          pattern: RegExp(`(^|[\\s;|&]|[<>]\\()${envVars}`),
           lookbehind: true,
           alias: "constant",
         },
@@ -158,7 +158,7 @@
       },
     ],
     environment: {
-      pattern: RegExp("\\$?" + envVars),
+      pattern: RegExp(`\\$?${envVars}`),
       alias: "constant",
     },
     variable: insideString.variable,
@@ -206,7 +206,7 @@
     },
   };
 
-  commandAfterHeredoc.inside = Prism.languages.bash;
+  commandAfterHeredoc.inside = languages.bash;
 
   /* Patterns in command substitution. */
   const toBeCopied = [
@@ -227,8 +227,8 @@
   ];
   const inside = insideString.variable[1].inside;
   for (let i = 0; i < toBeCopied.length; i++) {
-    inside[toBeCopied[i]] = Prism.languages.bash[toBeCopied[i]];
+    inside[toBeCopied[i]] = languages.bash[toBeCopied[i]];
   }
 
-  Prism.languages.shell = Prism.languages.bash;
+  languages.shell = languages.bash;
 })(Prism);

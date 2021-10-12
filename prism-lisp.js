@@ -1,4 +1,4 @@
-(function (Prism) {
+(function({util, languages}) {
   /**
    * Functions to construct regular expressions
    * e.g. (interactive ... or (interactive)
@@ -7,7 +7,7 @@
    * @returns {RegExp}
    */
   function simple_form(name) {
-    return RegExp(/(\()/.source + "(?:" + name + ")" + /(?=[\s\)])/.source);
+    return RegExp(`${/(\()/.source}(?:${name})${/(?=[\s\)])/.source}`);
   }
   /**
    * booleans and numbers
@@ -17,7 +17,7 @@
    */
   function primitive(pattern) {
     return RegExp(
-      /([\s([])/.source + "(?:" + pattern + ")" + /(?=[\s)])/.source
+      `${/([\s([])/.source}(?:${pattern})${/(?=[\s)])/.source}`
     );
   }
 
@@ -27,7 +27,7 @@
   // & and : are excluded as they are usually used for special purposes
   const symbol = /(?!\d)[-+*/~!@$%^=<>{}\w]+/.source;
   // symbol starting with & used in function arguments
-  const marker = "&" + symbol;
+  const marker = `&${symbol}`;
   // Open parenthesis for look-behind
   const par = "(\\()";
   const endpar = "(?=\\))";
@@ -50,33 +50,31 @@
       greedy: true,
       inside: {
         argument: /[-A-Z]+(?=[.,\s])/,
-        symbol: RegExp("`" + symbol + "'"),
+        symbol: RegExp(`\`${symbol}'`),
       },
     },
     "quoted-symbol": {
-      pattern: RegExp("#?'" + symbol),
+      pattern: RegExp(`#?'${symbol}`),
       alias: ["variable", "symbol"],
     },
     "lisp-property": {
-      pattern: RegExp(":" + symbol),
+      pattern: RegExp(`:${symbol}`),
       alias: "property",
     },
     splice: {
-      pattern: RegExp(",@?" + symbol),
+      pattern: RegExp(`,@?${symbol}`),
       alias: ["symbol", "variable"],
     },
     keyword: [
       {
         pattern: RegExp(
-          par +
-            "(?:and|(?:cl-)?letf|cl-loop|cond|cons|error|if|(?:lexical-)?let\\*?|message|not|null|or|provide|require|setq|unless|use-package|when|while)" +
-            space
+          `${par}(?:and|(?:cl-)?letf|cl-loop|cond|cons|error|if|(?:lexical-)?let\\*?|message|not|null|or|provide|require|setq|unless|use-package|when|while)${space}`
         ),
         lookbehind: true,
       },
       {
         pattern: RegExp(
-          par + "(?:append|by|collect|concat|do|finally|for|in|return)" + space
+          `${par}(?:append|by|collect|concat|do|finally|for|in|return)${space}`
         ),
         lookbehind: true,
       },
@@ -100,7 +98,7 @@
       lookbehind: true,
     },
     defvar: {
-      pattern: RegExp(par + "def(?:const|custom|group|var)\\s+" + symbol),
+      pattern: RegExp(`${par}def(?:const|custom|group|var)\\s+${symbol}`),
       lookbehind: true,
       inside: {
         keyword: /^def[a-z]+/,
@@ -124,7 +122,7 @@
         // reference the language object.
         arguments: null,
         function: {
-          pattern: RegExp("(^\\s)" + symbol),
+          pattern: RegExp(`(^\\s)${symbol}`),
           lookbehind: true,
         },
         punctuation: /[()]/,
@@ -132,12 +130,7 @@
     },
     lambda: {
       pattern: RegExp(
-        par +
-          "lambda\\s+\\(\\s*(?:&?" +
-          symbol +
-          "(?:\\s+&?" +
-          symbol +
-          ")*\\s*)?\\)"
+        `${par}lambda\\s+\\(\\s*(?:&?${symbol}(?:\\s+&?${symbol})*\\s*)?\\)`
       ),
       lookbehind: true,
       greedy: true,
@@ -187,15 +180,15 @@
     lookbehind: true,
     inside: {
       "rest-vars": {
-        pattern: RegExp("&(?:body|rest)\\s+" + forms),
+        pattern: RegExp(`&(?:body|rest)\\s+${forms}`),
         inside: arg,
       },
       "other-marker-vars": {
-        pattern: RegExp("&(?:aux|optional)\\s+" + forms),
+        pattern: RegExp(`&(?:aux|optional)\\s+${forms}`),
         inside: arg,
       },
       keys: {
-        pattern: RegExp("&key\\s+" + forms + "(?:\\s+&allow-other-keys)?"),
+        pattern: RegExp(`&key\\s+${forms}(?:\\s+&allow-other-keys)?`),
         inside: arg,
       },
       argument: {
@@ -207,11 +200,11 @@
   };
 
   language["lambda"].inside.arguments = arglist;
-  language["defun"].inside.arguments = Prism.util.clone(arglist);
+  language["defun"].inside.arguments = util.clone(arglist);
   language["defun"].inside.arguments.inside.sublist = arglist;
 
-  Prism.languages.lisp = language;
-  Prism.languages.elisp = language;
-  Prism.languages.emacs = language;
-  Prism.languages["emacs-lisp"] = language;
+  languages.lisp = language;
+  languages.elisp = language;
+  languages.emacs = language;
+  languages["emacs-lisp"] = language;
 })(Prism);

@@ -1,26 +1,25 @@
-(Prism => {
-  Prism.languages.insertBefore("javascript", "function-variable", {
+(({languages, util}) => {
+  languages.insertBefore("javascript", "function-variable", {
     "method-variable": {
       pattern: RegExp(
-        "(\\.\\s*)" +
-          Prism.languages.javascript["function-variable"].pattern.source
+        `(\\.\\s*)${languages.javascript["function-variable"].pattern.source}`
       ),
       lookbehind: true,
       alias: ["function-variable", "method", "function", "property-access"],
     },
   });
 
-  Prism.languages.insertBefore("javascript", "function", {
+  languages.insertBefore("javascript", "function", {
     method: {
       pattern: RegExp(
-        "(\\.\\s*)" + Prism.languages.javascript["function"].source
+        `(\\.\\s*)${languages.javascript["function"].source}`
       ),
       lookbehind: true,
       alias: ["function", "property-access"],
     },
   });
 
-  Prism.languages.insertBefore("javascript", "constant", {
+  languages.insertBefore("javascript", "constant", {
     "known-class-name": [
       {
         // standard built-ins
@@ -52,7 +51,7 @@
       flags
     );
   }
-  Prism.languages.insertBefore("javascript", "keyword", {
+  languages.insertBefore("javascript", "keyword", {
     imports: {
       // https://tc39.es/ecma262/#sec-imports
       pattern: withId(
@@ -60,7 +59,7 @@
           .source
       ),
       lookbehind: true,
-      inside: Prism.languages.javascript,
+      inside: languages.javascript,
     },
     exports: {
       // https://tc39.es/ecma262/#sec-exports
@@ -69,11 +68,11 @@
           .source
       ),
       lookbehind: true,
-      inside: Prism.languages.javascript,
+      inside: languages.javascript,
     },
   });
 
-  Prism.languages.javascript["keyword"].unshift(
+  languages.javascript["keyword"].unshift(
     {
       pattern: /\b(?:as|default|export|from|import)\b/,
       alias: "module",
@@ -93,7 +92,7 @@
     }
   );
 
-  Prism.languages.insertBefore("javascript", "operator", {
+  languages.insertBefore("javascript", "operator", {
     spread: {
       pattern: /\.{3}/,
       alias: "operator",
@@ -104,7 +103,7 @@
     },
   });
 
-  Prism.languages.insertBefore("javascript", "punctuation", {
+  languages.insertBefore("javascript", "punctuation", {
     "property-access": {
       pattern: withId(/(\.\s*)#?<ID>/.source),
       lookbehind: true,
@@ -135,11 +134,11 @@
   ];
 
   maybeClassNameTokens.forEach(token => {
-    let value = Prism.languages.javascript[token];
+    let value = languages.javascript[token];
 
     // convert regex to object
-    if (Prism.util.type(value) === "RegExp") {
-      value = Prism.languages.javascript[token] = {
+    if (util.type(value) === "RegExp") {
+      value = languages.javascript[token] = {
         pattern: value,
       };
     }

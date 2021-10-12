@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.puppet = {
+(({languages}) => {
+  languages.puppet = {
     heredoc: [
       // Matches the content of a quoted heredoc string (subject to interpolation)
       {
@@ -127,7 +127,7 @@
           pattern: /^\$/,
           alias: "variable",
         },
-        rest: Prism.languages.puppet,
+        rest: languages.puppet,
       },
     },
     {
@@ -139,8 +139,8 @@
       },
     },
   ];
-  Prism.languages.puppet["heredoc"][0].inside.interpolation = interpolation;
-  Prism.languages.puppet["string"].inside[
+  languages.puppet["heredoc"][0].inside.interpolation = interpolation;
+  languages.puppet["string"].inside[
     "double-quoted"
   ].inside.interpolation = interpolation;
 })(Prism);

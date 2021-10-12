@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   /**
    * If the given language is present, it will insert the given doc comment grammar token into it.
    *
@@ -6,14 +6,14 @@
    * @param {any} docComment
    */
   function insertDocComment(lang, docComment) {
-    if (Prism.languages[lang]) {
-      Prism.languages.insertBefore(lang, "comment", {
+    if (languages[lang]) {
+      languages.insertBefore(lang, "comment", {
         "doc-comment": docComment,
       });
     }
   }
 
-  const tag = Prism.languages.markup.tag;
+  const tag = languages.markup.tag;
 
   const slashDocComment = {
     pattern: /\/\/\/.*/,

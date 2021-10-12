@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.sass = Prism.languages.extend("css", {
+(({languages}) => {
+  languages.sass = languages.extend("css", {
     // Sass comments don't need to be closed, only indented
     comment: {
       pattern: /^([ \t]*)\/[\/*].*(?:(?:\r?\n|\r)\1[ \t].+)*/m,
@@ -8,7 +8,7 @@
     },
   });
 
-  Prism.languages.insertBefore("sass", "atrule", {
+  languages.insertBefore("sass", "atrule", {
     // We want to consume the whole line
     "atrule-line": {
       // Includes support for = and + shortcuts
@@ -19,7 +19,7 @@
       },
     },
   });
-  delete Prism.languages.sass.atrule;
+  delete languages.sass.atrule;
 
   const variable = /\$[-\w]+|#\{\$[-\w]+\}/;
   const operator = [
@@ -30,7 +30,7 @@
     },
   ];
 
-  Prism.languages.insertBefore("sass", "property", {
+  languages.insertBefore("sass", "property", {
     // We want to consume the whole line
     "variable-line": {
       pattern: /^[ \t]*\$.+/m,
@@ -56,16 +56,16 @@
         punctuation: /:/,
         variable: variable,
         operator: operator,
-        important: Prism.languages.sass.important,
+        important: languages.sass.important,
       },
     },
   });
-  delete Prism.languages.sass.property;
-  delete Prism.languages.sass.important;
+  delete languages.sass.property;
+  delete languages.sass.important;
 
   // Now that whole lines for other patterns are consumed,
   // what's left should be selectors
-  Prism.languages.insertBefore("sass", "punctuation", {
+  languages.insertBefore("sass", "punctuation", {
     selector: {
       pattern:
         /^([ \t]*)\S(?:,[^,\r\n]+|[^,\r\n]*)(?:,[^,\r\n]+)*(?:,(?:\r?\n|\r)\1[ \t]+\S(?:,[^,\r\n]+|[^,\r\n]*)(?:,[^,\r\n]+)*)*/m,

@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.http = {
+(({languages}) => {
+  languages.http = {
     "request-line": {
       pattern:
         /^(?:CONNECT|DELETE|GET|HEAD|OPTIONS|PATCH|POST|PRI|PUT|SEARCH|TRACE)\s(?:https?:\/\/|\/)\S*\sHTTP\/[\d.]+/m,
@@ -14,7 +14,7 @@
           pattern: /^(\s)(?:https?:\/\/|\/)\S*(?=\s)/,
           lookbehind: true,
           alias: "url",
-          inside: Prism.languages.uri,
+          inside: languages.uri,
         },
         // HTTP Version
         "http-version": {
@@ -54,7 +54,7 @@
   };
 
   // Create a mapping of Content-Type headers to language definitions
-  const langs = Prism.languages;
+  const langs = languages;
   const httpLanguages = {
     "application/javascript": langs.javascript,
     "application/json": langs.json || langs.javascript,
@@ -78,8 +78,8 @@
    */
   function getSuffixPattern(contentType) {
     const suffix = contentType.replace(/^[a-z]+\//, "");
-    const suffixPattern = "\\w+/(?:[\\w.-]+\\+)+" + suffix + "(?![+\\w.-])";
-    return "(?:" + contentType + "|" + suffixPattern + ")";
+    const suffixPattern = `\\w+/(?:[\\w.-]+\\+)+${suffix}(?![+\\w.-])`;
+    return `(?:${contentType}|${suffixPattern})`;
   }
 
   // Insert each content type parser that has its associated language
@@ -94,9 +94,7 @@
         : contentType;
       options[contentType.replace(/\//g, "-")] = {
         pattern: RegExp(
-          "(content-type:\\s*" +
-            pattern +
-            "(?:(?:\\r\\n?|\\n).+)*)(?:\\r?\\n|\\r){2}[\\s\\S]*",
+          `(content-type:\\s*${pattern}(?:(?:\\r\\n?|\\n).+)*)(?:\\r?\\n|\\r){2}[\\s\\S]*`,
           "i"
         ),
         lookbehind: true,
@@ -105,6 +103,6 @@
     }
   }
   if (options) {
-    Prism.languages.insertBefore("http", "header-name", options);
+    languages.insertBefore("http", "header-name", options);
   }
 })(Prism);

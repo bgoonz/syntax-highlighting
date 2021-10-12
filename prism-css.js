@@ -1,8 +1,8 @@
-(Prism => {
+(({languages}) => {
   const string =
     /(?:"(?:\\(?:\r\n|[\s\S])|[^"\\\r\n])*"|'(?:\\(?:\r\n|[\s\S])|[^'\\\r\n])*')/;
 
-  Prism.languages.css = {
+  languages.css = {
     comment: /\/\*[\s\S]*?\*\//,
     atrule: {
       pattern: /@[\w-](?:[^;{\s]|\s+(?![\s{]))*(?:;|(?=\s*\{))/,
@@ -24,11 +24,7 @@
     url: {
       // https://drafts.csswg.org/css-values-3/#urls
       pattern: RegExp(
-        "\\burl\\((?:" +
-          string.source +
-          "|" +
-          /(?:[^\\\r\n()"']|\\[\s\S])*/.source +
-          ")\\)",
+        `\\burl\\((?:${string.source}|${/(?:[^\\\r\n()"']|\\[\s\S])*/.source})\\)`,
         "i"
       ),
       greedy: true,
@@ -36,16 +32,14 @@
         function: /^url/i,
         punctuation: /^\(|\)$/,
         string: {
-          pattern: RegExp("^" + string.source + "$"),
+          pattern: RegExp(`^${string.source}$`),
           alias: "url",
         },
       },
     },
     selector: {
       pattern: RegExp(
-        "(^|[{}\\s])[^{}\\s](?:[^{};\"'\\s]|\\s+(?![\\s{])|" +
-          string.source +
-          ")*(?=\\s*\\{)"
+        `(^|[{}\\s])[^{}\\s](?:[^{};"'\\s]|\\s+(?![\\s{])|${string.source})*(?=\\s*\\{)`
       ),
       lookbehind: true,
     },
@@ -66,9 +60,9 @@
     punctuation: /[(){};:,]/,
   };
 
-  Prism.languages.css["atrule"].inside.rest = Prism.languages.css;
+  languages.css["atrule"].inside.rest = languages.css;
 
-  const markup = Prism.languages.markup;
+  const markup = languages.markup;
   if (markup) {
     markup.tag.addInlined("style", "css");
     markup.tag.addAttribute("style", "css");

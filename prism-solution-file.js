@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const guid = {
     // https://en.wikipedia.org/wiki/Universally_unique_identifier#Format
     pattern: /\{[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}\}/i,
@@ -8,7 +8,7 @@
     },
   };
 
-  Prism.languages["solution-file"] = {
+  languages["solution-file"] = {
     comment: {
       pattern: /#.*/,
       greedy: true,
@@ -46,5 +46,5 @@
     punctuation: /[(),]/,
   };
 
-  Prism.languages["sln"] = Prism.languages["solution-file"];
+  languages["sln"] = languages["solution-file"];
 })(Prism);

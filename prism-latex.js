@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const funcPattern = /\\(?:[^a-z()[\]]|[a-z*]+)/i;
   const insideEqu = {
     "equation-command": {
@@ -7,7 +7,7 @@
     },
   };
 
-  Prism.languages.latex = {
+  languages.latex = {
     comment: /%.*/m,
     // the verbatim environment prints whitespace to the document
     cdata: {
@@ -64,6 +64,6 @@
     punctuation: /[[\]{}&]/,
   };
 
-  Prism.languages.tex = Prism.languages.latex;
-  Prism.languages.context = Prism.languages.latex;
+  languages.tex = languages.latex;
+  languages.context = languages.latex;
 })(Prism);

@@ -1,10 +1,10 @@
-(Prism => {
+(({languages}) => {
   const interpolationExpr = {
     pattern: /[\s\S]+/,
     inside: null,
   };
 
-  Prism.languages.v = Prism.languages.extend("clike", {
+  languages.v = languages.extend("clike", {
     string: [
       {
         pattern: /`(?:\\`|\\?[^`]{1,2})`/, // using {1,2} instead of `u` flag for compatibility
@@ -48,9 +48,9 @@
       /\b(?:any(?:_float|_int)?|bool|byte(?:ptr)?|charptr|f(?:32|64)|i(?:8|16|64|128|nt)|rune|size_t|string|u(?:16|32|64|128)|voidptr)\b/,
   });
 
-  interpolationExpr.inside = Prism.languages.v;
+  interpolationExpr.inside = languages.v;
 
-  Prism.languages.insertBefore("v", "operator", {
+  languages.insertBefore("v", "operator", {
     attribute: {
       pattern:
         /(^[\t ]*)\[(?:deprecated|direct_array_access|flag|inline|live|ref_only|typedef|unsafe_fn|windows_stdcall)\]/m,
@@ -70,7 +70,7 @@
     },
   });
 
-  Prism.languages.insertBefore("v", "function", {
+  languages.insertBefore("v", "function", {
     "generic-function": {
       // e.g. foo<T>( ...
       pattern: /\b\w+\s*<\w+>(?=\()/,
@@ -78,7 +78,7 @@
         function: /^\w+/,
         generic: {
           pattern: /<\w+>/,
-          inside: Prism.languages.v.generic.inside,
+          inside: languages.v.generic.inside,
         },
       },
     },

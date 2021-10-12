@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const unit = {
     pattern: /(\b\d+)(?:%|[a-z]+)/,
     lookbehind: true,
@@ -74,7 +74,7 @@
     },
   };
 
-  Prism.languages.stylus = {
+  languages.stylus = {
     "atrule-declaration": {
       pattern: /(^[ \t]*)@.+/m,
       lookbehind: true,

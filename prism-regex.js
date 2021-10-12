@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const specialEscape = {
     pattern: /\\[\\(){}[\]^$+*?|.]/,
     alias: "escape",
@@ -14,8 +14,8 @@
     alias: "class-name",
   };
 
-  const rangeChar = "(?:[^\\\\-]|" + escape.source + ")";
-  const range = RegExp(rangeChar + "-" + rangeChar);
+  const rangeChar = `(?:[^\\\\-]|${escape.source})`;
+  const range = RegExp(`${rangeChar}-${rangeChar}`);
 
   // the name of a capturing group
   const groupName = {
@@ -24,7 +24,7 @@
     alias: "variable",
   };
 
-  Prism.languages.regex = {
+  languages.regex = {
     "char-class": {
       pattern: /((?:^|[^\\])(?:\\\\)*)\[(?:[^\\\]]|\\[\s\S])*\]/,
       lookbehind: true,

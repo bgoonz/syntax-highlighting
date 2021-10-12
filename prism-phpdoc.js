@@ -1,23 +1,20 @@
-(Prism => {
+(({languages}) => {
   const typeExpression = /(?:\b[a-zA-Z]\w*|[|\\[\]])+/.source;
 
-  Prism.languages.phpdoc = Prism.languages.extend("javadoclike", {
+  languages.phpdoc = languages.extend("javadoclike", {
     parameter: {
       pattern: RegExp(
-        "(@(?:global|param|property(?:-read|-write)?|var)\\s+(?:" +
-          typeExpression +
-          "\\s+)?)\\$\\w+"
+        `(@(?:global|param|property(?:-read|-write)?|var)\\s+(?:${typeExpression}\\s+)?)\\$\\w+`
       ),
       lookbehind: true,
     },
   });
 
-  Prism.languages.insertBefore("phpdoc", "keyword", {
+  languages.insertBefore("phpdoc", "keyword", {
     "class-name": [
       {
         pattern: RegExp(
-          "(@(?:global|package|param|property(?:-read|-write)?|return|subpackage|throws|var)\\s+)" +
-            typeExpression
+          `(@(?:global|package|param|property(?:-read|-write)?|return|subpackage|throws|var)\\s+)${typeExpression}`
         ),
         lookbehind: true,
         inside: {
@@ -29,5 +26,5 @@
     ],
   });
 
-  Prism.languages.javadoclike.addSupport("php", Prism.languages.phpdoc);
+  languages.javadoclike.addSupport("php", languages.phpdoc);
 })(Prism);

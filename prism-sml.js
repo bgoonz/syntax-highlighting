@@ -1,10 +1,10 @@
 // https://smlfamily.github.io/sml97-defn.pdf
 // https://people.mpi-sws.org/~rossberg/sml.html
-(Prism => {
+(({languages}) => {
   const keywords =
     /\b(?:abstype|and|andalso|as|case|datatype|do|else|end|eqtype|exception|fn|fun|functor|handle|if|in|include|infix|infixr|let|local|nonfix|of|op|open|orelse|raise|rec|sharing|sig|signature|struct|structure|then|type|val|where|while|with|withtype)\b/i;
 
-  Prism.languages.sml = {
+  languages.sml = {
     // allow one level of nesting
     comment:
       /\(\*(?:[^*(]|\*(?!\))|\((?!\*)|\(\*(?:[^*(]|\*(?!\))|\((?!\*))*\*\))*\*\)/,
@@ -70,7 +70,7 @@
     punctuation: /[(){}\[\].:,;]/,
   };
 
-  Prism.languages.sml["class-name"][0].inside = Prism.languages.sml;
+  languages.sml["class-name"][0].inside = languages.sml;
 
-  Prism.languages.smlnj = Prism.languages.sml;
+  languages.smlnj = languages.sml;
 })(Prism);

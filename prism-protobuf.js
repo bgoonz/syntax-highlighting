@@ -1,8 +1,8 @@
-(Prism => {
+(({languages}) => {
   const builtinTypes =
     /\b(?:bool|bytes|double|s?fixed(?:32|64)|float|[su]?int(?:32|64)|string)\b/;
 
-  Prism.languages.protobuf = Prism.languages.extend("clike", {
+  languages.protobuf = languages.extend("clike", {
     "class-name": [
       {
         pattern: /(\b(?:enum|extend|message|service)\s+)[A-Za-z_]\w*(?=\s*\{)/,
@@ -19,7 +19,7 @@
     function: /\b[a-z_]\w*(?=\s*\()/i,
   });
 
-  Prism.languages.insertBefore("protobuf", "operator", {
+  languages.insertBefore("protobuf", "operator", {
     map: {
       pattern: /\bmap<\s*[\w.]+\s*,\s*[\w.]+\s*>(?=\s+[a-z_]\w*\s*[=;])/i,
       alias: "class-name",

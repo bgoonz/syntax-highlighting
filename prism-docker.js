@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // Many of the following regexes will contain negated lookaheads like `[ \t]+(?![ \t])`. This is a trick to ensure
   // that quantifiers behave *atomically*. Atomic quantifiers are necessary to prevent exponential backtracking.
 
@@ -49,7 +49,7 @@
     return RegExp(source, flags);
   }
 
-  Prism.languages.docker = {
+  languages.docker = {
     instruction: {
       pattern:
         /(^[ \t]*)(?:ADD|ARG|CMD|COPY|ENTRYPOINT|ENV|EXPOSE|FROM|HEALTHCHECK|LABEL|MAINTAINER|ONBUILD|RUN|SHELL|STOPSIGNAL|USER|VOLUME|WORKDIR)(?=\s)(?:\\.|[^\r\n\\])*(?:\\$(?:\s|#.*$)*(?![\s#])(?:\\.|[^\r\n\\])*)*/im,
@@ -120,5 +120,5 @@
     comment: commentRule,
   };
 
-  Prism.languages.dockerfile = Prism.languages.docker;
+  languages.dockerfile = languages.docker;
 })(Prism);

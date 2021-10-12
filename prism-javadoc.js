@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const codeLinePattern = /(^(?:[\t ]*(?:\*\s*)*))[^*\s].*$/m;
 
   const memberReference = /#\s*\w+(?:\s*\([^()]*\))?/.source;
@@ -10,14 +10,11 @@
       }
     );
 
-  Prism.languages.javadoc = Prism.languages.extend("javadoclike", {});
-  Prism.languages.insertBefore("javadoc", "keyword", {
+  languages.javadoc = languages.extend("javadoclike", {});
+  languages.insertBefore("javadoc", "keyword", {
     reference: {
       pattern: RegExp(
-        /(@(?:exception|link|linkplain|see|throws|value)\s+(?:\*\s*)?)/.source +
-          "(?:" +
-          reference +
-          ")"
+        `${/(@(?:exception|link|linkplain|see|throws|value)\s+(?:\*\s*)?)/.source}(?:${reference})`
       ),
       lookbehind: true,
       inside: {
@@ -36,7 +33,7 @@
           },
         },
         "class-name": /\b[A-Z]\w*/,
-        keyword: Prism.languages.java.keyword,
+        keyword: languages.java.keyword,
         punctuation: /[#()[\],.]/,
       },
     },
@@ -58,7 +55,7 @@
             // there can't be any HTML inside of {@code} tags
             pattern: codeLinePattern,
             lookbehind: true,
-            inside: Prism.languages.java,
+            inside: languages.java,
             alias: "language-java",
           },
         },
@@ -72,12 +69,12 @@
             lookbehind: true,
             inside: {
               // highlight HTML tags and entities
-              tag: Prism.languages.markup.tag,
-              entity: Prism.languages.markup.entity,
+              tag: languages.markup.tag,
+              entity: languages.markup.entity,
               code: {
                 // everything else is Java code
                 pattern: /.+/,
-                inside: Prism.languages.java,
+                inside: languages.java,
                 alias: "language-java",
               },
             },
@@ -85,9 +82,9 @@
         },
       },
     ],
-    tag: Prism.languages.markup.tag,
-    entity: Prism.languages.markup.entity,
+    tag: languages.markup.tag,
+    entity: languages.markup.entity,
   });
 
-  Prism.languages.javadoclike.addSupport("java", Prism.languages.javadoc);
+  languages.javadoclike.addSupport("java", languages.javadoc);
 })(Prism);

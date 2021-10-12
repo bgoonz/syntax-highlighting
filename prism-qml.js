@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const jsString = /"(?:\\.|[^\\"\r\n])*"|'(?:\\.|[^\\'\r\n])*'/.source;
   const jsComment = /\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))*\*\//.source;
 
@@ -19,7 +19,7 @@
   }
   jsExpr = jsExpr.replace(/<expr>/g, "[^\\s\\S]");
 
-  Prism.languages.qml = {
+  languages.qml = {
     comment: {
       pattern: /\/\/.*|\/\*[\s\S]*?\*\//,
       greedy: true,
@@ -37,7 +37,7 @@
       lookbehind: true,
       greedy: true,
       alias: "language-javascript",
-      inside: Prism.languages.javascript,
+      inside: languages.javascript,
     },
     "class-name": {
       pattern: /((?:^|[:;])[ \t]*)(?!\d)\w+(?=[ \t]*\{|[ \t]+on\b)/m,
@@ -71,7 +71,7 @@
       lookbehind: true,
       greedy: true,
       alias: "language-javascript",
-      inside: Prism.languages.javascript,
+      inside: languages.javascript,
     },
     string: /"(?:\\.|[^\\"\r\n])*"/,
     keyword: /\b(?:as|import|on)\b/,

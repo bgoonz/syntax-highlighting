@@ -1,8 +1,8 @@
-(Prism => {
+(({languages}) => {
   const coreRules =
     "(?:ALPHA|BIT|CHAR|CR|CRLF|CTL|DIGIT|DQUOTE|HEXDIG|HTAB|LF|LWSP|OCTET|SP|VCHAR|WSP)";
 
-  Prism.languages.abnf = {
+  languages.abnf = {
     comment: /;.*/,
     string: {
       pattern: /(?:%[is])?"[^"\n\r]*"/,
@@ -35,7 +35,7 @@
     },
     "core-rule": {
       pattern: RegExp(
-        "(?:(^|[^<\\w-])" + coreRules + "|<" + coreRules + ">)(?![\\w-])",
+        `(?:(^|[^<\\w-])${coreRules}|<${coreRules}>)(?![\\w-])`,
         "i"
       ),
       lookbehind: true,

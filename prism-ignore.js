@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.ignore = {
+(({languages}) => {
+  languages.ignore = {
     // https://git-scm.com/docs/gitignore
     comment: /^#.*/m,
     entry: {
@@ -16,7 +16,7 @@
     },
   };
 
-  Prism.languages.gitignore = Prism.languages.ignore;
-  Prism.languages.hgignore = Prism.languages.ignore;
-  Prism.languages.npmignore = Prism.languages.ignore;
+  languages.gitignore = languages.ignore;
+  languages.hgignore = languages.ignore;
+  languages.npmignore = languages.ignore;
 })(Prism);

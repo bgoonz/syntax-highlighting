@@ -1,10 +1,10 @@
-(Prism => {
+(({languages}) => {
   const string = /("|')(?:\\(?:\r\n?|\n|.)|(?!\1)[^\\\r\n])*\1/;
 
-  Prism.languages.json5 = Prism.languages.extend("json", {
+  languages.json5 = languages.extend("json", {
     property: [
       {
-        pattern: RegExp(string.source + "(?=\\s*:)"),
+        pattern: RegExp(`${string.source}(?=\\s*:)`),
         greedy: true,
       },
       {

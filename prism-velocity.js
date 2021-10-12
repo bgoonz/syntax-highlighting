@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.velocity = Prism.languages.extend("markup", {});
+(({languages}) => {
+  languages.velocity = languages.extend("markup", {});
 
   const velocity = {
     variable: {
@@ -29,7 +29,7 @@
     punctuation: velocity["punctuation"],
   };
 
-  Prism.languages.insertBefore("velocity", "comment", {
+  languages.insertBefore("velocity", "comment", {
     unparsed: {
       pattern: /(^|[^\\])#\[\[[\s\S]*?\]\]#/,
       lookbehind: true,
@@ -69,6 +69,6 @@
     variable: velocity["variable"],
   });
 
-  Prism.languages.velocity["tag"].inside["attr-value"].inside.rest =
-    Prism.languages.velocity;
+  languages.velocity["tag"].inside["attr-value"].inside.rest =
+    languages.velocity;
 })(Prism);

@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const interpolation = /\\\((?:[^()]|\([^()]*\))*\)/.source;
   const string = RegExp(
     /(^|[^\\])"(?:[^"\r\n\\]|\\[^\r\n(]|__)*"/.source.replace(
@@ -23,7 +23,7 @@
     },
   };
 
-  const jq = (Prism.languages.jq = {
+  const jq = (languages.jq = {
     comment: /#.*/,
     property: {
       pattern: RegExp(string.source + /(?=\s*:(?!:))/.source),

@@ -25,7 +25,7 @@
     }
 
     return {
-      pattern: RegExp("((?:" + tag + ")\\s*)" + templateLiteralPattern),
+      pattern: RegExp(`((?:${tag})\\s*)${templateLiteralPattern}`),
       lookbehind: true,
       greedy: true,
       inside: {
@@ -83,7 +83,7 @@
    * @returns {string}
    */
   function getPlaceholder(counter, language) {
-    return "___" + language.toUpperCase() + "_" + counter + "___";
+    return `___${language.toUpperCase()}_${counter}___`;
   }
 
   /**
@@ -268,7 +268,7 @@
     return new Prism.Token(
       language,
       embeddedTokens,
-      "language-" + language,
+      `language-${language}`,
       code
     );
   }
@@ -286,8 +286,8 @@
     jsx: true,
     tsx: true,
   };
-  Prism.hooks.add("after-tokenize", env => {
-    if (!(env.language in supportedLanguages)) {
+  Prism.hooks.add("after-tokenize", ({language, tokens}) => {
+    if (!(language in supportedLanguages)) {
       return;
     }
 
@@ -355,7 +355,7 @@
       }
     }
 
-    findTemplateStrings(env.tokens);
+    findTemplateStrings(tokens);
   });
 
   /**

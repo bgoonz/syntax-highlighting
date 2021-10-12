@@ -1,6 +1,6 @@
-(Prism => {
+(({languages}) => {
   /* OpenCL kernel language */
-  Prism.languages.opencl = Prism.languages.extend("c", {
+  languages.opencl = languages.extend("c", {
     // Extracted from the official specs (2.0) and http://streamcomputing.eu/downloads/?opencl.lang (opencl-keywords, opencl-types) and http://sourceforge.net/tracker/?func=detail&aid=2957794&group_id=95717&atid=612384 (Words2, partly Words3)
     keyword:
       /\b(?:(?:__)?(?:constant|global|kernel|local|private|read_only|read_write|write_only)|__attribute__|auto|(?:bool|u?(?:char|int|long|short)|half|quad)(?:2|3|4|8|16)?|break|case|complex|const|continue|(?:double|float)(?:16(?:x(?:1|2|4|8|16))?|1x(?:1|2|4|8|16)|2(?:x(?:1|2|4|8|16))?|3|4(?:x(?:1|2|4|8|16))?|8(?:x(?:1|2|4|8|16))?)?|default|do|else|enum|extern|for|goto|if|imaginary|inline|packed|pipe|register|restrict|return|signed|sizeof|static|struct|switch|typedef|uniform|union|unsigned|void|volatile|while)\b/,
@@ -17,7 +17,7 @@
     },
   });
 
-  Prism.languages.insertBefore("opencl", "class-name", {
+  languages.insertBefore("opencl", "class-name", {
     // https://www.khronos.org/registry/OpenCL/sdk/2.1/docs/man/xhtml/scalarDataTypes.html
     // https://www.khronos.org/registry/OpenCL/sdk/2.1/docs/man/xhtml/otherDataTypes.html
     "builtin-type": {
@@ -53,10 +53,10 @@
   };
 
   /* OpenCL host API */
-  Prism.languages.insertBefore("c", "keyword", attributes);
+  languages.insertBefore("c", "keyword", attributes);
 
   // C++ includes everything from the OpenCL C host API plus the classes defined in cl2.h
-  if (Prism.languages.cpp) {
+  if (languages.cpp) {
     // Extracted from doxygen class list http://github.khronos.org/OpenCL-CLHPP/annotated.html
     attributes["type-opencl-host-cpp"] = {
       pattern:
@@ -64,6 +64,6 @@
       alias: "keyword",
     };
 
-    Prism.languages.insertBefore("cpp", "keyword", attributes);
+    languages.insertBefore("cpp", "keyword", attributes);
   }
 })(Prism);

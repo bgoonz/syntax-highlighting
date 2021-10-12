@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const keywords = [
     /\b(?:async|sync|yield)\*/,
     /\b(?:abstract|assert|async|await|break|case|catch|class|const|continue|covariant|default|deferred|do|dynamic|else|enum|export|extends|extension|external|factory|final|finally|for|get|hide|if|implements|import|in|interface|library|mixin|new|null|on|operator|part|rethrow|return|set|show|static|super|switch|sync|this|throw|try|typedef|var|void|while|with|yield)\b/,
@@ -22,7 +22,7 @@
     },
   };
 
-  Prism.languages.dart = Prism.languages.extend("clike", {
+  languages.dart = languages.extend("clike", {
     string: [
       {
         pattern: /r?("""|''')[\s\S]*?\1/,
@@ -48,14 +48,14 @@
       /\bis!|\b(?:as|is)\b|\+\+|--|&&|\|\||<<=?|>>=?|~(?:\/=?)?|[+\-*\/%&^|=!<>]=?|\?/,
   });
 
-  Prism.languages.insertBefore("dart", "function", {
+  languages.insertBefore("dart", "function", {
     metadata: {
       pattern: /@\w+/,
       alias: "symbol",
     },
   });
 
-  Prism.languages.insertBefore("dart", "class-name", {
+  languages.insertBefore("dart", "class-name", {
     generics: {
       pattern:
         /<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<(?:[\w\s,.&?]|<[\w\s,.&?]*>)*>)*>)*>/,

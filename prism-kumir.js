@@ -1,5 +1,5 @@
 /* eslint-disable regexp/no-dupe-characters-character-class */
-(Prism => {
+(({languages}) => {
   /**
    * Regular expression for characters that are not allowed in identifiers.
    *
@@ -18,7 +18,7 @@
     return RegExp(pattern.replace(/<nonId>/g, nonId), flags);
   }
 
-  Prism.languages.kumir = {
+  languages.kumir = {
     comment: {
       pattern: /\|.*/,
     },
@@ -115,5 +115,5 @@
     },
   };
 
-  Prism.languages.kum = Prism.languages.kumir;
+  languages.kum = languages.kumir;
 })(Prism);

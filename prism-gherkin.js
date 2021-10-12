@@ -1,7 +1,7 @@
-(Prism => {
+(({languages}) => {
   const tableRow = /(?:\r?\n|\r)[ \t]*\|.+\|(?:(?!\|).)*/.source;
 
-  Prism.languages.gherkin = {
+  languages.gherkin = {
     pystring: {
       pattern: /("""|''')[\s\S]+?\1/,
       alias: "string",
@@ -40,7 +40,7 @@
     },
     "table-body": {
       // Look-behind is used to skip the table head, which has the same format as any table row
-      pattern: RegExp("(" + tableRow + ")(?:" + tableRow + ")+"),
+      pattern: RegExp(`(${tableRow})(?:${tableRow})+`),
       lookbehind: true,
       inside: {
         outline: {

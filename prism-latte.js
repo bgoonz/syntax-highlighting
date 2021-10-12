@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.latte = {
+(({languages, hooks}) => {
+  languages.latte = {
     comment: /^\{\*[\s\S]*/,
     ld: {
       pattern: /^\{(?:[=_]|\/?(?!\d|\w+\()\w+)?/,
@@ -20,12 +20,12 @@
     php: {
       pattern: /\S(?:[\s\S]*\S)?/,
       alias: "language-php",
-      inside: Prism.languages.php,
+      inside: languages.php,
     },
   };
 
-  const markupLatte = Prism.languages.extend("markup", {});
-  Prism.languages.insertBefore(
+  const markupLatte = languages.extend("markup", {});
+  languages.insertBefore(
     "inside",
     "attr-value",
     {
@@ -48,7 +48,7 @@
               ],
               php: {
                 pattern: /\S(?:[\s\S]*\S)?/,
-                inside: Prism.languages.php,
+                inside: languages.php,
               },
             },
           },
@@ -58,13 +58,13 @@
     markupLatte.tag
   );
 
-  Prism.hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", env => {
     if (env.language !== "latte") {
       return;
     }
     const lattePattern =
       /\{\*[\s\S]*?\*\}|\{[^'"\s{}*](?:[^"'/{}]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|\/\*(?:[^*]|\*(?!\/))*\*\/)*\}/g;
-    Prism.languages["markup-templating"].buildPlaceholders(
+    languages["markup-templating"].buildPlaceholders(
       env,
       "latte",
       lattePattern
@@ -72,7 +72,7 @@
     env.grammar = markupLatte;
   });
 
-  Prism.hooks.add("after-tokenize", env => {
-    Prism.languages["markup-templating"].tokenizePlaceholders(env, "latte");
+  hooks.add("after-tokenize", env => {
+    languages["markup-templating"].tokenizePlaceholders(env, "latte");
   });
 })(Prism);

@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.diff = {
+(({languages}) => {
+  languages.diff = {
     coord: [
       // Match all kinds of coord lines (prefixed by "+++", "---" or "***").
       /^(?:\*{3}|-{3}|\+{3}).*$/m,
@@ -39,8 +39,8 @@
       alias.push("bold");
     }
 
-    Prism.languages.diff[name] = {
-      pattern: RegExp("^(?:[" + prefix + "].*(?:\r\n?|\n|(?![\\s\\S])))+", "m"),
+    languages.diff[name] = {
+      pattern: RegExp(`^(?:[${prefix}].*(?:\r\n?|\n|(?![\\s\\S])))+`, "m"),
       alias: alias,
       inside: {
         line: {
@@ -56,7 +56,7 @@
   });
 
   // make prefixes available to Diff plugin
-  Object.defineProperty(Prism.languages.diff, "PREFIXES", {
+  Object.defineProperty(languages.diff, "PREFIXES", {
     value: PREFIXES,
   });
 })(Prism);

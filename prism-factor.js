@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const comment_inside = {
     function:
       /\b(?:BUGS?|FIX(?:MES?)?|NOTES?|TODOS?|XX+|HACKS?|WARN(?:ING)?|\?{2,}|!{2,})\b/,
@@ -348,11 +348,11 @@
   };
 
   const escape = str => {
-    return (str + "").replace(/([.?*+\^$\[\]\\(){}|\-])/g, "\\$1");
+    return (`${str}`).replace(/([.?*+\^$\[\]\\(){}|\-])/g, "\\$1");
   };
 
   const arrToWordsRegExp = arr => {
-    return new RegExp("(^|\\s)(?:" + arr.map(escape).join("|") + ")(?=\\s|$)");
+    return new RegExp(`(^|\\s)(?:${arr.map(escape).join("|")})(?=\\s|$)`);
   };
 
   const builtins = {
@@ -959,5 +959,5 @@
 
   factor.combinators.pattern = arrToWordsRegExp(combinators);
 
-  Prism.languages.factor = factor;
+  languages.factor = factor;
 })(Prism);

@@ -7,18 +7,15 @@ Prism.languages.d = Prism.languages.extend("clike", {
     },
     {
       pattern: RegExp(
-        /(^|[^\\])/.source +
-          "(?:" +
-          [
-            // /+ comment +/
-            // Allow one level of nesting
-            /\/\+(?:\/\+(?:[^+]|\+(?!\/))*\+\/|(?!\/\+)[\s\S])*?\+\//.source,
-            // // comment
-            /\/\/.*/.source,
-            // /* comment */
-            /\/\*[\s\S]*?\*\//.source,
-          ].join("|") +
-          ")"
+        `${/(^|[^\\])/.source}(?:${[
+  // /+ comment +/
+  // Allow one level of nesting
+  /\/\+(?:\/\+(?:[^+]|\+(?!\/))*\+\/|(?!\/\+)[\s\S])*?\+\//.source,
+  // // comment
+  /\/\/.*/.source,
+  // /* comment */
+  /\/\*[\s\S]*?\*\//.source,
+].join("|")})`
       ),
       lookbehind: true,
       greedy: true,

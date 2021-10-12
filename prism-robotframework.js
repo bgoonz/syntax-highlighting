@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   const comment = {
     pattern: /(^[ \t]*| {2}|\t)#.*/m,
     lookbehind: true,
@@ -75,7 +75,7 @@
     },
   };
 
-  Prism.languages["robotframework"] = {
+  languages["robotframework"] = {
     settings: createSection("Settings", {
       documentation: {
         pattern:
@@ -107,5 +107,5 @@
     comment: comment,
   };
 
-  Prism.languages.robot = Prism.languages["robotframework"];
+  languages.robot = languages["robotframework"];
 })(Prism);

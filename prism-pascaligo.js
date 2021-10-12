@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // Pascaligo is a layer 2 smart contract language for the tezos blockchain
 
   const braces = /\((?:[^()]|\((?:[^()]|\([^()]*\))*\))*\)/.source;
@@ -9,7 +9,7 @@
     }
   );
 
-  const pascaligo = (Prism.languages.pascaligo = {
+  const pascaligo = (languages.pascaligo = {
     comment: /\(\*[\s\S]+?\*\)|\/\/.*/,
     string: {
       pattern: /(["'`])(?:\\[\s\S]|(?!\1)[^\\])*\1|\^[a-z]/i,

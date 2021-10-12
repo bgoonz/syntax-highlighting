@@ -1,8 +1,8 @@
-(Prism => {
+(({languages}) => {
   const variable =
     /\$(?:\w[a-z\d]*(?:_[^\x00-\x1F\s"'\\()$]*)?|\{[^}\s"'\\]+\})/i;
 
-  Prism.languages.nginx = {
+  languages.nginx = {
     comment: {
       pattern: /(^|[\s{};])#.*/,
       lookbehind: true,

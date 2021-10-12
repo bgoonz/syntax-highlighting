@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.handlebars = {
+(({languages, hooks}) => {
+  languages.handlebars = {
     comment: /\{\{![\s\S]*?\}\}/,
     delimiter: {
       pattern: /^\{\{\{?|\}\}\}?$/i,
@@ -24,21 +24,21 @@
     variable: /[^!"#%&'()*+,\/;<=>@\[\\\]^`{|}~\s]+/,
   };
 
-  Prism.hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", env => {
     const handlebarsPattern = /\{\{\{[\s\S]+?\}\}\}|\{\{[\s\S]+?\}\}/g;
-    Prism.languages["markup-templating"].buildPlaceholders(
+    languages["markup-templating"].buildPlaceholders(
       env,
       "handlebars",
       handlebarsPattern
     );
   });
 
-  Prism.hooks.add("after-tokenize", env => {
-    Prism.languages["markup-templating"].tokenizePlaceholders(
+  hooks.add("after-tokenize", env => {
+    languages["markup-templating"].tokenizePlaceholders(
       env,
       "handlebars"
     );
   });
 
-  Prism.languages.hbs = Prism.languages.handlebars;
+  languages.hbs = languages.handlebars;
 })(Prism);

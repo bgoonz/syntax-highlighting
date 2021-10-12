@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // https://yaml.org/spec/1.2/spec.html#c-ns-anchor-property
   // https://yaml.org/spec/1.2/spec.html#c-ns-alias-node
   const anchorOrAlias = /[*&][^\s[\]{},]+/;
@@ -7,15 +7,7 @@
     /!(?:<[\w\-%#;/?:@&=+$,.!~*'()[\]]+>|(?:[a-zA-Z\d-]*!)?[\w\-%#;/?:@&=+$.~*'()]+)?/;
   // https://yaml.org/spec/1.2/spec.html#c-ns-properties(n,c)
   const properties =
-    "(?:" +
-    tag.source +
-    "(?:[ \t]+" +
-    anchorOrAlias.source +
-    ")?|" +
-    anchorOrAlias.source +
-    "(?:[ \t]+" +
-    tag.source +
-    ")?)";
+    `(?:${tag.source}(?:[ \t]+${anchorOrAlias.source})?|${anchorOrAlias.source}(?:[ \t]+${tag.source})?)`;
   // https://yaml.org/spec/1.2/spec.html#ns-plain(n,c)
   // This is a simplified version that doesn't support "#" and multiline keys
   // All these long scarry character classes are simplified versions of YAML's characters
@@ -36,7 +28,7 @@
    * @returns {RegExp}
    */
   function createValuePattern(value, flags) {
-    flags = (flags || "").replace(/m/g, "") + "m"; // add m flag
+    flags = `${(flags || "").replace(/m/g, "")}m`; // add m flag
     const pattern =
       /([:\-,[{]\s*(?:\s<<prop>>[ \t]+)?)(?:<<value>>)(?=[ \t]*(?:$|,|\]|\}|(?:[\r\n]\s*)?#))/.source
         .replace(/<<prop>>/g, () => {
@@ -48,7 +40,7 @@
     return RegExp(pattern, flags);
   }
 
-  Prism.languages.yaml = {
+  languages.yaml = {
     scalar: {
       pattern: RegExp(
         /([\-:]\s*(?:\s<<prop>>[ \t]+)?[|>])[ \t]*(?:((?:\r?\n|\r)[ \t]+)\S[^\r\n]*(?:\2[^\r\n]+)*)/.source.replace(
@@ -69,7 +61,7 @@
             return properties;
           })
           .replace(/<<key>>/g, () => {
-            return "(?:" + plainKey + "|" + string + ")";
+            return `(?:${plainKey}|${string})`;
           })
       ),
       lookbehind: true,
@@ -117,5 +109,5 @@
     punctuation: /---|[:[\]{}\-,|>?]|\.\.\./,
   };
 
-  Prism.languages.yml = Prism.languages.yaml;
+  languages.yml = languages.yaml;
 })(Prism);

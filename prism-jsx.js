@@ -1,5 +1,5 @@
-(Prism => {
-  const javascript = Prism.util.clone(Prism.languages.javascript);
+(({util, languages, Token, hooks}) => {
+  const javascript = util.clone(languages.javascript);
 
   const space = /(?:\s|\/\/.*(?!.)|\/\*(?:[^*]|\*(?!\/))\*\/)/.source;
   const braces = /(?:\{(?:\{(?:\{[^{}]*\}|[^{}])*\}|[^{}])*\})/.source;
@@ -25,32 +25,32 @@
 
   spread = re(spread).source;
 
-  Prism.languages.jsx = Prism.languages.extend("markup", javascript);
-  Prism.languages.jsx.tag.pattern = re(
+  languages.jsx = languages.extend("markup", javascript);
+  languages.jsx.tag.pattern = re(
     /<\/?(?:[\w.:-]+(?:<S>+(?:[\w.:$-]+(?:=(?:"(?:\\[\s\S]|[^\\"])*"|'(?:\\[\s\S]|[^\\'])*'|[^\s{'"/>=]+|<BRACES>))?|<SPREAD>))*<S>*\/?)?>/
       .source
   );
 
-  Prism.languages.jsx.tag.inside["tag"].pattern = /^<\/?[^\s>\/]*/i;
-  Prism.languages.jsx.tag.inside["attr-value"].pattern =
+  languages.jsx.tag.inside["tag"].pattern = /^<\/?[^\s>\/]*/i;
+  languages.jsx.tag.inside["attr-value"].pattern =
     /=(?!\{)(?:"(?:\\[\s\S]|[^\\"])*"|'(?:\\[\s\S]|[^\\'])*'|[^\s'">]+)/i;
-  Prism.languages.jsx.tag.inside["tag"].inside["class-name"] =
+  languages.jsx.tag.inside["tag"].inside["class-name"] =
     /^[A-Z]\w*(?:\.[A-Z]\w*)*$/;
-  Prism.languages.jsx.tag.inside["comment"] = javascript["comment"];
+  languages.jsx.tag.inside["comment"] = javascript["comment"];
 
-  Prism.languages.insertBefore(
+  languages.insertBefore(
     "inside",
     "attr-name",
     {
       spread: {
         pattern: re(/<SPREAD>/.source),
-        inside: Prism.languages.jsx,
+        inside: languages.jsx,
       },
     },
-    Prism.languages.jsx.tag
+    languages.jsx.tag
   );
 
-  Prism.languages.insertBefore(
+  languages.insertBefore(
     "inside",
     "special-attr",
     {
@@ -62,12 +62,12 @@
             pattern: /^=(?=\{)/,
             alias: "punctuation",
           },
-          rest: Prism.languages.jsx,
+          rest: languages.jsx,
         },
         alias: "language-javascript",
       },
     },
-    Prism.languages.jsx.tag
+    languages.jsx.tag
   );
 
   // The following will handle plain text inside tags
@@ -166,7 +166,7 @@
             i--;
           }
 
-          tokens[i] = new Prism.Token("plain-text", plainText, null, plainText);
+          tokens[i] = new Token("plain-text", plainText, null, plainText);
         }
       }
 
@@ -176,10 +176,10 @@
     });
   };
 
-  Prism.hooks.add("after-tokenize", env => {
-    if (env.language !== "jsx" && env.language !== "tsx") {
+  hooks.add("after-tokenize", ({language, tokens}) => {
+    if (language !== "jsx" && language !== "tsx") {
       return;
     }
-    walkTokens(env.tokens);
+    walkTokens(tokens);
   });
 })(Prism);

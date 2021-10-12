@@ -1,4 +1,4 @@
-(Prism => {
+(({languages, hooks}) => {
   // https://freemarker.apache.org/docs/dgui_template_exp.html
 
   // FTL expression with 4 levels of nesting supported
@@ -68,7 +68,7 @@
 
   ftl.string[1].inside.interpolation.inside.rest = ftl;
 
-  Prism.languages.ftl = {
+  languages.ftl = {
     "ftl-comment": {
       // the pattern is shortened to be more efficient
       pattern: /^<#--[\s\S]*/,
@@ -103,7 +103,7 @@
     },
   };
 
-  Prism.hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", env => {
     // eslint-disable-next-line regexp/no-useless-lazy
     const pattern = RegExp(
       /<#--[\s\S]*?-->|<\/?[#@][a-zA-Z](?:<expr>)*?>|\$\{(?:<expr>)*?\}/.source.replace(
@@ -114,10 +114,10 @@
       ),
       "gi"
     );
-    Prism.languages["markup-templating"].buildPlaceholders(env, "ftl", pattern);
+    languages["markup-templating"].buildPlaceholders(env, "ftl", pattern);
   });
 
-  Prism.hooks.add("after-tokenize", env => {
-    Prism.languages["markup-templating"].tokenizePlaceholders(env, "ftl");
+  hooks.add("after-tokenize", env => {
+    languages["markup-templating"].tokenizePlaceholders(env, "ftl");
   });
 })(Prism);

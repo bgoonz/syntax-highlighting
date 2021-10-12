@@ -81,9 +81,9 @@ Prism.languages.markup["doctype"].inside["internal-subset"].inside =
   Prism.languages.markup;
 
 // Plugin to make entity title show the real entity, idea by Roman Komarov
-Prism.hooks.add("wrap", env => {
-  if (env.type === "entity") {
-    env.attributes["title"] = env.content.replace(/&amp;/, "&");
+Prism.hooks.add("wrap", ({type, attributes, content}) => {
+  if (type === "entity") {
+    attributes["title"] = content.replace(/&amp;/, "&");
   }
 });
 
@@ -101,7 +101,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
    */
   value: function addInlined(tagName, lang) {
     const includedCdataInside = {};
-    includedCdataInside["language-" + lang] = {
+    includedCdataInside[`language-${lang}`] = {
       pattern: /(^<!\[CDATA\[)[\s\S]+?(?=\]\]>$)/i,
       lookbehind: true,
       inside: Prism.languages[lang],
@@ -114,7 +114,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addInlined", {
         inside: includedCdataInside,
       },
     };
-    inside["language-" + lang] = {
+    inside[`language-${lang}`] = {
       pattern: /[\s\S]+/,
       inside: Prism.languages[lang],
     };
@@ -153,11 +153,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addAttribute", {
   value(attrName, lang) {
     Prism.languages.markup.tag.inside["special-attr"].push({
       pattern: RegExp(
-        /(^|["'\s])/.source +
-          "(?:" +
-          attrName +
-          ")" +
-          /\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source,
+        `${/(^|["'\s])/.source}(?:${attrName})${/\s*=\s*(?:"[^"]*"|'[^']*'|[^\s'">=]+(?=[\s>]))/.source}`,
         "i"
       ),
       lookbehind: true,
@@ -169,7 +165,7 @@ Object.defineProperty(Prism.languages.markup.tag, "addAttribute", {
             value: {
               pattern: /(^=\s*(["']|(?!["'])))\S[\s\S]*(?=\2$)/,
               lookbehind: true,
-              alias: [lang, "language-" + lang],
+              alias: [lang, `language-${lang}`],
               inside: Prism.languages[lang],
             },
             punctuation: [

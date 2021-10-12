@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   /**
    * Replaces all placeholders "<<n>>" of given pattern with the n-th replacement (zero based).
    *
@@ -11,7 +11,7 @@
    */
   function replace(pattern, replacements) {
     return pattern.replace(/<<(\d+)>>/g, (m, index) => {
-      return "(?:" + replacements[+index] + ")";
+      return `(?:${replacements[+index]})`;
     });
   }
   /**
@@ -34,7 +34,7 @@
   function nested(pattern, depthLog2) {
     for (let i = 0; i < depthLog2; i++) {
       pattern = pattern.replace(/<<self>>/g, () => {
-        return "(?:" + pattern + ")";
+        return `(?:${pattern})`;
       });
     }
     return pattern.replace(/<<self>>/g, "[^\\s\\S]");
@@ -51,10 +51,10 @@
   };
   // keywords
   function keywordsToPattern(words) {
-    return "\\b(?:" + words.trim().replace(/ /g, "|") + ")\\b";
+    return `\\b(?:${words.trim().replace(/ /g, "|")})\\b`;
   }
   const keywords = RegExp(
-    keywordsToPattern(keywordKinds.type + " " + keywordKinds.other)
+    keywordsToPattern(`${keywordKinds.type} ${keywordKinds.other}`)
   );
 
   // types
@@ -69,7 +69,7 @@
   // strings
   const regularString = /"(?:\\.|[^\\"])*"/.source;
 
-  Prism.languages.qsharp = Prism.languages.extend("clike", {
+  languages.qsharp = languages.extend("clike", {
     comment: /\/\/.*/,
     string: [
       {
@@ -103,7 +103,7 @@
     punctuation: /::|[{}[\];(),.:]/,
   });
 
-  Prism.languages.insertBefore("qsharp", "number", {
+  languages.insertBefore("qsharp", "number", {
     range: {
       pattern: /\.\./,
       alias: "operator",
@@ -116,7 +116,7 @@
     2
   );
 
-  Prism.languages.insertBefore("qsharp", "string", {
+  languages.insertBefore("qsharp", "string", {
     "interpolation-string": {
       pattern: re(/\$"(?:\\.|<<0>>|[^\\"{])*"/.source, [interpolationExpr]),
       greedy: true,
@@ -131,7 +131,7 @@
             expression: {
               pattern: /[\s\S]+/,
               alias: "language-qsharp",
-              inside: Prism.languages.qsharp,
+              inside: languages.qsharp,
             },
           },
         },

@@ -1,20 +1,11 @@
-(Prism => {
+(({languages}) => {
   const id = /(?:\B-|\b_|\b)[A-Za-z][\w-]*(?![\w-])/.source;
   const type =
-    "(?:" +
-    /\b(?:unsigned\s+)?long\s+long(?![\w-])/.source +
-    "|" +
-    /\b(?:unrestricted|unsigned)\s+[a-z]+(?![\w-])/.source +
-    "|" +
-    /(?!(?:unrestricted|unsigned)\b)/.source +
-    id +
-    /(?:\s*<(?:[^<>]|<[^<>]*>)*>)?/.source +
-    ")" +
-    /(?:\s*\?)?/.source;
+    `(?:${/\b(?:unsigned\s+)?long\s+long(?![\w-])/.source}|${/\b(?:unrestricted|unsigned)\s+[a-z]+(?![\w-])/.source}|${/(?!(?:unrestricted|unsigned)\b)/.source}${id}${/(?:\s*<(?:[^<>]|<[^<>]*>)*>)?/.source})${/(?:\s*\?)?/.source}`;
 
   const typeInside = {};
 
-  Prism.languages["web-idl"] = {
+  languages["web-idl"] = {
     comment: {
       pattern: /\/\/.*|\/\*[\s\S]*?\*\//,
       greedy: true,
@@ -46,7 +37,7 @@
       {
         // callback return type
         pattern: RegExp(
-          "(" + /\bcallback\s+/.source + id + /\s*=\s*/.source + ")" + type
+          `(${/\bcallback\s+/.source}${id}${/\s*=\s*/.source})${type}`
         ),
         lookbehind: true,
         inside: typeInside,
@@ -81,12 +72,7 @@
       {
         // function return type, parameter types, and dictionary members
         pattern: RegExp(
-          type +
-            "(?=" +
-            /\s*(?:\.{3}\s*)?/.source +
-            id +
-            /\s*[(),;=]/.source +
-            ")"
+          `${type}(?=${/\s*(?:\.{3}\s*)?/.source}${id}${/\s*[(),;=]/.source})`
         ),
         inside: typeInside,
       },
@@ -110,11 +96,11 @@
     punctuation: /[(){}[\].,;]/,
   };
 
-  for (const key in Prism.languages["web-idl"]) {
+  for (const key in languages["web-idl"]) {
     if (key !== "class-name") {
-      typeInside[key] = Prism.languages["web-idl"][key];
+      typeInside[key] = languages["web-idl"][key];
     }
   }
 
-  Prism.languages["webidl"] = Prism.languages["web-idl"];
+  languages["webidl"] = languages["web-idl"];
 })(Prism);

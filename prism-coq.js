@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // https://github.com/coq/coq
 
   let commentSource = /\(\*(?:[^(*]|\((?!\*)|\*(?!\))|<self>)*\*\)/.source;
@@ -9,7 +9,7 @@
   }
   commentSource = commentSource.replace(/<self>/g, "[]");
 
-  Prism.languages.coq = {
+  languages.coq = {
     comment: RegExp(commentSource),
     string: {
       pattern: /"(?:[^"]|"")*"(?!")/,

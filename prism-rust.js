@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   let multilineComment = /\/\*(?:[^*/]|\*(?!\/)|\/(?!\*)|<self>)*\*\//.source;
   for (let i = 0; i < 2; i++) {
     // support 4 levels of nested comments
@@ -10,7 +10,7 @@
     return /[^\s\S]/.source;
   });
 
-  Prism.languages.rust = {
+  languages.rust = {
     comment: [
       {
         pattern: RegExp(/(^|[^\\])/.source + multilineComment),
@@ -128,7 +128,7 @@
     operator: /[-+*\/%!^]=?|=[=>]?|&[&=]?|\|[|=]?|<<?=?|>>?=?|[@?]/,
   };
 
-  Prism.languages.rust["closure-params"].inside.rest = Prism.languages.rust;
-  Prism.languages.rust["attribute"].inside["string"] =
-    Prism.languages.rust["string"];
+  languages.rust["closure-params"].inside.rest = languages.rust;
+  languages.rust["attribute"].inside["string"] =
+    languages.rust["string"];
 })(Prism);

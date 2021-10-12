@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // Ignore comments starting with { to privilege string interpolation highlighting
   const comment = /#(?!\{).+/;
   const interpolation = {
@@ -6,7 +6,7 @@
     alias: "variable",
   };
 
-  Prism.languages.coffeescript = Prism.languages.extend("javascript", {
+  languages.coffeescript = languages.extend("javascript", {
     comment: comment,
     string: [
       // Strings are multiline
@@ -32,7 +32,7 @@
     },
   });
 
-  Prism.languages.insertBefore("coffeescript", "comment", {
+  languages.insertBefore("coffeescript", "comment", {
     "multiline-comment": {
       pattern: /###[\s\S]+?###/,
       alias: "comment",
@@ -49,7 +49,7 @@
     },
   });
 
-  Prism.languages.insertBefore("coffeescript", "string", {
+  languages.insertBefore("coffeescript", "string", {
     "inline-javascript": {
       pattern: /`(?:\\[\s\S]|[^\\`])*`/,
       inside: {
@@ -60,7 +60,7 @@
         script: {
           pattern: /[\s\S]+/,
           alias: "language-javascript",
-          inside: Prism.languages.javascript,
+          inside: languages.javascript,
         },
       },
     },
@@ -83,12 +83,12 @@
     ],
   });
 
-  Prism.languages.insertBefore("coffeescript", "keyword", {
+  languages.insertBefore("coffeescript", "keyword", {
     // Object property
     property: /(?!\d)\w+(?=\s*:(?!:))/,
   });
 
-  delete Prism.languages.coffeescript["template-string"];
+  delete languages.coffeescript["template-string"];
 
-  Prism.languages.coffee = Prism.languages.coffeescript;
+  languages.coffee = languages.coffeescript;
 })(Prism);

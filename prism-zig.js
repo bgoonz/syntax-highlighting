@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   function literal(str) {
     return () => {
       return str;
@@ -8,7 +8,7 @@
   const keyword =
     /\b(?:align|allowzero|and|asm|async|await|break|cancel|catch|comptime|const|continue|defer|else|enum|errdefer|error|export|extern|fn|for|if|inline|linksection|nakedcc|noalias|null|or|orelse|packed|promise|pub|resume|return|stdcallcc|struct|suspend|switch|test|threadlocal|try|undefined|union|unreachable|usingnamespace|var|volatile|while)\b/;
 
-  const IDENTIFIER = "\\b(?!" + keyword.source + ")(?!\\d)\\w+\\b";
+  const IDENTIFIER = `\\b(?!${keyword.source})(?!\\d)\\w+\\b`;
   const ALIGN = /align\s*\((?:[^()]|\([^()]*\))*\)/.source;
   const PREFIX_TYPE_OP =
     /(?:\?|\bpromise->|(?:\[[^[\]]*\]|\*(?!\*)|\*\*)(?:\s*<ALIGN>|\s*const\b|\s*volatile\b|\s*allowzero\b)*)/.source.replace(
@@ -21,7 +21,7 @@
       literal(IDENTIFIER)
     );
   const TYPE =
-    "(?!\\s)(?:!?\\s*(?:" + PREFIX_TYPE_OP + "\\s*)*" + SUFFIX_EXPR + ")+";
+    `(?!\\s)(?:!?\\s*(?:${PREFIX_TYPE_OP}\\s*)*${SUFFIX_EXPR})+`;
 
   /*
    * A simplified grammar for Zig compile time type literals:
@@ -40,7 +40,7 @@
    *
    */
 
-  Prism.languages.zig = {
+  languages.zig = {
     comment: [
       {
         pattern: /\/\/[/!].*/,
@@ -116,9 +116,9 @@
     punctuation: /[.:,;(){}[\]]/,
   };
 
-  Prism.languages.zig["class-name"].forEach(obj => {
+  languages.zig["class-name"].forEach(obj => {
     if (obj.inside === null) {
-      obj.inside = Prism.languages.zig;
+      obj.inside = languages.zig;
     }
   });
 })(Prism);

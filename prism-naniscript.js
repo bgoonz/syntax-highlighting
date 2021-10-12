@@ -1,4 +1,4 @@
-(Prism => {
+(({languages, hooks}) => {
   const expressionDef = /\{[^\r\n\[\]{}]*\}/;
 
   const params = {
@@ -29,7 +29,7 @@
     ],
   };
 
-  Prism.languages.naniscript = {
+  languages.naniscript = {
     // ; ...
     comment: {
       pattern: /^([\t ]*);.*/m,
@@ -109,7 +109,7 @@
       },
     },
   };
-  Prism.languages.nani = Prism.languages["naniscript"];
+  languages.nani = languages["naniscript"];
 
   /** @typedef {InstanceType<import("./prism-core")["Token"]>} Token */
 
@@ -117,7 +117,7 @@
    * This hook is used to validate generic-text tokens for balanced brackets.
    * Mark token as bad-line when contains not balanced brackets: {},[]
    */
-  Prism.hooks.add("after-tokenize", env => {
+  hooks.add("after-tokenize", env => {
     /** @type {(Token | string)[]} */
     const tokens = env.tokens;
     tokens.forEach(token => {

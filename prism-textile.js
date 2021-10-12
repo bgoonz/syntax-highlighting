@@ -1,4 +1,4 @@
-(Prism => {
+(({languages}) => {
   // We don't allow for pipes inside parentheses
   // to not break table pattern |(. foo |). bar |
   const modifierRegex = /\([^|()\n]+\)|\[[^\]\n]+\]|\{[^}\n]+\}/.source;
@@ -13,10 +13,10 @@
     return RegExp(
       source
         .replace(/<MOD>/g, () => {
-          return "(?:" + modifierRegex + ")";
+          return `(?:${modifierRegex})`;
         })
         .replace(/<PAR>/g, () => {
-          return "(?:" + parenthesesRegex + ")";
+          return `(?:${parenthesesRegex})`;
         }),
       flags || ""
     );
@@ -26,7 +26,7 @@
     css: {
       pattern: /\{[^{}]+\}/,
       inside: {
-        rest: Prism.languages.css,
+        rest: languages.css,
       },
     },
     "class-id": {
@@ -43,7 +43,7 @@
     punctuation: /[\\\/]\d+|\S/,
   };
 
-  const textile = (Prism.languages.textile = Prism.languages.extend("markup", {
+  const textile = (languages.textile = languages.extend("markup", {
     phrase: {
       pattern: /(^|\r|\n)\S[\s\S]*?(?=$|\r?\n\r?\n|\r\r)/,
       lookbehind: true,

@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.agda = {
+(({languages}) => {
+  languages.agda = {
     comment: /\{-[\s\S]*?(?:-\}|$)|--.*/,
     string: {
       pattern: /"(?:\\(?:\r\n|[\s\S])|[^\\\r\n"])*"/,

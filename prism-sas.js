@@ -1,9 +1,9 @@
-(Prism => {
+(({languages}) => {
   const stringPattern = /(?:"(?:""|[^"])*"(?!")|'(?:''|[^'])*'(?!'))/.source;
 
   const number = /\b(?:\d[\da-f]*x|\d+(?:\.\d+)?(?:e[+-]?\d+)?)\b/i;
   const numericConstant = {
-    pattern: RegExp(stringPattern + "[bx]"),
+    pattern: RegExp(`${stringPattern}[bx]`),
     alias: "number",
   };
 
@@ -142,7 +142,7 @@
     lookbehind: true,
   };
 
-  Prism.languages.sas = {
+  languages.sas = {
     datalines: {
       pattern: /^([ \t]*)(?:cards|(?:data)?lines);[\s\S]+?^[ \t]*;/im,
       lookbehind: true,
@@ -171,7 +171,7 @@
             "im"
           ),
           alias: "language-sql",
-          inside: Prism.languages.sql,
+          inside: languages.sql,
         },
         "global-statements": globalStatements,
         "sql-statements": {
@@ -205,7 +205,7 @@
           ),
           lookbehind: true,
           alias: "language-groovy",
-          inside: Prism.languages.groovy,
+          inside: languages.groovy,
         },
         keyword: keywords,
         "submit-statement": submitStatement,
@@ -235,7 +235,7 @@
           ),
           lookbehind: true,
           alias: "language-lua",
-          inside: Prism.languages.lua,
+          inside: languages.lua,
         },
         keyword: keywords,
         "submit-statement": submitStatement,
@@ -360,7 +360,7 @@
     "numeric-constant": numericConstant,
     datetime: {
       // '1jan2013'd, '9:25:19pm't, '18jan2003:9:27:05am'dt
-      pattern: RegExp(stringPattern + "(?:dt?|t)"),
+      pattern: RegExp(`${stringPattern}(?:dt?|t)`),
       alias: "number",
     },
     string: string,

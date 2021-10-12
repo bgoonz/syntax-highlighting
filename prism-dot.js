@@ -1,27 +1,25 @@
 // https://www.graphviz.org/doc/info/lang.html
 
-(Prism => {
+(({languages}) => {
   const ID =
-    "(?:" +
-    [
-      // an identifier
-      /[a-zA-Z_\x80-\uFFFF][\w\x80-\uFFFF]*/.source,
-      // a number
-      /-?(?:\.\d+|\d+(?:\.\d*)?)/.source,
-      // a double-quoted string
-      /"[^"\\]*(?:\\[\s\S][^"\\]*)*"/.source,
-      // HTML-like string
-      /<(?:[^<>]|(?!<!--)<(?:[^<>"']|"[^"]*"|'[^']*')+>|<!--(?:[^-]|-(?!->))*-->)*>/
-        .source,
-    ].join("|") +
-    ")";
+    `(?:${[
+  // an identifier
+  /[a-zA-Z_\x80-\uFFFF][\w\x80-\uFFFF]*/.source,
+  // a number
+  /-?(?:\.\d+|\d+(?:\.\d*)?)/.source,
+  // a double-quoted string
+  /"[^"\\]*(?:\\[\s\S][^"\\]*)*"/.source,
+  // HTML-like string
+  /<(?:[^<>]|(?!<!--)<(?:[^<>"']|"[^"]*"|'[^']*')+>|<!--(?:[^-]|-(?!->))*-->)*>/
+    .source,
+].join("|")})`;
 
   const IDInside = {
     markup: {
       pattern: /(^<)[\s\S]+(?=>$)/,
       lookbehind: true,
       alias: ["language-markup", "language-html", "language-xml"],
-      inside: Prism.languages.markup,
+      inside: languages.markup,
     },
   };
 
@@ -39,7 +37,7 @@
     );
   }
 
-  Prism.languages.dot = {
+  languages.dot = {
     comment: {
       pattern: /\/\/.*|\/\*[\s\S]*?\*\/|^#.*/m,
       greedy: true,
@@ -82,5 +80,5 @@
     punctuation: /[\[\]{};,]/,
   };
 
-  Prism.languages.gv = Prism.languages.dot;
+  languages.gv = languages.dot;
 })(Prism);

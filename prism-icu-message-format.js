@@ -1,7 +1,7 @@
 // https://unicode-org.github.io/icu/userguide/format_parse/messages/
 // https://unicode-org.github.io/icu-docs/apidoc/released/icu4j/com/ibm/icu/text/MessageFormat.html
 
-(Prism => {
+(({languages}) => {
   /**
    * @param {string} source
    * @param {number} level
@@ -57,7 +57,7 @@
     },
   };
 
-  Prism.languages["icu-message-format"] = {
+  languages["icu-message-format"] = {
     argument: {
       pattern: RegExp(argumentSource),
       greedy: true,
@@ -133,9 +133,8 @@
             },
             "arg-style-text": {
               pattern: RegExp(
-                /(^\s*,\s*(?=\S))/.source +
-                  nested(/(?:[^{}']|'[^']*'|\{(?:<SELF>)?\})+/.source, 8) +
-                  "$"
+                `${/(^\s*,\s*(?=\S))/.source +
+  nested(/(?:[^{}']|'[^']*'|\{(?:<SELF>)?\})+/.source, 8)}$`
               ),
               lookbehind: true,
               alias: "string",
@@ -153,8 +152,8 @@
     string: string,
   };
 
-  nestedMessage.inside.message.inside = Prism.languages["icu-message-format"];
-  Prism.languages["icu-message-format"].argument.inside.content.inside[
+  nestedMessage.inside.message.inside = languages["icu-message-format"];
+  languages["icu-message-format"].argument.inside.content.inside[
     "choice-style"
-  ].inside.rest = Prism.languages["icu-message-format"];
+  ].inside.rest = languages["icu-message-format"];
 })(Prism);

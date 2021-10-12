@@ -5,7 +5,7 @@
  *
  * Supports PHP 5.3 - 8.0
  */
-(Prism => {
+(({languages, hooks}) => {
   const comment = /\/\*[\s\S]*?\*\/|\/\/.*|#(?!\[).*/;
   const constant = [
     {
@@ -31,7 +31,7 @@
     /<?=>|\?\?=?|\.{3}|\??->|[!=]=?=?|::|\*\*=?|--|\+\+|&&|\|\||<<|>>|[?~]|[/^|%*&<>.+-]=?/;
   const punctuation = /[{}\[\](),:;]/;
 
-  Prism.languages.php = {
+  languages.php = {
     delimiter: {
       pattern: /\?>$|^<\?(?:php(?=\s)|=)?/i,
       alias: "important",
@@ -237,7 +237,7 @@
     pattern:
       /\{\$(?:\{(?:\{[^{}]+\}|[^{}]+)\}|[^{}])+\}|(^|[^\\{])\$+(?:\w+(?:\[[^\r\n\[\]]+\]|->\w+)?)/,
     lookbehind: true,
-    inside: Prism.languages.php,
+    inside: languages.php,
   };
 
   const string = [
@@ -291,7 +291,7 @@
     },
   ];
 
-  Prism.languages.insertBefore("php", "variable", {
+  languages.insertBefore("php", "variable", {
     string: string,
     attribute: {
       pattern:
@@ -336,21 +336,21 @@
     },
   });
 
-  Prism.hooks.add("before-tokenize", env => {
+  hooks.add("before-tokenize", env => {
     if (!/<\?/.test(env.code)) {
       return;
     }
 
     const phpPattern =
       /<\?(?:[^"'/#]|\/(?![*/])|("|')(?:\\[\s\S]|(?!\1)[^\\])*\1|(?:\/\/|#(?!\[))(?:[^?\n\r]|\?(?!>))*(?=$|\?>|[\r\n])|#\[|\/\*(?:[^*]|\*(?!\/))*(?:\*\/|$))*?(?:\?>|$)/gi;
-    Prism.languages["markup-templating"].buildPlaceholders(
+    languages["markup-templating"].buildPlaceholders(
       env,
       "php",
       phpPattern
     );
   });
 
-  Prism.hooks.add("after-tokenize", env => {
-    Prism.languages["markup-templating"].tokenizePlaceholders(env, "php");
+  hooks.add("after-tokenize", env => {
+    languages["markup-templating"].tokenizePlaceholders(env, "php");
   });
 })(Prism);

@@ -1,7 +1,7 @@
 // Thanks to: https://github.com/prometheus-community/monaco-promql/blob/master/src/promql/promql.ts
 // As well as: https://kausal.co/blog/slate-prism-add-new-syntax-promql/
 
-(Prism => {
+(({languages}) => {
   // PromQL Aggregation Operators
   // (https://prometheus.io/docs/prometheus/latest/querying/operators/#aggregation-operators)
   const aggregations = [
@@ -36,7 +36,7 @@
 
   const keywords = aggregations.concat(vectorMatching, offsetModifier);
 
-  Prism.languages.promql = {
+  languages.promql = {
     comment: {
       pattern: /(^[ \t]*)#.*/m,
       lookbehind: true,
@@ -44,7 +44,7 @@
     "vector-match": {
       // Match the comma-separated label lists inside vector matching:
       pattern: new RegExp(
-        "((?:" + vectorMatching.join("|") + ")\\s*)\\([^)]*\\)"
+        `((?:${vectorMatching.join("|")})\\s*)\\([^)]*\\)`
       ),
       lookbehind: true,
       inside: {
@@ -92,7 +92,7 @@
         },
       },
     ],
-    keyword: new RegExp("\\b(?:" + keywords.join("|") + ")\\b", "i"),
+    keyword: new RegExp(`\\b(?:${keywords.join("|")})\\b`, "i"),
     function: /\b[a-z_]\w*(?=\s*\()/i,
     number:
       /[-+]?(?:(?:\b\d+(?:\.\d+)?|\B\.\d+)(?:e[-+]?\d+)?\b|\b(?:0x[0-9a-f]+|nan|inf)\b)/i,

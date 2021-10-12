@@ -16,7 +16,7 @@
     pattern = pattern.replace(/<inner>/g, () => {
       return inner;
     });
-    return RegExp(/((?:^|[^\\])(?:\\{2})*)/.source + "(?:" + pattern + ")");
+    return RegExp(`${/((?:^|[^\\])(?:\\{2})*)/.source}(?:${pattern})`);
   }
 
   const tableCell = /(?:\\.|``(?:[^`\r\n]|`(?!`))+``|`[^`\r\n]+`|[^\\|\r\n`])+/
@@ -53,13 +53,13 @@
     },
     table: {
       pattern: RegExp(
-        "^" + tableRow + tableLine + "(?:" + tableRow + ")*",
+        `^${tableRow}${tableLine}(?:${tableRow})*`,
         "m"
       ),
       inside: {
         "table-data-rows": {
           pattern: RegExp(
-            "^(" + tableRow + tableLine + ")(?:" + tableRow + ")*$"
+            `^(${tableRow}${tableLine})(?:${tableRow})*$`
           ),
           lookbehind: true,
           inside: {
@@ -71,14 +71,14 @@
           },
         },
         "table-line": {
-          pattern: RegExp("^(" + tableRow + ")" + tableLine + "$"),
+          pattern: RegExp(`^(${tableRow})${tableLine}$`),
           lookbehind: true,
           inside: {
             punctuation: /\||:?-{3,}:?/,
           },
         },
         "table-header-row": {
-          pattern: RegExp("^" + tableRow + "$"),
+          pattern: RegExp(`^${tableRow}$`),
           inside: {
             "table-header": {
               pattern: RegExp(tableCell),
@@ -283,8 +283,8 @@
     });
   });
 
-  Prism.hooks.add("after-tokenize", env => {
-    if (env.language !== "markdown" && env.language !== "md") {
+  Prism.hooks.add("after-tokenize", ({language, tokens}) => {
+    if (language !== "markdown" && language !== "md") {
       return;
     }
 
@@ -333,7 +333,7 @@
             .replace(/\b\+\+/g, "pp");
           // only use the first word
           lang = (/[a-z][\w-]*/i.exec(lang) || [""])[0].toLowerCase();
-          const alias = "language-" + lang;
+          const alias = `language-${lang}`;
 
           // add alias
           if (!codeBlock.alias) {
@@ -347,7 +347,7 @@
       }
     }
 
-    walkTokens(env.tokens);
+    walkTokens(tokens);
   });
 
   Prism.hooks.add("wrap", env => {
@@ -370,7 +370,7 @@
     if (!grammar) {
       if (codeLang && codeLang !== "none" && Prism.plugins.autoloader) {
         const id =
-          "md-" + new Date().valueOf() + "-" + Math.floor(Math.random() * 1e16);
+          `md-${new Date().valueOf()}-${Math.floor(Math.random() * 1e16)}`;
         env.attributes["id"] = id;
 
         Prism.plugins.autoloader.loadLanguages(codeLang, () => {

@@ -1,5 +1,5 @@
-(Prism => {
-  const javaDocLike = (Prism.languages.javadoclike = {
+(({languages}) => {
+  const javaDocLike = (languages.javadoclike = {
     parameter: {
       pattern: /(^[\t ]*(?:\/{3}|\*|\/\*\*)\s*@(?:arg|arguments|param)\s+)\w+/m,
       lookbehind: true,
@@ -22,7 +22,7 @@
   function docCommentSupport(lang, callback) {
     const tokenName = "doc-comment";
 
-    let grammar = Prism.languages[lang];
+    let grammar = languages[lang];
     if (!grammar) {
       return;
     }
@@ -37,7 +37,7 @@
         alias: "comment",
       };
 
-      grammar = Prism.languages.insertBefore(lang, "comment", definition);
+      grammar = languages.insertBefore(lang, "comment", definition);
       token = grammar[tokenName];
     }
 

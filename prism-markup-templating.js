@@ -7,7 +7,7 @@
    * @returns {string}
    */
   function getPlaceholder(language, index) {
-    return "___" + language.toUpperCase() + index + "___";
+    return `___${language.toUpperCase()}${index}___`;
   }
 
   Object.defineProperties((Prism.languages["markup-templating"] = {}), {
@@ -97,7 +97,7 @@
                 const middle = new Prism.Token(
                   language,
                   Prism.tokenize(t, env.grammar),
-                  "language-" + language,
+                  `language-${language}`,
                   t
                 );
                 const after = s.substring(index + placeholder.length);

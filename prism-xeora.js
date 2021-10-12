@@ -1,5 +1,5 @@
-(Prism => {
-  Prism.languages.xeora = Prism.languages.extend("markup", {
+(({languages}) => {
+  languages.xeora = languages.extend("markup", {
     constant: {
       pattern: /\$(?:DomainContents|PageRenderDuration)\$/,
       inside: {
@@ -108,14 +108,14 @@
     },
   });
 
-  Prism.languages.insertBefore(
+  languages.insertBefore(
     "inside",
     "punctuation",
     {
-      variable: Prism.languages.xeora["function-inline"].inside["variable"],
+      variable: languages.xeora["function-inline"].inside["variable"],
     },
-    Prism.languages.xeora["function-block"]
+    languages.xeora["function-block"]
   );
 
-  Prism.languages.xeoracube = Prism.languages.xeora;
+  languages.xeoracube = languages.xeora;
 })(Prism);

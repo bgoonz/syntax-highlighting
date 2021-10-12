@@ -1,10 +1,10 @@
-(Prism => {
+(({languages}) => {
   /**
    * Based on the manual by Wouter van Oortmerssen.
    *
    * @see {@link https://github.com/PrismJS/prism/issues/2801#issue-829717504}
    */
-  Prism.languages["false"] = {
+  languages["false"] = {
     comment: {
       pattern: /\{[^}]*\}/,
     },

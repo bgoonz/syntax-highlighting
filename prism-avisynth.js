@@ -1,5 +1,5 @@
 // http://avisynth.nl/index.php/The_full_AviSynth_grammar
-(Prism => {
+(({languages}) => {
   function replace(pattern, replacements) {
     return pattern.replace(/<<(\d+)>>/g, (m, index) => {
       return replacements[+index];
@@ -97,7 +97,7 @@
   ].join("|");
   const allinternals = [internals, properties, filters].join("|");
 
-  Prism.languages.avisynth = {
+  languages.avisynth = {
     comment: [
       {
         // Matches [* *] nestable block comments, but only supports 1 level of nested comments
@@ -204,5 +204,5 @@
     punctuation: /[{}\[\]();,.]/,
   };
 
-  Prism.languages.avs = Prism.languages.avisynth;
+  languages.avs = languages.avisynth;
 })(Prism);
